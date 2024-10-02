@@ -77,5 +77,3 @@ public partial class MainWindow : Form
         };
     }
 }
-
-//TODO: ADD BACKGROUND WORK AND NOTIFY ICON
