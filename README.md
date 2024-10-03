@@ -4,7 +4,7 @@
 
 # Dionysus
 
-**Games launcher with torrent search** <br><br>
+**Mini game launcher with torrent search** <br><br>
 ![image](https://github.com/user-attachments/assets/4cfd2b00-1680-4c3b-b7ed-87a03afca2f1)
 
 
