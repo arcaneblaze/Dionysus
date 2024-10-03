@@ -5,7 +5,7 @@
 # Dionysus
 
 **Games launcher with torrent search** <br><br>
-![image](https://github.com/user-attachments/assets/db1cb5fb-262c-41c1-aa39-691ada27e663)
+![image](https://github.com/user-attachments/assets/4cfd2b00-1680-4c3b-b7ed-87a03afca2f1)
 
 
 </div>
