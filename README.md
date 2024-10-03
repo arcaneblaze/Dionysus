@@ -7,6 +7,11 @@
 **Mini game launcher with torrent search** <br><br>
 ![image](https://github.com/user-attachments/assets/4cfd2b00-1680-4c3b-b7ed-87a03afca2f1)
 
+# Installation
+
+**1.Unzip folder.**<br>
+**2.Install all files from `Installers` folder.**<br>
+**3.Run app.**<br>
 
 </div>
 
