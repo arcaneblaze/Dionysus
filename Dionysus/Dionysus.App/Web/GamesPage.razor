@@ -1,0 +1,339 @@
+@page "/games"
+
+@using System.Diagnostics
+@using craftersmine.SteamGridDBNet
+@using Dionysus.App.Data
+@using Dionysus.App.WebScrap
+@using Dionysus.App.WebScrap._1337Scrapper
+@using Dionysus.WebScrap
+@using Dionysus.WebScrap.GOGScrapper
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Linq
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMt23w54fH4YBBvaWv6zwE5aEmGZ+W2smWjq5" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+
+<!--style block-->
+<style>
+    .findPanel {
+        font-family: 'Cascadia Code', sans-serif;
+        user-select: none;
+        background-color: #1b1b1b;
+        color: white;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        padding-top: 10px;
+
+        display: flex;
+        justify-content: center;  
+        align-items: center;
+        width: 100%;
+    }
+
+    a, .btn-link {
+        color: #0071c1;
+    }
+
+    .butt {
+        background-color: #151515;
+        color: #fff;
+        border-radius: 10px;
+        border-style: solid;
+        border-color: #323232;
+        border-width: 0.2px;
+        padding: 8px 20px;
+        height: 35px;
+        font-size: 12px;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    .butt:hover{
+        background-color: #555;
+        transform: scale(1.05);    
+        cursor: pointer;
+    }
+    .butt:active{
+        transform: scale(0.97);
+    }
+
+    input {
+        font-family: 'Cascadia Code', sans-serif;
+        width: 70%;
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 10px;
+        border-style: solid;
+        border-color: #323232;
+        border-width: 0.2px;
+        background-color: #151515;
+        color: #fff;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .game-list {
+        max-width: 900px;
+        font-family: 'Cascadia Code', sans-serif;
+        margin: 0 auto;
+        user-select: none;
+        background-color: #1b1b1b;
+        color: white;
+        padding: 30px;
+        display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+
+    .game-item {
+        aspect-ratio: 16/9;
+        height: auto;
+        min-height: 200px;
+        max-height: 250px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column; 
+        justify-content: flex-end;
+        align-items: flex-start;
+        background-color: #131313;
+        border-radius: 10px;
+        border: 0.2px solid #323232;
+        padding: 10px;
+        position: relative;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-item:hover {
+        cursor: pointer;
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); 
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); 
+        border-radius: 8px;
+        z-index: 1;
+    }
+
+    .game-info {
+        font-family: 'Cascadia Code', sans-serif;
+        z-index: 2;
+        color: white;
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+    img {
+        user-drag: none;
+        -webkit-user-drag: none;
+        -moz-user-select: none;
+    }
+    .top-right-image {
+        position: absolute; 
+        top: 10px; 
+        right: 10px;
+        width: 15%; 
+        height: auto; 
+        max-width: 30px;
+        object-fit: cover; 
+        border-radius: 4px; 
+    }
+    h3{
+        font-family: 'Cascadia Code', sans-serif;
+        text-align: center;
+        width: 100%;
+    }
+    
+</style>
+<h3 >Search games:</h3>
+<div class="findPanel">
+    <input @bind="searchText" placeholder="Type game name..."/>
+
+    <button @onclick="Search" class="butt fa fa-search"></button>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(_errorText))
+{
+    <h3 style="text-align: center; width: 100%; color: #323232">@_errorText</h3>
+}
+<div class="game-list">
+    @if (_games != null && _games.Any())
+    {
+        @foreach (var game in _games)
+        {
+            <div class="game-item" style="background-image: url('@game.Cover');">
+                <div class="overlay"></div>
+                <div class="game-info">
+                    <h3>@game.Name</h3>
+
+                    <div class="button-group">
+                        <button class="butt fa fa-download" @onclick="() => OpenTorrentByMagnet(game.Link)"></button>
+                        <button class="butt fa fa-plus" @onclick="() => AddGameToLib(game.Name)"></button>
+                    </div>
+                    <img src="@_sourceImage" alt="@game.Name" class="top-right-image" draggable="false"/>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private static string _selectedFile;
+    private static string _errorText;
+    private static string searchText;
+    private static string _sourceImage;
+    private static bool _research = false;
+    private static IEnumerable<SearchGameInfoStruct> _games;
+    private static JObject configJson = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText("env.json"));
+    private static string steamGDBAPI = configJson["steamGDBAPI"].Value<string>();
+    public static SteamGridDb _steamGridDb = new SteamGridDb(steamGDBAPI);
+
+    private async Task OpenTorrentByMagnet(string _linkToSite)
+    {
+        if (!_research)
+        {
+            var _responseG = await GOG.GetLinkResponse(_linkToSite);
+            var _startInfoG = new ProcessStartInfo
+            {
+                FileName = _responseG.Select(x => x.DownloadLink).FirstOrDefault(),
+                UseShellExecute = true 
+            };
+
+            Process.Start(_startInfoG);
+        }
+        else
+        {
+            var _responseG = await _1337x.LinkRequestData(_linkToSite);
+            var _startInfoG = new ProcessStartInfo
+            {
+                FileName = _responseG.Select(x => x.DownloadLink).FirstOrDefault(),
+                UseShellExecute = true 
+            };
+
+            Process.Start(_startInfoG);
+        }
+    }
+    private async Task Search()
+    {
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            try
+            { 
+                _research = false;
+                _errorText = "Wait...";
+                _games = await GOG.GetSearchResponse(searchText);
+                if (_games == null || !_games.Any())
+                {
+                    _errorText = "Not Found.";
+                    if (!_research)
+                    {
+                        _research = true;
+                        await ReSearch();
+                    }
+                }
+                else
+                {
+                    _sourceImage = "https://materiageek.com/wp-content/uploads/2020/11/GOG-Galaxy-2.0.25.1-Descargar-gratis.png";
+                    _errorText = string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                _games = Enumerable.Empty<SearchGameInfoStruct>();
+            }
+        }
+        else
+        {
+            _games = Enumerable.Empty<SearchGameInfoStruct>();
+        }
+    }
+    
+    private async Task ReSearch()
+    {
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            try
+            {
+                var newGames = await _1337x.SearchRequestData(searchText);
+                
+                if (newGames != null && newGames.Any())
+                {
+                    var game = newGames.First();
+                    
+                    var gameA = await _steamGridDb.SearchForGamesAsync(game.Name);
+                    var icons = await _steamGridDb.GetGridsForGameAsync(gameA[0], dimensions:SteamGridDbDimensions.W920H430);
+                    var imageUrl = icons[0].FullImageUrl;
+                    _sourceImage = "https://1337x.to/images/logo.svg";
+                    _games = new List<SearchGameInfoStruct>
+                    {
+                        new SearchGameInfoStruct
+                        {
+                            Name = game.Name,
+                            Cover = imageUrl,
+                            Link = game.Link
+                        }
+                    };
+                    _errorText = string.Empty;
+                }
+                else
+                {
+                    _errorText = "Not Found.";
+                    _games = Enumerable.Empty<SearchGameInfoStruct>();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                _games = Enumerable.Empty<SearchGameInfoStruct>();
+            }
+        }
+        else
+        {
+            _games = Enumerable.Empty<SearchGameInfoStruct>();
+        }
+    }
+
+    private async Task AddGameToLib(string _gameName)
+    {
+        var _json = GameData.GamesData.ParseGamesFromJSON();
+        SelectFile();
+        if (!string.IsNullOrEmpty(_selectedFile))
+        {
+            try
+            {
+                var _lastId = _json.Any() ? _json.Select(id => id.Id).Last() : 0;
+
+                await MainPage.AddGameFromAnotherAsync(_lastId + 1, _selectedFile, _gameName);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }   
+        }
+    }
+    
+    private void SelectFile()
+    {
+        using (OpenFileDialog openFileDialog = new OpenFileDialog())
+        {
+            openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                _selectedFile = openFileDialog.FileName;
+            }
+        }
+    }
+}
