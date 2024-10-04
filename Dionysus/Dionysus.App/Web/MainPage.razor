@@ -323,6 +323,22 @@
         transform: scale(0.97);
     }
 
+    .game-item {
+        position: relative;
+    }
+
+    .button-container {
+        display: none;
+    }
+    .button-container button {
+        margin-right: 5px;
+    }
+
+ 
+    .game-item:hover .button-container {
+        display: flex;
+    }
+
 </style>
 <h3 style="text-align: center; width: 100%; font-family: 'Cascadia Code', sans-serif;">Your library:</h3>
 <div class="game-list">
@@ -343,7 +359,11 @@
         @if (_currentEditGameId == game.Id)
         {
             <div class="edit-game-form">
+                <label>Title</label>
                 <input type="text" @bind="game.Title" placeholder="Edit Title" required="required">
+                <label>Cover</label>
+                <input type="text" @bind="game.ImageUrl" placeholder="Edit Title" required="required">
+                <label>Location</label>
                 <input type="text" @bind="game.Location" placeholder="Edit Location" required="required">
                 <button @onclick="() => SaveEdit(game.Id)">Save</button>
                 <button @onclick="() => CancelEdit()">Cancel</button>
