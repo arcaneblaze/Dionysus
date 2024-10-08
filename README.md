@@ -1,6 +1,6 @@
 <div align="center">
   
-![icon](https://github.com/user-attachments/assets/0436734d-6c3e-4f15-93cc-2e54e39db03e)<br>
+<img src="https://github.com/user-attachments/assets/84203429-0e14-4875-ab03-3e8ccb495b5d" alt="icon" width="350" height="350">
 
 # Dionysus
 
@@ -11,6 +11,7 @@
 
 **1.Unzip folder.**<br>
 **2.Install all files from `Installers` folder.**<br>
+
 **3.Run app.**<br>
 
 </div>
