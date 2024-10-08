@@ -560,19 +560,29 @@
         {
             GamesHelper.IfGameFromListDeleted(_gamesList);
             var _game = GamesHelper.GameFromListIsRunning(_gamesList);
+
             if (_game.isRunning)
             {
-                _currentGameId = int.Parse(_game.gameId);
-                _ = CountTimeHelper.Count(_gamesList, _game.gameLocation);
+                if (_currentGameId != int.Parse(_game.gameId))
+                {
+                    _currentGameId = int.Parse(_game.gameId);
+                    _ = Task.Run(() => CountTimeHelper.Count(_gamesList, _game.gameLocation));
+                }
             }
             else
             {
-                _currentGameId = -1;
+                if (_currentGameId != -1)
+                {
+                    _currentGameId = -1;
+                }
             }
-
-            await Task.Delay(1000);
-            InvokeAsync(StateHasChanged);
+            
+            if (_currentGameId != previousGameId)
+            {
+                previousGameId = _currentGameId;
+                await InvokeAsync(StateHasChanged);
+            }
+            await Task.Delay(5000);
         }
     }
-
 }
