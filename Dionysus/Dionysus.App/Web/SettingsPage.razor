@@ -1,0 +1,177 @@
+@page "/settings"
+@using System.Reflection
+@using Dionysus.App.Data
+@using Dionysus.App.Models
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+
+<style>
+    html, body {
+        padding: 100px;
+        margin: 0 auto;
+        user-select: none;
+        background-color: #151515;
+        color: white;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .panell {
+        max-width: 900px;
+        text-align: center;
+        display: flex;
+        margin: 0 auto;
+        flex-direction: column;
+        padding: 0 30px 30px 30px;
+    }
+
+    .settingLabel {
+        font-family: 'Cascadia Code', sans-serif;
+        font-size: 14px;
+        color: #ffffff;
+        background-color: #202020;
+        padding: 12px 15px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        border: 1px solid #333333;
+    }
+
+    .settingLabel span {
+        flex-grow: 1;
+        text-align: left;
+    }
+    
+    .custom-checkbox {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        background-color: #333333;
+        border: 2px solid #555555;
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .custom-checkbox.checked {
+        background-color: #0071c1;
+        border-color: #0071c1;
+    }
+
+    .custom-checkbox::after {
+        content: '\f00c';
+        font-family: 'FontAwesome';
+        font-size: 16px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .custom-checkbox.checked::after {
+        opacity: 1;
+    }
+
+    .saveButton {
+        font-family: 'Cascadia Code', sans-serif;
+        background-color: #30b05a;
+        color: #fff;
+        max-width: 900px;
+        padding: 10px;
+        border-radius: 10px;
+        border-style: solid;
+        border-color: #323232;
+        border-width: 0.2px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .saveButton:hover {
+        background-color: #008d62;
+        transform: scale(1.02);
+    }
+
+    .saveButton:active{
+        transform: scale(0.99);
+    }
+    .versionLabel{
+        font-family: 'Cascadia Code', sans-serif;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #4d4d4d;
+    }
+    
+</style>
+
+<h3 style="text-align: center; width: 100%; height:auto; font-family: 'Cascadia Code', sans-serif;">Settings:</h3>
+<div class="panell">
+    <label class="settingLabel">
+        <span>(Library) Show "+" button</span>
+        <div class="custom-checkbox @(ShowAddButton ? "checked" : "")" @onclick="ToggleCheckboxShowAddButton"></div>
+    </label>
+    <label class="settingLabel">
+        <span>(Library) Show game title</span>
+        <div class="custom-checkbox @(ShowGameTitle ? "checked" : "")" @onclick="ToggleCheckboxShowGameTitle"></div>
+    </label>
+
+    <label class="settingLabel">
+        <span>(Torrent) Show link to the page of the selected game</span>
+        <div class="custom-checkbox @(ShowLinkButton ? "checked" : "")" @onclick="ToggleCheckboxShowLinkButton"></div>
+    </label>
+    <label class="settingLabel">
+        <span>(Torrent) Avoid converting the torrent file to a magnet link</span>
+        <div class="custom-checkbox @(AvoidConvertToMagnet ? "checked" : "")" @onclick="ToggleCheckboxConvertToMagnet"></div>
+    </label>
+
+    <button class="saveButton" @onclick="Save">Save Settings</button>
+    <label class="versionLabel">version: @Application.ProductVersion
+    </label>
+</div>
+
+@code {
+    public static bool ShowAddButton;
+    public static bool ShowGameTitle;
+    public static bool ShowLinkButton;
+    public static bool AvoidConvertToMagnet;
+
+    public static async Task InitializeSettings()
+    {
+        var settings = await SettingsData.LoadFromJSON();
+        var addButt = settings.FirstOrDefault(s => s.SettingName == "ShowAddButton");
+        ShowAddButton = addButt?.Value ?? true;
+        var gameTitle = settings.FirstOrDefault(s => s.SettingName == "ShowGameTitle");
+        ShowGameTitle = gameTitle?.Value ?? true;
+        var linkButt = settings.FirstOrDefault(s => s.SettingName == "ShowLinkButton");
+        ShowLinkButton = linkButt?.Value ?? false;
+        var avoidConvertToMagnet = settings.FirstOrDefault(s => s.SettingName == "AvoidConvertToMagnet");
+        AvoidConvertToMagnet = avoidConvertToMagnet?.Value ?? false;
+        Console.WriteLine("[DEBUG] Settings loaded");
+    }
+
+    private void ToggleCheckboxShowAddButton() => ShowAddButton = !ShowAddButton;
+    private void ToggleCheckboxShowLinkButton() => ShowLinkButton = !ShowLinkButton;
+    private void ToggleCheckboxConvertToMagnet() => AvoidConvertToMagnet = !AvoidConvertToMagnet;
+    private void ToggleCheckboxShowGameTitle() => ShowGameTitle = !ShowGameTitle;
+
+    private async void Save()
+    {
+        var settings = new List<SettingsModel>
+        {
+            new SettingsModel { SettingName = "ShowGameTitle", Value = ShowGameTitle },
+            new SettingsModel { SettingName = "ShowAddButton", Value = ShowAddButton },
+            new SettingsModel { SettingName = "ShowLinkButton", Value = ShowLinkButton },
+            new SettingsModel { SettingName = "AvoidConvertToMagnet", Value = AvoidConvertToMagnet },
+        };
+        Console.WriteLine("[DEBUG] Settings saved");
+        await SettingsData.SaveToJSON(settings);
+    }
+}
