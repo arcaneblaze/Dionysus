@@ -1,6 +1,6 @@
 <div align="center">
   
-<img src="https://github.com/user-attachments/assets/84203429-0e14-4875-ab03-3e8ccb495b5d" alt="icon" width="350" height="350">
+<img src="https://github.com/user-attachments/assets/60b07e7f-11ac-435a-b209-0f1d411fe75c" alt="icon" width="40" height="40">
 
 # Dionysus
 
