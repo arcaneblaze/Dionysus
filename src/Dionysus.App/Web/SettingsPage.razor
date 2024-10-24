@@ -12,11 +12,12 @@
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
 
 <style>
+    @@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
     html, body {
         padding: 100px;
         margin: 0 auto;
         user-select: none;
-        background-color: #151515;
+        background-color: #191724;
         color: white;
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -32,17 +33,17 @@
     }
 
     .settingLabel {
-        font-family: 'Cascadia Code', sans-serif;
+        font-family: "JetBrains Mono", monospace;
         font-size: 14px;
-        color: #ffffff;
-        background-color: #202020;
-        padding: 12px 15px;
-        border-radius: 8px;
+        color: #e0def4;
+        background-color: #191724;
+        padding: 16px;
+        border-radius: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
-        border: 1px solid #333333;
+        border: 1px solid #393552;
     }
 
     .settingLabel span {
@@ -54,24 +55,24 @@
         display: inline-block;
         width: 16px;
         height: 16px;
-        border-radius: 4px;
-        background-color: #333333;
-        border: 2px solid #555555;
+        border-radius: 10px;
+        background-color: #26233a;
+        border: 2px solid #393552;
         position: relative;
         cursor: pointer;
         transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .custom-checkbox.checked {
-        background-color: #0071c1;
-        border-color: #0071c1;
+        background-color: #31748f;
+        border-color: #31748f;
     }
 
     .custom-checkbox::after {
         content: '\f00c';
         font-family: 'FontAwesome';
-        font-size: 16px;
-        color: white;
+        font-size: 14px;
+        color: #e0def4;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -85,12 +86,12 @@
     }
 
     .saveButton {
-        font-family: 'Cascadia Code', sans-serif;
-        background-color: #30b05a;
-        color: #fff;
+        font-family: "JetBrains Mono", monospace;
+        background-color: #31748f;
+        color: #e0def4;
         max-width: 900px;
         padding: 10px;
-        border-radius: 10px;
+        border-radius: 20px;
         border-style: solid;
         border-color: #323232;
         border-width: 0.2px;
@@ -100,7 +101,7 @@
     }
 
     .saveButton:hover {
-        background-color: #008d62;
+        background-color: #286983;
         transform: scale(1.02);
     }
 
@@ -108,20 +109,20 @@
         transform: scale(0.99);
     }
     .versionLabel{
-        font-family: 'Cascadia Code', sans-serif;
+        font-family: "JetBrains Mono", monospace;
         margin-top: 10px;
         font-size: 14px;
-        color: #4d4d4d;
+        color: #908caa;
     }
 
     .testButton {
-        font-family: 'Cascadia Code', sans-serif;
-        background-color: #151515;
-        color: #fff;
+        font-family: "JetBrains Mono", monospace;
+        background-color: #26233a;
+        color: #e0def4;
         padding: 10px;
-        border-radius: 10px;
+        border-radius: 20px;
         border-style: solid;
-        border-color: #323232;
+        border-color: #393552;
         border-width: 0.2px;
         font-size: 16px;
         cursor: pointer;
@@ -130,6 +131,7 @@
     }
 
     .testButton:hover {
+        background-color: #1f1d2e;
         transform: scale(1.02);
     }
 
@@ -139,13 +141,13 @@
     
 </style>
 
-<h3 style="text-align: center; width: 100%; height:auto; font-family: 'Cascadia Code', sans-serif;">Settings:</h3>
+<h3 style="text-align: center; width: 100%; height:auto; font-family: 'JetBrains Mono', monospace">Settings:</h3>
 <div class="panell">
     <label class="settingLabel">
         <span>
             Sources:<br/><br/>
-            GOG - <span style="color: @(GOGStatus == "available" ? "green" : "red")">@GOGStatus</span><br/>
-            Xatab - <span style="color: @(XatabStatus == "available" ? "green" : "red")">@XatabStatus</span>
+            GOG - <span style="color: @(GOGStatus == "Available" ? "#f6c177" : "#eb6f92")">@GOGStatus</span><br/>
+            Xatab - <span style="color: @(XatabStatus == "Available" ? "#f6c177" : "#eb6f92")">@XatabStatus</span>
         </span>
     </label>
     
@@ -169,10 +171,10 @@
 
     <div class="settingLabel">
         <div style="width: 100%; display: flex; justify-content: space-between;">
-            <button class="testButton" style="width: 48%" @onclick="MakeBackup">Make backup</button>
+            <button class="testButton" style="width: 48%" @onclick="MakeBackup"><i class="fa-solid fa-folder-plus"></i> Make backup</button>
             @if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json.bak")))
             {
-                <button class="testButton" style="width: 48%" @onclick="RestoreBackup">Restore backup</button>
+                <button class="testButton" style="width: 48%" @onclick="RestoreBackup"><i class="fa-solid fa-clock-rotate-left"></i> Restore backup</button>
             }
         </div>
     </div>
@@ -209,8 +211,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        GOGStatus = await GOG.GetStatus() ? "available" : "unavailable";
-        XatabStatus = await Xatab.GetStatus() ? "available" : "unavailable";
+        GOGStatus = await GOG.GetStatus() ? "Available" : "Unavailable";
+        XatabStatus = await Xatab.GetStatus() ? "Available" : "Unavailable";
     }
 
 

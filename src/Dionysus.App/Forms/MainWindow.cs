@@ -25,7 +25,8 @@ public partial class MainWindow : Form
         }
         
         InitializeComponent();
-        
+
+        this.BackColor = ColorTranslator.FromHtml("#191724");
         var _arguments = Environment.GetCommandLineArgs();
         if (_arguments.Contains("-console")) ConsoleHelper.ShowConsoleWindow();
         
