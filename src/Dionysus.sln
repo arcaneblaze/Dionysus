@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dionysus.App", "Dionysus.App\Dionysus.App.csproj", "{6930E649-5460-499A-BD8C-6114E49C93D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BDF2E2C1-BEC8-4666-AC8A-5A83D0BE0AD8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6930E649-5460-499A-BD8C-6114E49C93D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6930E649-5460-499A-BD8C-6114E49C93D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6930E649-5460-499A-BD8C-6114E49C93D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6930E649-5460-499A-BD8C-6114E49C93D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6930E649-5460-499A-BD8C-6114E49C93D2} = {BDF2E2C1-BEC8-4666-AC8A-5A83D0BE0AD8}
+	EndGlobalSection
+EndGlobal
