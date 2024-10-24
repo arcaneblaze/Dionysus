@@ -15,35 +15,35 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Dionysus
 build_property.RootNamespace = Dionysus
-build_property.ProjectDir = D:\C# projects\Dionysus\Dionysus.App\
+build_property.ProjectDir = D:\C# projects\Dionysus\src\Dionysus.App\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\C# projects\Dionysus\Dionysus.App
+build_property.MSBuildProjectDirectory = D:\C# projects\Dionysus\src\Dionysus.App
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/C\# projects/Dionysus/Dionysus.App/Web/App.razor]
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/App.razor]
 build_metadata.AdditionalFiles.TargetPath = V2ViXEFwcC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/C\# projects/Dionysus/Dionysus.App/Web/GamesPage.razor]
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/GamesPage.razor]
 build_metadata.AdditionalFiles.TargetPath = V2ViXEdhbWVzUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/C\# projects/Dionysus/Dionysus.App/Web/MainLayout.razor]
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = V2ViXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/C\# projects/Dionysus/Dionysus.App/Web/MainPage.razor]
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/MainPage.razor]
 build_metadata.AdditionalFiles.TargetPath = V2ViXE1haW5QYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/C\# projects/Dionysus/Dionysus.App/Web/SettingsPage.razor]
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/SettingsPage.razor]
 build_metadata.AdditionalFiles.TargetPath = V2ViXFNldHRpbmdzUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/C\# projects/Dionysus/Dionysus.App/Web/_Imports.razor]
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = V2ViXF9JbXBvcnRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

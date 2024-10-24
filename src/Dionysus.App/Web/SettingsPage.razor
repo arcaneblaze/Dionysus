@@ -191,7 +191,7 @@
     </label>
 
     <button class="saveButton" @onclick="Save"><i class="fa-solid fa-floppy-disk"></i></button>
-    <label class="versionLabel">version: @Application.ProductVersion
+    <label class="versionLabel">version: @Assembly.GetExecutingAssembly().GetName().Version.ToString()
     </label>
 </div>
 
