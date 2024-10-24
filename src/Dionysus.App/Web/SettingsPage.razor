@@ -3,6 +3,7 @@
 @using Dionysus.App.Data
 @using Dionysus.App.Helpers
 @using Dionysus.App.Models
+@using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
 @using Dionysus.WebScrap.XatabScrapper
 @using Microsoft.VisualBasic
@@ -147,7 +148,8 @@
         <span>
             Sources:<br/><br/>
             GOG - <span style="color: @(GOGStatus == "Available" ? "#f6c177" : "#eb6f92")">@GOGStatus</span><br/>
-            Xatab - <span style="color: @(XatabStatus == "Available" ? "#f6c177" : "#eb6f92")">@XatabStatus</span>
+            Xatab - <span style="color: @(XatabStatus == "Available" ? "#f6c177" : "#eb6f92")">@XatabStatus</span><br/>
+            FitGirl - <span style="color: @(XatabStatus == "Available" ? "#f6c177" : "#eb6f92")">@FitGirlStatus</span>
         </span>
     </label>
     
@@ -208,11 +210,13 @@
     
     private string GOGStatus = "checking...";
     private string XatabStatus = "checking...";
+    private string FitGirlStatus = "checking...";
 
     protected override async Task OnInitializedAsync()
     {
         GOGStatus = await GOG.GetStatus() ? "Available" : "Unavailable";
         XatabStatus = await Xatab.GetStatus() ? "Available" : "Unavailable";
+        FitGirlStatus = await FitGirl.GetStatus() ? "Available" : "Unavailable";
     }
 
 

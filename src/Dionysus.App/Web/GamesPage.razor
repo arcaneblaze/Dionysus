@@ -5,6 +5,7 @@
 @using Dionysus.App.Data
 @using Dionysus.App.Interfaces
 @using Dionysus.WebScrap
+@using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
 @using Dionysus.WebScrap.XatabScrapper
 @inject NavigationManager NavigationManager
@@ -253,21 +254,21 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 20px;
+        margin-top: 30px;
     }
-
+    
     .loader {
-        height: 25px;
+        width: 35px;
         aspect-ratio: 1;
         border: 3px solid #908caa;
-        animation: l4 2s infinite;
+        animation: l1 2s infinite;
     }
-    @@keyframes l4 {
-        0%  {aspect-ratio:1;border-radius:50px}
-        25% {aspect-ratio:2;border-radius:50px}
-        50% {aspect-ratio:2;border-radius:0}
-        75% {aspect-ratio:1;border-radius:0}
-        100%{aspect-ratio:1;border-radius:50px}
+    @@keyframes l1 {
+        0%   {border-radius:50% 50% 0   0  }
+        25%  {border-radius:0   50% 50% 0  }
+        50%  {border-radius:0   0   50% 50%}
+        75%  {border-radius:50% 0   0   50%}
+        100% {border-radius:50% 50% 0   0  }
     }
 
 </style>
@@ -291,7 +292,7 @@
     }
     else
     {
-        <h3 style="text-align: center; width: 100%; color: #323232">@_errorText</h3>
+        <h3 style="text-align: center; width: 100%; color: #6e6a86; margin-top: 30px; font-family: 'JetBrains Mono', monospace;">@_errorText</h3>
     }
 }
 <div class="game-list">
@@ -346,7 +347,8 @@
     private List<IGameSearcher> _searchers = new List<IGameSearcher>
     {
         new GOGSearcher(),
-        new XatabSearcher()
+        new XatabSearcher(),
+        new FitGirlSearcher()
     };
     
     private void DownloadTypeSelector(string _gameLink, string _downloadLink, string _title)

@@ -9,8 +9,8 @@
         <AssemblyName>Dionysus</AssemblyName>
         <RootNamespace>Dionysus</RootNamespace>
         <ApplicationIcon>icon.ico</ApplicationIcon>
-        <Version>1.8</Version>
-        <AssemblyVersion>1.8</AssemblyVersion>
+        <Version>1.9</Version>
+        <AssemblyVersion>1.9</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
