@@ -66,25 +66,19 @@ public class FitGirl
                     var _name = _div.SelectSingleNode(".//header/h1/a");
                     var _link = _name.Attributes["href"].Value;
                     
-                    string CleanString(string input)
-                    {
-                        return Regex.Replace(input, @"[:\-&]", " ").Trim();
-                    }
-                    
-                    var _rephrasedName = CleanString(_name.InnerText.Trim());
-                    var _rephrasedRequest = CleanString(_gameName);
-    
+                    var rephrasedName = NormalizeName(_name.InnerText.Trim());
+
                     var (downloadLink, size, version) = await GetDataFromLink(_link);
                     
-                    if (_rephrasedName.ToLower().Contains(_rephrasedRequest.ToLower()))
+                    if (IsGameMatch(rephrasedName, _gameName))
                     {
-                        var _cover = await SteamGridDB.GetGridUri(_rephrasedName);
+                        var _cover = await SteamGridDB.GetGridUri(rephrasedName);
                         if (_cover != null)
                         {
                             _list.Add(new SearchGameInfoStruct()
                             {
                                 Cover = _cover,
-                                Name = NormalizeName(_rephrasedName),
+                                Name = rephrasedName,
                                 Link = _link,
                                 Size = size,
                                 Version = version,
@@ -146,6 +140,40 @@ public class FitGirl
         return (_downloadLink, _size , gameVersion);
     }
     
+    private static bool IsGameMatch(string gameName, string searchQuery)
+    {
+        string NormalizeForComparison(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return string.Empty;
+            
+            input = input.ToLower().Trim();
+            
+            input = Regex.Replace(input, @"[^\w\s]", " ");
+            
+            input = Regex.Replace(input, @"\s+", " ");
+            
+            var commonWords = new[] { "repack", "goty", "edition", "complete", "collection" };
+            foreach (var word in commonWords)
+            {
+                input = Regex.Replace(input, $@"\b{word}\b", "", RegexOptions.IgnoreCase);
+            }
+            
+            return input.Trim();
+        }
+
+        var normalizedGame = NormalizeForComparison(gameName);
+        var normalizedQuery = NormalizeForComparison(searchQuery);
+        
+        if (string.IsNullOrWhiteSpace(normalizedGame) || string.IsNullOrWhiteSpace(normalizedQuery))
+            return false;
+        
+        var gameWords = normalizedGame.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var queryWords = normalizedQuery.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        
+        return queryWords.All(queryWord => 
+            gameWords.Any(gameWord => gameWord.Contains(queryWord) || queryWord.Contains(gameWord)));
+    }
+    
     private static string NormalizeName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -157,7 +185,8 @@ public class FitGirl
             .Replace("#8211;", " - ")
             .Replace("&#8211;", " - ")
             .Replace("&nbsp;", " ")
-            .Replace("&amp;", " & ");
+            .Replace("&amp;", " & ")
+            .Replace("#038;", " & ");
         
         normalized = Regex.Replace(normalized, @"\s+", " ");
 

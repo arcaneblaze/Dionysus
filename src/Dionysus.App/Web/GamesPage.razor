@@ -299,7 +299,7 @@
 <div class="game-list">
     @if (_games != null && _games.Any())
     {
-        @foreach (var game in _games)
+        @foreach (var game in _games.OrderBy(g => g.Source))
         {
             @if (!string.IsNullOrEmpty(game.Size))
             {
