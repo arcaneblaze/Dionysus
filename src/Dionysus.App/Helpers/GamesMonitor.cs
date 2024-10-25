@@ -11,6 +11,8 @@ public class GamesMonitor
     /// </summary>
     private static bool GameIsRunning(string gameName) => Process.GetProcessesByName(gameName).Length > 0;
 
+    private static Logger.Logger _logger = new Logger.Logger();
+
     public static (bool isRunning, GameModel runningGame) GameFromListIsRunning(List<GameModel> gamesList)
     {
         if (gamesList == null || gamesList.Count == 0)
@@ -54,7 +56,7 @@ public class GamesMonitor
         var game = gamesList.FirstOrDefault(g => g.Location == gameLocation);
         if (game != null)
         {
-            Console.WriteLine($"[DEBUG] Starting to count time for game: {game.Title} at {DateTime.Now}");
+            _logger.Log(Logger.Logger.LogType.DEBUG, $"Starting to count time for game: {game.Title} at {DateTime.Now}");
 
             ResetTime();
             ParseTimeInfo(game.TimeInfo);
@@ -65,16 +67,14 @@ public class GamesMonitor
                 IncrementTime();
 
                 game.TimeInfo = $"{hours}h {minutes}m";
-
-                Console.WriteLine($"[DEBUG] {game.Title} - Time: {hours}h {minutes}m {seconds}s");
+                _logger.Log(Logger.Logger.LogType.DEBUG, $"{game.Title} - Time: {hours}h {minutes}m {seconds}s");
             }
-
-            Console.WriteLine($"[DEBUG] Game closed, saving final time for {game.Title} at {DateTime.Now}");
+            _logger.Log(Logger.Logger.LogType.DEBUG, $"Game closed, saving final time for {game.Title} at {DateTime.Now}");
             await GameData.GamesData.SaveToJSON(gamesList);
         }
         else
         {
-            Console.WriteLine($"Game with location {gameLocation} not found in the list.");
+            _logger.Log(Logger.Logger.LogType.ERROR,$"Game with location {gameLocation} not found in the list.");
         }
         
         isCounting = false;
@@ -83,7 +83,7 @@ public class GamesMonitor
 
     private static void ResetTime()
     {
-        Console.WriteLine("[DEBUG] Resetting time to 0.");
+        _logger.Log(Logger.Logger.LogType.DEBUG,"Resetting time to 0.");
         hours = 0;
         minutes = 0;
         seconds = 0;
@@ -91,7 +91,7 @@ public class GamesMonitor
 
     private static void ParseTimeInfo(string timeInfo)
     {
-        Console.WriteLine($"[DEBUG] Parsing time info: {timeInfo}");
+        _logger.Log(Logger.Logger.LogType.DEBUG,$"Parsing time info: {timeInfo}");
 
         if (!string.IsNullOrEmpty(timeInfo))
         {
@@ -101,19 +101,19 @@ public class GamesMonitor
                 if (timeComponents[0].EndsWith("h"))
                 {
                     int.TryParse(timeComponents[0].Replace("h", ""), out hours);
-                    Console.WriteLine($"[DEBUG] Parsed hours: {hours}");
+                    _logger.Log(Logger.Logger.LogType.DEBUG,$"Parsed hours: {hours}");
                 }
 
                 if (timeComponents[1].EndsWith("m"))
                 {
                     int.TryParse(timeComponents[1].Replace("m", ""), out minutes);
-                    Console.WriteLine($"[DEBUG] Parsed minutes: {minutes}");
+                    _logger.Log(Logger.Logger.LogType.DEBUG,$"Parsed minutes: {minutes}");
                 }
             }
         }
         else
         {
-            Console.WriteLine("[DEBUG] No time info available, resetting time.");
+            _logger.Log(Logger.Logger.LogType.DEBUG," No time info available, resetting time.");
             ResetTime();
         }
     }
@@ -125,14 +125,14 @@ public class GamesMonitor
         {
             seconds = 0;
             minutes++;
-            Console.WriteLine($"[DEBUG] Incremented minutes: {minutes}");
+            _logger.Log(Logger.Logger.LogType.DEBUG,$"Incremented minutes: {minutes}");
         }
 
         if (minutes == 60)
         {
             minutes = 0;
             hours++;
-            Console.WriteLine($"[DEBUG] Incremented hours: {hours}");
+            _logger.Log(Logger.Logger.LogType.DEBUG,$"Incremented hours: {hours}");
         }
     }
 }

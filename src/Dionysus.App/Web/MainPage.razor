@@ -3,6 +3,7 @@
 @using System.Diagnostics
 @using Dionysus.App.Data
 @using Dionysus.App.Helpers
+@using Dionysus.App.Logger
 @using Dionysus.App.Models
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -465,6 +466,7 @@
     private int _currentGameId = -1;
     static string _defaultStyle = "background-color: #131313;";
     static string _onGameStyle = "border: 2px solid rgba(152,203,43,1); border-radius:10px;";
+    static Logger _logger = new Logger();
 
 
     private static void SelectFile()
@@ -605,7 +607,7 @@
                 {
                     if (_currentRunningGame == null || _currentRunningGame.Id != _game.runningGame.Id)
                     {
-                        Console.WriteLine($"[DEBUG] {_game.runningGame.Title} running");
+                        _logger.Log(Logger.LogType.DEBUG, $"{_game.runningGame.Title} running");
                         _currentRunningGame = _game.runningGame;
                         _currentGameId = _game.runningGame.Id;
 
@@ -620,7 +622,7 @@
                 {
                     if (_currentRunningGame != null)
                     {
-                        Console.WriteLine($"[DEBUG] {_currentRunningGame.Title} closed");
+                        _logger.Log(Logger.LogType.DEBUG, $"{_game.runningGame.Title} closed");
                         _currentGameId = -1;
                         _currentRunningGame = null;
                         
@@ -635,7 +637,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in UpdateAsync: {ex.Message}");
+                _logger.Log(Logger.LogType.ERROR, $"Error in UpdateAsync: {ex.Message}");
             }
         }
     }

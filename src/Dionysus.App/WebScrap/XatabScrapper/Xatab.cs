@@ -2,6 +2,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using craftersmine.SteamGridDBNet;
 using Dionysus.App.Data;
+using Dionysus.App.Logger;
 using Dionysus.Web;
 
 namespace Dionysus.WebScrap.XatabScrapper;
@@ -15,6 +16,7 @@ public class Xatab
         CookieContainer = new CookieContainer()
     };
     private static readonly HttpClient _httpClient = new HttpClient(_handler);
+    private static Logger _logger = new();
     
     public static async Task<bool> GetStatus()
     {
@@ -23,18 +25,18 @@ public class Xatab
             HttpResponseMessage response = await _httpClient.GetAsync(_baseLink);
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Website {_baseLink} is available. Status: {response.StatusCode}");
+                _logger.Log(Logger.LogType.DEBUG,$"Website {_baseLink} is available. Status: {response.StatusCode}");
                 return true;
             }
             else
             {
-                Console.WriteLine($"Website {_baseLink} is unavailable. Status: {response.StatusCode}");
+                _logger.Log(Logger.LogType.DEBUG,$"Website {_baseLink} is unavailable. Status: {response.StatusCode}");
                 return false;
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            _logger.Log(Logger.LogType.ERROR,ex.Message);
             return false;
         }
     }
@@ -102,12 +104,12 @@ public class Xatab
                     }
                     else
                     {
-                        Console.WriteLine("Download link not founded.");
+                        _logger.Log(Logger.LogType.ERROR,"Download link not founded.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    _logger.Log(Logger.LogType.ERROR,ex.Message);
                 }
 
                 var versionNode = _htmlDocument.DocumentNode.SelectSingleNode("//b[contains(text(), 'Версия игры')]");
@@ -133,7 +135,7 @@ public class Xatab
                         }
                         else
                         {
-                            Console.WriteLine("Version not founded.");
+                            _logger.Log(Logger.LogType.ERROR,"Version not founded.");
                         }
                     }
                 }
@@ -148,7 +150,7 @@ public class Xatab
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            _logger.Log(Logger.LogType.ERROR,e.Message);
             throw;
         }
 

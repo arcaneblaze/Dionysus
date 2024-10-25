@@ -1,11 +1,15 @@
 using System.Collections;
+using System.Net;
 using System.Text.RegularExpressions;
 using Dionysus.App.Data;
+using Dionysus.App.Logger;
 
 namespace Dionysus.WebScrap.FitGirlScrapper;
 
 public class FitGirl
 {
+    private static Logger _logger = new Logger();
+    
     public static async Task<bool> GetStatus()
     {
         try
@@ -15,25 +19,34 @@ public class FitGirl
                 HttpResponseMessage response = await client.GetAsync("https://fitgirl-repacks.site/");
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"Website https://fitgirl-repacks.site/ is available. Status: {response.StatusCode}");
+                    _logger.Log(Logger.LogType.DEBUG, 
+                        $"Website https://fitgirl-repacks.site/ is available. Status: {response.StatusCode}");
                     return true; 
                 }
                 else
                 {
-                    Console.WriteLine($"Website https://fitgirl-repacks.site/ is unavailable. Status: {response.StatusCode}");
+                    _logger.Log(Logger.LogType.DEBUG, 
+                        $"Website https://fitgirl-repacks.site/ is unavailable. Status: {response.StatusCode}");
                     return false; 
                 }
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            _logger.Log(Logger.LogType.ERROR, ex.Message);
             return false; 
         }
     }
 
     public static async Task<IEnumerable<SearchGameInfoStruct>> GetSearchResponse(string _gameName)
     {
+        var replacements = new Dictionary<string, string>
+        {
+            { "&#8211;", "-" },
+            { "&nbsp;", " " },
+            { "&amp;", "&" },
+        };
+        
         var _list = new List<SearchGameInfoStruct>();
         var _searchLink = $"https://fitgirl-repacks.site/?s={_gameName}";
 
@@ -52,28 +65,32 @@ public class FitGirl
                 {
                     var _name = _div.SelectSingleNode(".//header/h1/a");
                     var _link = _name.Attributes["href"].Value;
-
-                    var _rephrasedName = _name.InnerText.Trim()
-                        .Replace("&#8211;", "-")
-                        .Replace("&#038;", "&")
-                        .Replace("&#8217;", "`")
-                        .Replace(":", "")
-                        .Replace("-", " ");
-                    var _rephrasedRequest = _gameName.Replace(":", "").Replace("-", "");
+                    
+                    string CleanString(string input)
+                    {
+                        return Regex.Replace(input, @"[:\-&]", " ").Trim();
+                    }
+                    
+                    var _rephrasedName = CleanString(_name.InnerText.Trim());
+                    var _rephrasedRequest = CleanString(_gameName);
     
                     var (downloadLink, size, version) = await GetDataFromLink(_link);
-
+                    
                     if (_rephrasedName.ToLower().Contains(_rephrasedRequest.ToLower()))
                     {
-                        _list.Add(new SearchGameInfoStruct()
+                        var _cover = await SteamGridDB.GetGridUri(_rephrasedName);
+                        if (_cover != null)
                         {
-                            Cover = await SteamGridDB.GetGridUri(_rephrasedName),
-                            Name = _rephrasedName,
-                            Link = _link,
-                            Size = size,
-                            Version = version,
-                            DownloadLink = downloadLink
-                        });
+                            _list.Add(new SearchGameInfoStruct()
+                            {
+                                Cover = _cover,
+                                Name = NormalizeName(_rephrasedName),
+                                Link = _link,
+                                Size = size,
+                                Version = version,
+                                DownloadLink = downloadLink
+                            });   
+                        }
                     }
                 });
 
@@ -82,7 +99,7 @@ public class FitGirl
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            _logger.Log(Logger.LogType.ERROR, e.Message);
             throw;
         }
         
@@ -127,5 +144,23 @@ public class FitGirl
         }
 
         return (_downloadLink, _size , gameVersion);
+    }
+    
+    private static string NormalizeName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return string.Empty; 
+        }
+        
+        var normalized = name
+            .Replace("#8211;", " - ")
+            .Replace("&#8211;", " - ")
+            .Replace("&nbsp;", " ")
+            .Replace("&amp;", " & ");
+        
+        normalized = Regex.Replace(normalized, @"\s+", " ");
+
+        return normalized;
     }
 }

@@ -2,6 +2,7 @@
 @using System.Reflection
 @using Dionysus.App.Data
 @using Dionysus.App.Helpers
+@using Dionysus.App.Logger
 @using Dionysus.App.Models
 @using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
@@ -208,6 +209,8 @@
     public static bool ShowGameVersion;
     public static bool AvoidConvertToMagnet;
     
+    static Logger _logger = new Logger();
+    
     private string GOGStatus = "checking...";
     private string XatabStatus = "checking...";
     private string FitGirlStatus = "checking...";
@@ -246,7 +249,7 @@
         ShowGameVersion = versionInfo?.Value ?? false;
         var avoidConvertToMagnet = settings.FirstOrDefault(s => s.SettingName == "AvoidConvertToMagnet");
         AvoidConvertToMagnet = avoidConvertToMagnet?.Value ?? false;
-        Console.WriteLine("[DEBUG] Settings loaded");
+        _logger.Log(Logger.LogType.DEBUG, "Settings loaded");
     }
 
     private void ToggleAddToStartup() => AddToStartup = !AddToStartup;
@@ -277,7 +280,7 @@
             new SettingsModel { SettingName = "ShowGameVersion", Value = ShowGameVersion },
             new SettingsModel { SettingName = "AvoidConvertToMagnet", Value = AvoidConvertToMagnet },
         };
-        Console.WriteLine("[DEBUG] Settings saved");
+        _logger.Log(Logger.LogType.DEBUG, "Settings saved");
         await SettingsData.SaveToJSON(settings);
     }
 }

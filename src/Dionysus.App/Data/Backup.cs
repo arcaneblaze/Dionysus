@@ -4,6 +4,7 @@ namespace Dionysus.App.Data;
 
 public class Backup
 {
+    private static Logger.Logger _logger = new Logger.Logger();
     public static async Task MakeBackupAsync()
     {
         var _fileData = await File.ReadAllTextAsync(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json"));
@@ -11,7 +12,8 @@ public class Backup
         var _backupPath = Path.GetDirectoryName(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json"));
         var _backupName = Path.GetFileName(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json"));
         File.WriteAllTextAsync(_backupPath + $"/{_backupName}.bak", _fileData);
-        Console.WriteLine($"Backup for {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json")} maked");
+        _logger.Log(Logger.Logger.LogType.INFO, 
+            $"Backup for {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json")} maked");
     }
 
     public static async Task ReadBackupAsync()
@@ -22,6 +24,6 @@ public class Backup
         {
             MainPage._gamesList = GameData.GamesData.ParseGamesFromJSON().ToList();
         }).Start();
-        Console.WriteLine("Backup Restored");
+        _logger.Log(Logger.Logger.LogType.INFO, "Backup Restored");
     }
 }

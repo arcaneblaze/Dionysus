@@ -9,6 +9,7 @@ public class GameData
     {
         public static string _jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json");
         public static string _backJsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json.bak");
+        private static Logger.Logger _logger = new ();
         public static IEnumerable<GameModel> ParseGamesFromJSON()
         {
             try
@@ -23,17 +24,17 @@ public class GameData
                 var jsonData = File.ReadAllText(_jsonPath);
                 
                 var gamesList = JsonConvert.DeserializeObject<List<GameModel>>(jsonData);
-                Console.WriteLine($"{_jsonPath} Parsed");
+                _logger.Log(Logger.Logger.LogType.DEBUG,$"{_jsonPath} Parsed");
                 return gamesList ?? new List<GameModel>();
             }
             catch (FileNotFoundException ex)
             {
-                Console.WriteLine($"File not found: {ex.FileName}");
+                _logger.Log(Logger.Logger.LogType.ERROR,$"File not found: {ex.FileName}");
                 Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error occurred while parsing the JSON file: {ex.Message}");
+                _logger.Log(Logger.Logger.LogType.ERROR,$"Error occurred while parsing the JSON file: {ex.Message}");
             }
             
             return new List<GameModel>();
@@ -53,17 +54,17 @@ public class GameData
                 var jsonData = File.ReadAllText(_backJsonPath);
                 
                 var gamesList = JsonConvert.DeserializeObject<List<GameModel>>(jsonData);
-                Console.WriteLine($"{_backJsonPath} Parsed");
+                _logger.Log(Logger.Logger.LogType.DEBUG,$"{_backJsonPath} Parsed");
                 return gamesList ?? new List<GameModel>();
             }
             catch (FileNotFoundException ex)
             {
-                Console.WriteLine($"File not found: {ex.FileName}");
+                _logger.Log(Logger.Logger.LogType.ERROR,$"File not found: {ex.FileName}");
                 Console.WriteLine(ex.Message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error occurred while parsing the JSON file: {ex.Message}");
+                _logger.Log(Logger.Logger.LogType.ERROR,$"Error occurred while parsing the JSON file: {ex.Message}");
             }
             
             return new List<GameModel>();

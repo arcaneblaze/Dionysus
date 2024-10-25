@@ -1,4 +1,5 @@
 using System.Net;
+using Dionysus.App.Logger;
 using Dionysus.Web;
 using MonoTorrent;
 
@@ -7,6 +8,7 @@ namespace Dionysus.WebScrap.XatabScrapper;
 public class XatabDownloader
 {
     private static readonly HttpClient client;
+    private static Logger _logger = new Logger();
     static XatabDownloader()
     {
         var handler = new HttpClientHandler
@@ -52,17 +54,17 @@ public class XatabDownloader
             var fileBytes = await response.Content.ReadAsByteArrayAsync();
             
             await File.WriteAllBytesAsync(_filePath, fileBytes);
-            Console.WriteLine($"File '{_filePath}' downloaded.");
+            _logger.Log(Logger.LogType.DEBUG, $"File '{_filePath}' downloaded.");
         }
         else
-        {
-            Console.WriteLine($"Download Error: {response.StatusCode}");
+        { 
+            _logger.Log(Logger.LogType.ERROR, $"Download Error: {response.StatusCode}");
         }
 
         if (SettingsPage.AvoidConvertToMagnet)
         {
             GamesPage.OpenTorrentFile(_filePath);
-            Console.WriteLine($"File '{_filePath}' skipped converting to magnet.");
+            _logger.Log(Logger.LogType.DEBUG, $"File '{_filePath}' skipped converting to magnet.");
         }
         else
         {
@@ -73,13 +75,13 @@ public class XatabDownloader
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.Log(Logger.LogType.ERROR, e.Message);
                 throw;
             }
             finally
             {
                 File.Delete(_filePath);
-                Console.WriteLine($"File '{_filePath}' deleted.");
+                _logger.Log(Logger.LogType.DEBUG, $"File '{_filePath}' deleted.");
             }   
         }
     }
@@ -90,12 +92,12 @@ public class XatabDownloader
         {
             var _torrent = Torrent.Load(_filePath);
             var _hash = _torrent.InfoHashes.V1.ToHex();
-            Console.WriteLine($"Torrent '{_filePath}' converted to magnet link");
+            _logger.Log(Logger.LogType.DEBUG, $"Torrent '{_filePath}' converted to magnet link");
             return $"magnet:?xt=urn:btih:{_hash}&dn={_fileName}";
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            _logger.Log(Logger.LogType.ERROR, e.Message);
             throw new Exception("Torrent corrupted.");
         }
 

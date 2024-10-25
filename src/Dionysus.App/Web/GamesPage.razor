@@ -4,6 +4,7 @@
 @using System.Diagnostics
 @using Dionysus.App.Data
 @using Dionysus.App.Interfaces
+@using Dionysus.App.Logger
 @using Dionysus.WebScrap
 @using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
@@ -344,6 +345,7 @@
     private static string searchText;
     private static bool _research = false;
     private static IEnumerable<SearchGameInfoStruct> _games;
+    static Logger _logger = new Logger();
     private List<IGameSearcher> _searchers = new List<IGameSearcher>
     {
         new GOGSearcher(),
@@ -381,10 +383,10 @@
             try
             {
                 var startTime = DateTime.Now;
-                Console.WriteLine($"[DEBUG] Searcher {searcher.SourceName} started at {startTime}");
+                _logger.Log(Logger.LogType.DEBUG, $"Searcher {searcher.SourceName} started at {startTime}");
                 var searchResults = await searcher.Search(searchText);
                 var endTime = DateTime.Now;
-                Console.WriteLine($"[DEBUG] Searcher {searcher.SourceName} finished at {endTime}. Duration: {(endTime - startTime).TotalSeconds} seconds");
+                _logger.Log(Logger.LogType.DEBUG, $" Searcher {searcher.SourceName} finished at {endTime}. Duration: {(endTime - startTime).TotalSeconds} seconds");
                 if (searchResults != null && searchResults.Any())
                 {
                     foreach (var game in searchResults)
@@ -407,7 +409,7 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in searcher {searcher.SourceName}: {ex.Message}");
+                _logger.Log(Logger.LogType.ERROR, $"Error in searcher {searcher.SourceName}: {ex.Message}");
             }
         }).ToList();
         await Task.WhenAll(searchTasks);

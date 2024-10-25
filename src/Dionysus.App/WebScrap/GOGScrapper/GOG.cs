@@ -1,5 +1,6 @@
 ﻿using craftersmine.SteamGridDBNet;
 using Dionysus.App.Data;
+using Dionysus.App.Logger;
 using Dionysus.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -8,6 +9,7 @@ namespace Dionysus.WebScrap.GOGScrapper;
 
 public class GOG
 {
+    private static Logger _logger = new Logger();
     public static async Task<bool> GetStatus()
     {
         try
@@ -17,19 +19,22 @@ public class GOG
                 HttpResponseMessage response = await client.GetAsync("https://freegogpcgames.com");
                 if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"Website https://freegogpcgames.com is available. Status: {response.StatusCode}");
+                    _logger.Log(Logger.LogType.DEBUG, 
+                        $"Website https://freegogpcgames.com is available. Status: {response.StatusCode}");
                     return true; 
                 }
                 else
                 {
-                    Console.WriteLine($"Website https://freegogpcgames.com is unavailable. Status: {response.StatusCode}");
+                    _logger.Log(Logger.LogType.DEBUG,
+                        $"Website https://freegogpcgames.com is unavailable. Status: {response.StatusCode}");
+                    Console.WriteLine();
                     return false; 
                 }
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            _logger.Log(Logger.LogType.ERROR, ex.Message);
             return false; 
         }
     }
@@ -82,7 +87,7 @@ public class GOG
     }
     catch (Exception e)
     {
-        Console.WriteLine(e);
+        _logger.Log(Logger.LogType.ERROR, e.Message);
         throw;
     }
     return _responseList;
