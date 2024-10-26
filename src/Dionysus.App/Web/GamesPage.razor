@@ -22,7 +22,7 @@
     .findPanel {
         font-family: "JetBrains Mono", monospace;
         user-select: none;
-        background-color: #191724;
+        background-color: #0d1117;
         -ms-overflow-style: none;
         scrollbar-width: none;
         display: flex;
@@ -35,11 +35,11 @@
         color: #0071c1;
     }
     .searchButt{
-        background-color: #26233a;
-        color: #e0def4;
+        background-color: #161b22;
+        color: #c6cdd5;
         border-radius: 20px;
         border-style: solid;
-        border-color: #393552;
+        border-color: #32362d;
         border-width: 0.2px;
         height: 40px;
         width: 50px;
@@ -49,30 +49,30 @@
         margin-left: 5px;
         font-size: 12px;
         cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         transition: background-color 0.3s, transform 0.3s;
     }
     .searchButt:hover{
-        background-color: #1f1d2e;
-        transform: scale(1.05);
+        background-color: #0d1117;
+        transform: scale(1.03);
         cursor: pointer;
     }
     .searchButt:active{
         transform: scale(0.97);
     }
-    input::placeholder
-    {
-        color: #908caa;
+    input::placeholder {
+        color: #89929b;
     }
     .butt {
-        background-color: #26233a;
-        color: #e0def4;
+        background-color: #161b22;
+        color: #c6cdd5;
         border-radius: 20px;
         border-style: solid;
-        border-color: #393552;
+        border-color: #32362d;
         border-width: 0.2px;
         padding: 0; 
         height: 35px;
-        width: 35px; 
+        width: 60px; 
         display: flex; 
         justify-content: center; 
         align-items: center;
@@ -83,8 +83,8 @@
         transition: background-color 0.3s, transform 0.3s;
     }
     .butt:hover{
-        background-color: #1f1d2e;
-        transform: scale(1.05);
+        background-color: #0d1117;
+        transform: scale(1.03);
         cursor: pointer;
     }
     .butt:active{
@@ -95,22 +95,30 @@
         font-family: "JetBrains Mono", monospace;
         width: 70%;
         padding: 10px;
+        padding-left: 18px;
         margin-right: 10px;
         border-style: solid;
-        border-color: #393552;
+        max-width: 500px;
+        border-color: #32362d;
         border-width: 0.2px;
-        background-color: #21202e;
-        color: #e0def4;
+        background-color: #161b22;
+        color: #c6cdd5;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        transition: all 0.6s ease-in-out;
     }
-    input:focus {
-        outline: none;
+    input:focus,
+    textarea:focus{
+        outline: #32362d 0.3px solid;
+    }
+    input::placeholder{
+        color: #89929b;
     }
     .game-list {
         max-width: 900px;
         font-family: "JetBrains Mono", monospace;
         margin: 0 auto;
         user-select: none;
-        background-color: #191724;
+        background-color: #0d1117;
         color: white;
         padding: 20px;
         display: flex;
@@ -131,7 +139,7 @@
         align-items: flex-start;
         background-color: #1f1d2e;
         border-radius: 20px;
-        border: 0.2px solid #393552;
+        border: 0.2px solid #32362d;
         padding-left: 15px;
         padding-bottom: 10px;
         margin-top: 10px;
@@ -141,7 +149,7 @@
     }
     .game-item:hover {
         transform: translateY(-5px);
-        box-shadow: 0 0 30px rgba(38, 35, 58, 0.7);
+        box-shadow: 0 0 30px rgba(33,38,45, 0.7);
     }
     .overlay {
         position: absolute;
@@ -153,12 +161,11 @@
         height: 100%;
         background: linear-gradient(
             180deg,
-            rgba(25, 23, 36, 0) 0%,
-            rgba(25, 23, 36, 0.6) 35%,
-            rgba(25, 23, 36, 0.8) 60%,
-            rgba(25, 23, 36, 0.8) 75%,
-            rgba(25, 23, 36, 0.95) 85%,
-            rgba(25, 23, 36, 1) 100%
+            rgba(13, 17, 23, 0.3) 0%,
+            rgba(13, 17, 23, 0.6) 25%,
+            rgba(13, 17, 23, 0.8) 50%,
+            rgba(13, 17, 23, 0.9) 75%,
+            rgba(13, 17, 23, 1) 100%
         );
         border-radius: 19px;
         z-index: 1;
@@ -167,7 +174,7 @@
     .game-info {
         font-family: "JetBrains Mono", monospace;
         z-index: 2;
-        color: #e0def4;
+        color: #c6cdd5;
         font-size: 1.1em;
         margin-bottom: -5px;
     }
@@ -179,11 +186,11 @@
     .linkText  {
         font-size: 13px;
         font-weight: normal;
-        color: #e0def4;
+        color: #c6cdd5;
+        background-color: #161b22;
+        border-color: #32362d;
         border-style: solid;
-        border-color: #393552;
         border-width: 0.2px;
-        background-color: #26233a;
         padding: 8px 12px;
         border-radius: 20px;
         display: inline-block;
@@ -213,11 +220,11 @@
     .sizeLabel {
         font-size: 13px;
         font-weight: normal;
-        color: #e0def4;
+        color: #c6cdd5;
+        background-color: #161b22;
+        border-color: #32362d;
         border-style: solid;
-        border-color: #393552;
         border-width: 0.2px;
-        background-color: #26233a;
         padding: 8px 12px;
         border-radius: 20px;
         display: inline-block;
@@ -228,11 +235,11 @@
     .buttLink{
         font-size: 16px;
         font-weight: normal;
-        color: #e0def4;
+        color: #c6cdd5;
+        background-color: #161b22;
+        border-color: #32362d;
         border-style: solid;
-        border-color: #393552;
         border-width: 0.2px;
-        background-color: #26233a;
         padding: 8px 12px;
         border-radius: 20px;
         display: inline-block;
@@ -241,7 +248,7 @@
         transition: all 0.2s ease-in-out;
     }
     .buttLink:hover{
-        background-color: #1f1d2e;
+        background-color: #0d1117;
         transform: scale(1.05);
         cursor: pointer;
     }
@@ -261,7 +268,7 @@
     .loader {
         width: 35px;
         aspect-ratio: 1;
-        border: 3px solid #908caa;
+        border: 3px solid #161b22;
         animation: l1 2s infinite;
     }
     @@keyframes l1 {

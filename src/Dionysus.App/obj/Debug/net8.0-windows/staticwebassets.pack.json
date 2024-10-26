@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\C# projects\\Dionysus\\src\\Dionysus.App\\obj\\Debug\\net8.0-windows\\scopedcss\\bundle\\Dionysus.styles.css",
+      "PackagePath": "staticwebassets\\Dionysus.styles.css"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows\\staticwebassets\\msbuild.Dionysus.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows\\staticwebassets\\msbuild.build.Dionysus.props",
+      "PackagePath": "build\\Dionysus.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows\\staticwebassets\\msbuild.buildMultiTargeting.Dionysus.props",
+      "PackagePath": "buildMultiTargeting\\Dionysus.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0-windows\\staticwebassets\\msbuild.buildTransitive.Dionysus.props",
+      "PackagePath": "buildTransitive\\Dionysus.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

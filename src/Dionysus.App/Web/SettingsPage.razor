@@ -19,7 +19,7 @@
         padding: 100px;
         margin: 0 auto;
         user-select: none;
-        background-color: #191724;
+        background-color: #0d1117;
         color: white;
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -37,15 +37,16 @@
     .settingLabel {
         font-family: "JetBrains Mono", monospace;
         font-size: 14px;
-        color: #e0def4;
-        background-color: #191724;
+        color: #c6cdd5;
+        background-color: #161b22;
         padding: 16px;
         border-radius: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
-        border: 1px solid #393552;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        border: 1px solid #323232;
     }
 
     .settingLabel span {
@@ -58,23 +59,24 @@
         width: 16px;
         height: 16px;
         border-radius: 10px;
-        background-color: #26233a;
-        border: 2px solid #393552;
+        background-color: #21262d;
+        border: 2px solid #323232;
         position: relative;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         cursor: pointer;
         transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .custom-checkbox.checked {
-        background-color: #31748f;
-        border-color: #31748f;
+        background-color: #77bdfb;
+        border-color: #77bdfb;
     }
 
     .custom-checkbox::after {
         content: '\f00c';
         font-family: 'FontAwesome';
         font-size: 14px;
-        color: #e0def4;
+        color: #0d1117;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -89,13 +91,13 @@
 
     .saveButton {
         font-family: "JetBrains Mono", monospace;
-        background-color: #31748f;
-        color: #e0def4;
+        background-color: #238636;
+        color: #c6cdd5;
         max-width: 900px;
         padding: 10px;
         border-radius: 20px;
         border-style: solid;
-        border-color: #323232;
+        border-color: #32362d;
         border-width: 0.2px;
         font-size: 16px;
         cursor: pointer;
@@ -103,8 +105,8 @@
     }
 
     .saveButton:hover {
-        background-color: #286983;
-        transform: scale(1.02);
+        background-color: #127525;
+        transform: scale(1.01);
     }
 
     .saveButton:active{
@@ -114,27 +116,29 @@
         font-family: "JetBrains Mono", monospace;
         margin-top: 10px;
         font-size: 14px;
-        color: #908caa;
+        color: #89929b;
+        opacity: 0.4;
     }
 
     .testButton {
         font-family: "JetBrains Mono", monospace;
-        background-color: #26233a;
-        color: #e0def4;
+        background-color: #161b22;
+        color: #c6cdd5;
         padding: 10px;
         border-radius: 20px;
         border-style: solid;
-        border-color: #393552;
+        border-color: #32362d;
         border-width: 0.2px;
         font-size: 16px;
         cursor: pointer;
         transition: background-color 0.3s, transform 0.3s;
         width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
     .testButton:hover {
-        background-color: #1f1d2e;
-        transform: scale(1.02);
+        background-color: #0d1117;
+        transform: scale(1.01);
     }
 
     .testButton:active {
@@ -148,9 +152,9 @@
     <label class="settingLabel">
         <span>
             Sources:<br/><br/>
-            GOG - <span style="color: @(GOGStatus == "Available" ? "#f6c177" : "#eb6f92")">@GOGStatus</span><br/>
-            Xatab - <span style="color: @(XatabStatus == "Available" ? "#f6c177" : "#eb6f92")">@XatabStatus</span><br/>
-            FitGirl - <span style="color: @(XatabStatus == "Available" ? "#f6c177" : "#eb6f92")">@FitGirlStatus</span>
+            GOG - <span style="color: @(GOGStatus == "Available" ? "#7ce38b" : "#fa7970")">@GOGStatus</span><br/>
+            Xatab - <span style="color: @(XatabStatus == "Available" ? "#7ce38b" : "#fa7970")">@XatabStatus</span><br/>
+            FitGirl - <span style="color: @(XatabStatus == "Available" ? "#7ce38b" : "#fa7970")">@FitGirlStatus</span>
         </span>
     </label>
     
@@ -210,10 +214,10 @@
     public static bool AvoidConvertToMagnet;
     
     static Logger _logger = new Logger();
-    
-    private string GOGStatus = "checking...";
-    private string XatabStatus = "checking...";
-    private string FitGirlStatus = "checking...";
+
+    private string GOGStatus = "Checking...";
+    private string XatabStatus = "Checking...";
+    private string FitGirlStatus = "Checking...";
 
     protected override async Task OnInitializedAsync()
     {
@@ -265,7 +269,7 @@
     
     private void ToggleAvoidConvertToMagnet() => AvoidConvertToMagnet = !AvoidConvertToMagnet;
     
-    public static async void Save()
+    public static async Task Save()
     {
         if (AddToStartup && !AppHelper.AddedToStartup()) AppHelper.Logic(true);
         else if(!AddToStartup)  AppHelper.Logic(false);

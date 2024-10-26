@@ -149,3 +149,4 @@ D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\refint\Dionysu
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.pdb
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.App.genruntimeconfig.cache
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\ref\Dionysus.dll
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Dionysus.staticwebassets.runtime.json
