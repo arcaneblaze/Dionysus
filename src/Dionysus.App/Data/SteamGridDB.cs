@@ -7,8 +7,9 @@ namespace Dionysus.App.Data;
 
 public class SteamGridDB
 {
+    public static string _link = "https://www.steamgriddb.com/";
     private static string _jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "env.json");
-    private static JObject configJson = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(_jsonPath));
+    public static JObject configJson = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(_jsonPath));
     private static string steamGDBAPI = configJson["steamGDBAPI"].Value<string>();
     static SteamGridDb _steamGridDb = new SteamGridDb(steamGDBAPI);
     private static Logger.Logger _logger = new Logger.Logger();
@@ -19,7 +20,7 @@ public class SteamGridDB
             _logger.Log(Logger.Logger.LogType.ERROR, "Game name cannot be null or empty");
             return null;
         }
-
+        
         try
         {
             var gameResults = await _steamGridDb.SearchForGamesAsync(gameName);

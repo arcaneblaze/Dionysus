@@ -1,5 +1,6 @@
 @page "/settings"
 @using System.Reflection
+@using Dionysus.App
 @using Dionysus.App.Data
 @using Dionysus.App.Helpers
 @using Dionysus.App.Logger
@@ -7,7 +8,9 @@
 @using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
 @using Dionysus.WebScrap.XatabScrapper
+@using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.VisualBasic
+@using Microsoft.VisualBasic.ApplicationServices
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -28,6 +31,7 @@
     .panell {
         max-width: 900px;
         text-align: center;
+        justify-content: center;
         display: flex;
         margin: 0 auto;
         flex-direction: column;
@@ -131,7 +135,7 @@
         border-width: 0.2px;
         font-size: 16px;
         cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
+        transition: all 0.2s ease-in-out;
         width: 100%;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
@@ -140,39 +144,75 @@
         background-color: #0d1117;
         transform: scale(1.01);
     }
+    .testButton.input:focus{
+        outline: #32362d 0.3px solid;
+    }
+    .testButton.input:hover{
+        transform: scale(1);
+        cursor: text;
+    }
 
     .testButton:active {
         transform: scale(0.99);
     }
-    
+
+
+    .separator {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        width: 100%;
+        max-width: 200px;
+        color: #c6cdd5;
+        padding: 5px;
+        background-color: #161b22;
+        height: auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        margin: 0 auto 20px;
+        border-radius: 20px;
+        border: 1px solid #323232;
+    }
+
+
+
 </style>
 
-<h3 style="text-align: center; width: 100%; height:auto; font-family: 'JetBrains Mono', monospace">Settings:</h3>
+<h3 style="text-align: center; width: 100%; height:auto; font-family: 'JetBrains Mono', monospace;color:  #c6cdd5;">Settings:</h3>
 <div class="panell">
     <label class="settingLabel">
         <span>
             Sources:<br/><br/>
-            GOG - <span style="color: @(GOGStatus == "Available" ? "#7ce38b" : "#fa7970")">@GOGStatus</span><br/>
-            Xatab - <span style="color: @(XatabStatus == "Available" ? "#7ce38b" : "#fa7970")">@XatabStatus</span><br/>
-            FitGirl - <span style="color: @(XatabStatus == "Available" ? "#7ce38b" : "#fa7970")">@FitGirlStatus</span>
+            GOG - <i class="@GOGStatus" style="color: @(GOGStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
+            Xatab - <i class="@XatabStatus" style="color: @(XatabStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
+            FitGirl - <i class="@FitGirlStatus" style="color: @(FitGirlStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i>
         </span>
     </label>
-    
+    <div class="separator">Profile</div>
+    <div class="settingLabel" style="flex-direction: column">
+        <span>Image:</span><br/>
+        <button class="testButton" style="width: 48%; font-size: 13px" @onclick="@ProfileData.SelectImage">
+            <i class="fa-solid fa-image"></i> Select image
+        </button><br/>
+        <span>Username:</span><br/>
+        <input class="testButton input" style="width: 48%; text-align: center; font-size: 13px" @bind="@ProfileData.Profile().Username"
+               placeholder="Type username...">
+    </div>
+    <div class="separator">Application</div>
     <label class="settingLabel">
-        <span>(Application) Add to startup</span>
+        <span>Add to startup</span>
         <div class="custom-checkbox @(AddToStartup ? "checked" : "")" @onclick="ToggleAddToStartup"></div>
     </label>
+    <div class="separator">Library</div>
     <label class="settingLabel">
-        <span>(Library) Show "+" button</span>
+        <span>Show "+" button</span>
         <div class="custom-checkbox @(ShowAddButton ? "checked" : "")" @onclick="ToggleShowAddButton"></div>
     </label>
     <label class="settingLabel">
-        <span>(Library) Show game title</span>
+        <span>Show game title</span>
         <div class="custom-checkbox @(ShowGameTitle ? "checked" : "")" @onclick="ToggleShowGameTitle"></div>
     </label>
 
     <label class="settingLabel">
-        <span>(Library) Auto-backup</span>
+        <span>Auto-backup</span>
         <div class="custom-checkbox @(AutoBackup ? "checked" : "")" @onclick="ToggleAutobackup"></div>
     </label>
 
@@ -185,48 +225,56 @@
             }
         </div>
     </div>
-    
+
+    <div class="separator">Torrent</div>
     <label class="settingLabel">
-        <span>(Torrent) Show link to the page of the selected game</span>
+        <span>Show link to the page of the selected game</span>
         <div class="custom-checkbox @(ShowLinkButton ? "checked" : "")" @onclick="ToggleShowLinkButton"></div>
     </label>
     <label class="settingLabel">
-        <span>(Torrent) Show game version (not all repacks are being worked on)</span>
+        <span>Show game version (not all repacks are being worked on)</span>
         <div class="custom-checkbox @(ShowGameVersion ? "checked" : "")" @onclick="ToggleShowGameVersion"></div>
     </label>
     <label class="settingLabel">
-        <span>(Torrent) Avoid converting the torrent file to a magnet link</span>
+        <span>Show torrent post date (gog not working)</span>
+        <div class="custom-checkbox @(ShowPostDate ? "checked" : "")" @onclick="ToggleShowPostDate"></div>
+    </label>
+    <label class="settingLabel">
+        <span>Avoid converting the torrent file to a magnet link</span>
         <div class="custom-checkbox @(AvoidConvertToMagnet ? "checked" : "")" @onclick="ToggleAvoidConvertToMagnet"></div>
     </label>
 
     <button class="saveButton" @onclick="Save"><i class="fa-solid fa-floppy-disk"></i></button>
-    <label class="versionLabel">version: @Assembly.GetExecutingAssembly().GetName().Version.ToString()
+    <label class="versionLabel">v@_versionString
     </label>
 </div>
 
 @code {
+    public static string Username;
+    
     public static bool AddToStartup;
     public static bool ShowAddButton;
     public static bool ShowGameTitle;
     public static bool AutoBackup;
     public static bool ShowLinkButton;
     public static bool ShowGameVersion;
+    public static bool ShowPostDate;
     public static bool AvoidConvertToMagnet;
-    
+    static Version _version = Assembly.GetExecutingAssembly().GetName().Version;
+    static string _versionString = $"{_version.Major}.{_version.Minor} \"{Program._appCodeName}\"";
     static Logger _logger = new Logger();
-
-    private string GOGStatus = "Checking...";
-    private string XatabStatus = "Checking...";
-    private string FitGirlStatus = "Checking...";
-
+    
+    private string GOGStatus = "fa-solid fa-hourglass-start";
+    private string XatabStatus = "fa-solid fa-hourglass-start";
+    private string FitGirlStatus = "fa-solid fa-hourglass-start";
+    
     protected override async Task OnInitializedAsync()
     {
-        GOGStatus = await GOG.GetStatus() ? "Available" : "Unavailable";
-        XatabStatus = await Xatab.GetStatus() ? "Available" : "Unavailable";
-        FitGirlStatus = await FitGirl.GetStatus() ? "Available" : "Unavailable";
+        GOGStatus = await GOG.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+        XatabStatus = await Xatab.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+        FitGirlStatus = await FitGirl.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
     }
-
-
+    
     private static async Task MakeBackup()
     {
         await Backup.MakeBackupAsync();
@@ -253,11 +301,13 @@
         ShowGameVersion = versionInfo?.Value ?? false;
         var avoidConvertToMagnet = settings.FirstOrDefault(s => s.SettingName == "AvoidConvertToMagnet");
         AvoidConvertToMagnet = avoidConvertToMagnet?.Value ?? false;
+        var showPostDate = settings.FirstOrDefault(s => s.SettingName == "ShowPostDate");
+        ShowPostDate = showPostDate?.Value ?? false;
+        
         _logger.Log(Logger.LogType.DEBUG, "Settings loaded");
     }
 
     private void ToggleAddToStartup() => AddToStartup = !AddToStartup;
-
     private void ToggleShowAddButton() => ShowAddButton = !ShowAddButton;
 
     private void ToggleShowGameTitle() => ShowGameTitle = !ShowGameTitle;
@@ -267,10 +317,14 @@
 
     private void ToggleShowGameVersion() => ShowGameVersion = !ShowGameVersion;
     
+    private void ToggleShowPostDate() => ShowPostDate = !ShowPostDate;
+    
     private void ToggleAvoidConvertToMagnet() => AvoidConvertToMagnet = !AvoidConvertToMagnet;
     
     public static async Task Save()
     {
+        
+        ProfileData.SaveJson();
         if (AddToStartup && !AppHelper.AddedToStartup()) AppHelper.Logic(true);
         else if(!AddToStartup)  AppHelper.Logic(false);
         
@@ -282,6 +336,7 @@
             new SettingsModel { SettingName = "AutoBackup", Value = AutoBackup },
             new SettingsModel { SettingName = "ShowLinkButton", Value = ShowLinkButton },
             new SettingsModel { SettingName = "ShowGameVersion", Value = ShowGameVersion },
+            new SettingsModel { SettingName = "ShowPostDate", Value = ShowPostDate },
             new SettingsModel { SettingName = "AvoidConvertToMagnet", Value = AvoidConvertToMagnet },
         };
         _logger.Log(Logger.LogType.DEBUG, "Settings saved");

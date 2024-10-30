@@ -1,3 +1,4 @@
+@using Dionysus.App.Data
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
@@ -6,10 +7,12 @@
     <nav>
         <div class="top-panel">
             <div>
-                <button class="top-panel-button" @onclick="NavToGamesPage"><i class="fa-solid fa-skull-crossbones"></i></button>
-                <button class="top-panel-button" @onclick="NavToLibraryPage"><i class="fa-solid fa-inbox"></i></button>
-                <button class="top-panel-button" @onclick="NavToSettignsPage"><i class="fa-solid fa-gears"></i></button>
+                <button class="top-panel-button " @onclick="NavToGamesPage"><i class="fa-solid fa-skull-crossbones"></i></button>
             </div>
+            <div class="right-side">
+                <button class="top-panel-button user fa-solid fa-user" @onclick="NavToLibraryPage"></button>
+                <button class="top-panel-button user fa-solid fa-gear" style="margin-left: 10px" @onclick="NavToSettignsPage"></button>
+            </div>   
         </div>
     </nav>
     <main>
@@ -18,6 +21,7 @@
 </div>
 @code
 {
+
     void NavToGamesPage()
     {
         NavigationManager.NavigateTo("/games");
@@ -49,7 +53,6 @@
     
     .top-panel {
         display: flex;
-        justify-content: center;
         align-items: center;
         padding: 10px;
         background-color: #161b22;
@@ -61,11 +64,13 @@
         background-color: #161b22;
         color:  #c6cdd5;
         border-style: solid;
+        margin-left: 25px;
         border-color: #323232;
         border-width: 0.2px;
         padding: 8px 20px;
         height: 35px;
         font-size: 16px;
+        width: 60px;
         cursor: pointer;
         text-align: center;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -78,6 +83,29 @@
     }
     .top-panel-button:active{
         transform: scale(0.97);
+    }
+
+    .top-panel-button.user{
+        width: 35px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    
+    .right-side{
+        margin: 0;
+        right: 0px;
+        padding: 35px;
+        position: absolute;
+        display: flex;
+        align-items: center;
+    }
+    
+    .greeting{
+        font-family: "JetBrains Mono", monospace;
+        font-weight: bold;
+        color:  #74797d;
+        font-size: 14px;
     }
 
 </style>

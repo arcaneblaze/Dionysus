@@ -3,9 +3,11 @@
 @using System.Diagnostics
 @using System.Text.RegularExpressions
 @using Dionysus.App.Data
+@using Dionysus.App.Forms
 @using Dionysus.App.Helpers
 @using Dionysus.App.Logger
 @using Dionysus.App.Models
+@using Dionysus.App.Web
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -36,13 +38,13 @@
     }
 
     .game-list {
-        max-width: 900px;
+        max-width: 730px;
         font-family: "JetBrains Mono", monospace;
         margin: 0 auto;
         user-select: none;
         background-color: #0d1117;
         color: white;
-        padding: 0px 20px 20px 20px;
+        padding: 0 20px 20px 20px;
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -50,8 +52,8 @@
     .game-item {
         aspect-ratio: 16/9;
         height: auto;
-        min-height: 200px;
-        max-height: 250px;
+        min-height: 260px;
+        max-height: 260px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -60,29 +62,24 @@
         justify-content: flex-end;
         align-items: flex-start;
         background-color: #1f1d2e;
-        border-radius: 20px;
-        border: 0.2px solid #32362d;
         padding-left: 15px;
         padding-bottom: 10px;
         margin-top: 10px;
+        border-radius: 22px;
         position: relative;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
     .game-item:hover {
-        transform: translateY(-2px);
+        transform: translateY(-3px);
         box-shadow: 0 0 30px rgba(33,38,45, 0.7);
     }
 
     .overlay {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
+        border: 1px solid #32362d;
         background: linear-gradient(
             180deg,
             rgba(13, 17, 23, 0.3) 0%,
@@ -91,10 +88,16 @@
             rgba(13, 17, 23, 0.9) 75%, 
             rgba(13, 17, 23, 1) 100%
         );
-        border-radius: 19px;
-        z-index: 1;
+        border-radius: 20px;
     }
 
+    .overlay2 {
+        position: absolute;
+        inset: 0;
+        background: rgba(13, 17, 23, 0.15);
+        border-radius: 20px;
+    }
+    
     .game-info {
         font-family: "JetBrains Mono", monospace;
         z-index: 2;
@@ -118,6 +121,7 @@
         margin: 20px auto;
         cursor: pointer;
         text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         transition: background-color 0.3s, transform 0.3s;
     }
 
@@ -140,6 +144,7 @@
         border-color: #32362d;
         border-width: 0.2px;
         margin-top: 0px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         text-align: center;
     }
     .add-game-form input, .add-game-form textarea {
@@ -152,6 +157,7 @@
         background-color: #161b22;
         color: #c6cdd5;
         text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         transition: all 0.6s ease-in-out;
     }
     .add-game-form input:focus,
@@ -170,6 +176,7 @@
         padding: 10px;
         font-size: 14px;
         cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         transition: background-color 0.3s, transform 0.3s;
     }
 
@@ -217,7 +224,7 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         transition: background-color 0.3s, transform 0.3s;
     }
-    .game-item .fa-trash {
+    .game-item .trash {
         background-color: #161b22;
         color: #fa7970;
         height: 35px;
@@ -234,7 +241,7 @@
     .game-item .fa-pause:hover,
     .game-item .fa-play:hover,
     .game-item .pencil:hover,
-    .game-item .fa-trash:hover {
+    .game-item .trash:hover {
         background-color: #0d1117;
         transform: scale(1.03);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
@@ -243,7 +250,7 @@
     .game-item .fa-pause:active,
     .game-item .fa-play:active,
     .game-item .pencil:active,
-    .game-item .fa-trash:active {
+    .game-item .trash:active {
         transform: scale(0.97);
     }
     
@@ -253,6 +260,7 @@
         display: inline-block;
         width: 100%;
         height: 40px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         margin-bottom: 10px;
     }
 
@@ -306,6 +314,7 @@
         border-width: 0.2px;
         margin-top: -25px;
         margin-bottom: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         text-align: center;
     }
     
@@ -321,7 +330,7 @@
         border-width: 0.2px;
         background-color: #161b22;
         color: #c6cdd5;
-        
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         text-align: center;
         transition: all 0.6s ease-in-out;
     }
@@ -330,6 +339,7 @@
         outline: #32362d 0.3px solid;
     }
     .edit-game-form label {
+        color:  #c6cdd5;
         margin-bottom: 10px; 
         display: block;
     }
@@ -349,8 +359,8 @@
         padding: 10px;
         font-size: 14px;
         cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         transition: background-color 0.3s, transform 0.3s;
-        margin: 0 5px;
     }
 
     .edit-game-form button:hover {
@@ -396,34 +406,94 @@
         padding: 8px 12px;
         border-radius: 20px;
         display: inline-block;
-        margin-right: 10px;
+        margin-right: 5px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         z-index: 3;
     }
+
+    button:disabled,
+    button[disabled]{
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .profile {
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        width: auto;
+        padding: 32px 35px 20px 50px;
+        max-width: 730px;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 25px;
+        border: 1px solid #32362d;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+    }
+
+    .username {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 20px;
+        color: #c6cdd5;
+        font-weight: 600;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    }
 </style>
 
-<h3 style="text-align: center; width: 100%; height:auto;  font-family: 'JetBrains Mono', monospace">Your library:</h3>
+<div class="profile">
+    @if(!string.IsNullOrEmpty(ProfileData.Profile().Image)){
+        <img class="profile-image" src="@ProfileData.GetBase64Image(ProfileData.Profile().Image)"/>
+    }
+    <div style="flex-direction: column">
+        <span class="username">
+            @ProfileData.Profile().Username
+        </span><br/>
+        <span class="username" style="font-size: 14px; color: #74797d">Games: @_gamesList.Count,</span>
+        <span class="username" style="font-size: 14px; color: #74797d">
+            Total played: @ProfileData.GetTotalPlayTime().TotalHours.ToString("F0")h 
+            @ProfileData.GetTotalPlayTime().Minutes.ToString()m
+        </span>
+    </div>
+</div>
 <div class="game-list">
     @foreach (var game in _gamesList.OrderByDescending(g => ParseTimeInfo(g.TimeInfo)))
     {
-        <div class="game-item" style="background-image: url('@game.ImageUrl'); @(game.Id == _currentGameId ? _onGameStyle : _defaultStyle)">
+        <div class="game-item" style="background-image: url('@game.ImageUrl');">
             @if (SettingsPage.ShowGameTitle)
             {
-                <div class="overlay"></div>
+                <div class="overlay" style="@(game.Id == _currentGameId ? _onGameStyle : _defaultStyle)"></div>
                 <div class="game-info">
                     <h3 style="word-wrap: break-word; text-align: left; font-size: 20px; max-height: 45px">@game.Title</h3>
                 </div>
             }
+            else
+            {
+                <div class="overlay2" style="@(game.Id == _currentGameId ? _onGameStyle : _defaultStyle)"></div>
+            }
+            
             <div class="labelContainer">
                 <label class="playtime-label"><i class="fa-regular fa-clock"></i> @game.TimeInfo</label>
+                @if (GamesMonitor.GameIsDeletedFromDesktop(game))
+                {
+                    <label class="playtime-label"><i class="fa-solid fa-triangle-exclamation"></i> Archived game</label>
+                }
             </div>
+            
             <div class="button-container">
                 @if (_currentGameId != game.Id)
                 {
-                    <button class="fa fa-play" id="play-btn" @onclick="() => StartGame(game.Location, game)" title="Play"></button>
+                    @if (!GamesMonitor.GameIsDeletedFromDesktop(game))
+                    {
+                        <button class="fa fa-play" id="play-btn" @onclick="() => StartGame(game.Location, game)"></button>   
+                    }
                 }
-                <button class="pencil" id="edit-btn" @onclick="() => ShowEditPanel(game.Id)" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button class="fa fa-trash" id="delete-btn" @onclick="() => DeleteGame(game)" title="Delete"></button>
+                <button class="pencil" id="edit-btn" @onclick="() => ShowEditPanel(game.Id)"><i class="fa-solid fa-gear"></i></button>
+                <button class="trash" id="delete-btn" @onclick="() => DeleteGame(game)"><i class="fa-solid fa-trash-can"></i></button>
             </div>
         </div>
 
@@ -432,31 +502,46 @@
             <div class="edit-game-form">
                 <label>Title:</label>
                 <input type="text" @bind="game.Title" placeholder="Edit title" required="required">
-                <label>Cover:</label>
-                <input type="text" @bind="game.ImageUrl" placeholder="Edit cover url" required="required">
-                <label>Location:</label>
-                <input type="text" @bind="game.Location" placeholder="Edit location" required="required">
+                <div>
+                    <label>Cover:</label>
+                    <input type="text"  style="width: 88%" @bind="game.ImageUrl" placeholder="Edit cover url" required="required">
+                    <button style="width: 45px" @onclick="() => OpenUrl(SteamGridDB._link)"><i class="fa-solid fa-globe"></i></button>
+                </div>
+                <div>
+                    <label>Location:</label>
+                    <input style="width: 80%" type="text" @bind="game.Location" placeholder="Edit location" required="required">
+                    <button style="width: 45px;"
+                            @onclick="() => SelectFileForEdit(game)">
+                        <i class="fa-solid fa-pencil"></i>
+                    </button>
+                    <button style="width: 45px"
+                            disabled="@(!File.Exists(game.Location) || string.IsNullOrEmpty(game.Location))"
+                            @onclick="() => OpenFolder(game.Location)">
+                        <i class="fa-regular fa-folder-open"></i>
+                    </button>
+                </div>
                 <label>Launch options:</label>
                 <input type="text" @bind="game.Arguments" placeholder="Edit options" required="required">
-                <button @onclick="() => SaveEdit(game.Id)">Save</button>
-                <button @onclick="() => CancelEdit()">Cancel</button>
+                <button @onclick="() => SaveEdit(game.Id)" style="background-color: #238636"><i class="fa-solid fa-floppy-disk"></i></button>
+                <button @onclick="() => CancelEdit()"><i class="fa-solid fa-close"></i></button>
             </div>
         }
     }
     @if (!_gamesList.Any())
     {
-        <h3 style="text-align: center; width: 100%; color: #6e6a86; font-family: 'JetBrains Mono', monospace;">Empty.</h3>
+        <h3 style="text-align: center; width: 100%; color: #21262d; font-family: 'JetBrains Mono', monospace;">Empty.</h3>
     }
 
 
     @if (_showAddGameForm)
     {
         <div id="add-game-form" class="add-game-form">
-            <input type="text" @bind="_newGame.Title" placeholder="Title (Only in English)" required="required">
+            <input type="text" @bind="_newGame.Title" placeholder="Title (English)" required="required">
             <div class="custom-file-input">
-                <label class="custom-file-label" @onclick="@SelectFile" for="fileInput">@(_selectedFile != null ? _selectedFile : "Choose .exe file")</label>
+                <label class="custom-file-label" @onclick="@SelectFile" for="fileInput">@(_selectedFile != null ? _selectedFile : "Select \".exe\" file")</label>
             </div>
-            <button @onclick="AddGameAsync">Add</button> <button @onclick="ToggleForm">Close</button>
+            <button @onclick="AddGameAsync" ><i class="fa-solid fa-add"></i></button>
+            <button @onclick="ToggleForm"><i class="fa-solid fa-close"></i></button>
 
         </div>
     }
@@ -477,11 +562,10 @@
     private int previousGameId = -1;
     static bool _playerPlaying = false;
     private int _currentGameId = -1;
-    static string _defaultStyle = "background-color: #131313;";
-    static string _onGameStyle = "border: 2px solid rgba(152,203,43,1); border-radius:10px;";
+    static string _defaultStyle = "";
+    static string _onGameStyle = "border: 2px solid #238636;";
     static Logger _logger = new Logger();
-
-
+    
     public static TimeSpan ParseTimeInfo(string timeInfo)
     {
         var hours = 0;
@@ -501,6 +585,24 @@
 
         return new TimeSpan(hours, minutes, 0);
     }
+
+    private static void SelectFileForEdit(GameModel game)
+    {
+        using (OpenFileDialog openFileDialog = new OpenFileDialog())
+        {
+            var _prevLocation = game.Location;
+            openFileDialog.Filter = "Executable files (*.exe)|*.exe|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fullPath = openFileDialog.FileName;
+                game.Location = fullPath;
+            }
+            else
+            {
+                game.Location = _prevLocation;
+            }
+        }
+    }
     
     private static void SelectFile()
     {
@@ -517,6 +619,20 @@
             {
                 _selectedFile = null;
             }
+        }
+    }
+
+    public static void OpenUrl(string url) => Process.Start("explorer", url);
+
+    public static void OpenFolder(string path)
+    {
+        if (File.Exists(path))
+        {
+            Process.Start("explorer.exe", $"/select,{path.Replace("/", @"\")}");
+        }
+        else
+        {
+            MessageBox.Show("File does not exist", "Error");
         }
     }
 
@@ -615,10 +731,10 @@
 
     private void DeleteGame(GameModel gameToRemove)
     {
-        if (MessageBox.Show("Are you sure you want to remove the game?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+        if (MessageBox.Show("Are you sure you want to remove the game from list?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
         {
             _gamesList.Remove(gameToRemove);
-            GameData.GamesData.SaveToJSON(_gamesList);   
+            GameData.GamesData.SaveToJSON(_gamesList);
         }
     }
 
@@ -626,15 +742,15 @@
     {
         await UpdateAsync();
     }
-
+    
     private async Task UpdateAsync()
     {
         GameModel _currentRunningGame = null;
+        var delay = 10000;
         while (true)
         {
             try
             {
-                GamesMonitor.RemoveDeletedGames(_gamesList);
                 var _game = GamesMonitor.GameFromListIsRunning(_gamesList);
                 if (_game.runningGame != null && _game.isRunning)
                 {
@@ -649,7 +765,9 @@
                             GamesMonitor.isCounting = true;
                             _ = Task.Run(() => GamesMonitor.CountPlayTime(_gamesList, _game.runningGame.Location));
                         }
+                        delay = 3000;
                     }
+                    await InvokeAsync(StateHasChanged);
                 }
                 else
                 {
@@ -662,11 +780,12 @@
                         GamesMonitor.isCounting = false;
 
                         if (SettingsPage.AutoBackup) await Backup.MakeBackupAsync();
+                        delay = 10000;
                     }
+                    await InvokeAsync(StateHasChanged);
                 }
 
-                await Task.Delay(3000);
-                await InvokeAsync(StateHasChanged);
+                await Task.Delay(delay);
             }
             catch (Exception ex)
             {
@@ -675,5 +794,5 @@
             }
         }
     }
-
+    
 }

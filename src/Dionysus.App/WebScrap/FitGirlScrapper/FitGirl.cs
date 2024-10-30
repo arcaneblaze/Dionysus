@@ -40,12 +40,6 @@ public class FitGirl
 
     public static async Task<IEnumerable<SearchGameInfoStruct>> GetSearchResponse(string _gameName)
     {
-        var replacements = new Dictionary<string, string>
-        {
-            { "&#8211;", "-" },
-            { "&nbsp;", " " },
-            { "&amp;", "&" },
-        };
         
         var _list = new List<SearchGameInfoStruct>();
         var _searchLink = $"https://fitgirl-repacks.site/?s={_gameName}";
@@ -69,6 +63,8 @@ public class FitGirl
                     var rephrasedName = NormalizeName(_name.InnerText.Trim());
 
                     var (downloadLink, size, version) = await GetDataFromLink(_link);
+
+                    var _date = _div.SelectSingleNode(".//header/div[2]/span[1]/a/time").InnerText.Trim();
                     
                     if (IsGameMatch(rephrasedName, _gameName))
                     {
@@ -82,7 +78,8 @@ public class FitGirl
                                 Link = _link,
                                 Size = size,
                                 Version = version,
-                                DownloadLink = downloadLink
+                                DownloadLink = downloadLink,
+                                Date = _date
                             });   
                         }
                     }
@@ -186,7 +183,8 @@ public class FitGirl
             .Replace("&#8211;", " - ")
             .Replace("&nbsp;", " ")
             .Replace("&amp;", " & ")
-            .Replace("#038;", " & ");
+            .Replace("#038;", " & ")
+            .Replace("&#8217;", "'");
         
         normalized = Regex.Replace(normalized, @"\s+", " ");
 

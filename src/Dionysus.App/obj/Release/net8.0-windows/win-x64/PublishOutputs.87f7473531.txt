@@ -49,6 +49,5 @@ D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publ
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\MonoTorrent.Trackers.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\MonoTorrent.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\Newtonsoft.Json.dll
-D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\ReusableTasks.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\System.IO.Pipelines.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\WebView2Loader.dll

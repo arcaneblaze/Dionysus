@@ -29,12 +29,14 @@ public class GamesMonitor
         return (false, null);
     }
 
-    public static void RemoveDeletedGames(List<GameModel> gamesList)
+    public static bool GameIsDeletedFromDesktop(GameModel game) => !File.Exists(game.Location);
+    
+    /*public static void RemoveDeletedGames(List<GameModel> gamesList)
     {
         if (gamesList == null) return;
         gamesList.RemoveAll(game => !File.Exists(game.Location));
         GameData.GamesData.SaveToJSON(gamesList);
-    }
+    }*/
 
 
     /// <summary>

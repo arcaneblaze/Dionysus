@@ -5,7 +5,7 @@
   },
   "projects": {
     "D:\\C# projects\\Dionysus\\src\\Dionysus.App\\Dionysus.App.csproj": {
-      "version": "1.9.0",
+      "version": "2.0.0",
       "restore": {
         "projectUniqueName": "D:\\C# projects\\Dionysus\\src\\Dionysus.App\\Dionysus.App.csproj",
         "projectName": "Dionysus",
@@ -53,7 +53,7 @@
             },
             "MonoTorrent": {
               "target": "Package",
-              "version": "[3.0.3-alpha.unstable.rev0049, )"
+              "version": "[3.0.0, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

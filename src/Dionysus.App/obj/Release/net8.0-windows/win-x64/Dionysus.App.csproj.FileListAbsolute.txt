@@ -122,7 +122,6 @@ D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\Mono
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\MonoTorrent.Trackers.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\MonoTorrent.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\Newtonsoft.Json.dll
-D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\ReusableTasks.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\System.IO.Pipelines.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\WebView2Loader.dll
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\win-x64\Dionysus.App.csproj.AssemblyReference.cache

@@ -124,7 +124,6 @@ D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\MonoTorrent.Po
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\MonoTorrent.Trackers.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\MonoTorrent.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
-D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\ReusableTasks.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll

@@ -548,11 +548,10 @@
           }
         }
       },
-      "MonoTorrent/3.0.3-alpha.unstable.rev0049": {
+      "MonoTorrent/3.0.0": {
         "type": "package",
         "dependencies": {
-          "Mono.Nat": "3.0.0",
-          "ReusableTasks": "4.0.0"
+          "Mono.Nat": "3.0.0"
         },
         "compile": {
           "lib/net6.0/MonoTorrent.BEncoding.dll": {
@@ -636,22 +635,6 @@
           "lib/net6.0/Newtonsoft.Json.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "ReusableTasks/4.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net5.0/ReusableTasks.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/ReusableTasks.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "build/_._": {}
         }
       },
       "System.IO.Pipelines/8.0.0": {
@@ -1248,11 +1231,10 @@
           }
         }
       },
-      "MonoTorrent/3.0.3-alpha.unstable.rev0049": {
+      "MonoTorrent/3.0.0": {
         "type": "package",
         "dependencies": {
-          "Mono.Nat": "3.0.0",
-          "ReusableTasks": "4.0.0"
+          "Mono.Nat": "3.0.0"
         },
         "compile": {
           "lib/net6.0/MonoTorrent.BEncoding.dll": {
@@ -1336,22 +1318,6 @@
           "lib/net6.0/Newtonsoft.Json.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "ReusableTasks/4.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net5.0/ReusableTasks.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/ReusableTasks.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "build/_._": {}
         }
       },
       "System.IO.Pipelines/8.0.0": {
@@ -2279,10 +2245,10 @@
         "mono.nat.nuspec"
       ]
     },
-    "MonoTorrent/3.0.3-alpha.unstable.rev0049": {
-      "sha512": "iaqVZgfgfSPrOsBavX1Mgwt8MToO/vtVigJJxLjOl33IOImuFZOEJPpkNv7+ELq0Gq86h4/38E+2DR8CD+LhKA==",
+    "MonoTorrent/3.0.0": {
+      "sha512": "n2MVs54cPxES7hlmZ0C1stbT18wqcXgXTljbeo47VbWf4dIGWP/8rxVJ6st0V4FjP1kCaADCY0evFSPF6Ohc9w==",
       "type": "package",
-      "path": "monotorrent/3.0.3-alpha.unstable.rev0049",
+      "path": "monotorrent/3.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2420,7 +2386,7 @@
         "lib/netstandard2.1/MonoTorrent.Trackers.xml",
         "lib/netstandard2.1/MonoTorrent.dll",
         "lib/netstandard2.1/MonoTorrent.xml",
-        "monotorrent.3.0.3-alpha.unstable.rev0049.nupkg.sha512",
+        "monotorrent.3.0.0.nupkg.sha512",
         "monotorrent.nuspec"
       ]
     },
@@ -2452,28 +2418,6 @@
         "newtonsoft.json.13.0.3.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "packageIcon.png"
-      ]
-    },
-    "ReusableTasks/4.0.0": {
-      "sha512": "6EKzscjq+Q+uxD0N5GWUBO2N34cuDiJ08ZxRs1lqS0Hwvnjp6AgimUIX/8dqIxRZbPOG4gcikTMo+PM4D9CfaQ==",
-      "type": "package",
-      "path": "reusabletasks/4.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.md",
-        "build/AsyncVoidMethodBuilder.cs",
-        "build/ReusableTasks.targets",
-        "lib/net5.0/ReusableTasks.dll",
-        "lib/net5.0/ReusableTasks.xml",
-        "lib/netcoreapp3.0/ReusableTasks.dll",
-        "lib/netcoreapp3.0/ReusableTasks.xml",
-        "lib/netstandard2.0/ReusableTasks.dll",
-        "lib/netstandard2.0/ReusableTasks.xml",
-        "lib/netstandard2.1/ReusableTasks.dll",
-        "lib/netstandard2.1/ReusableTasks.xml",
-        "reusabletasks.4.0.0.nupkg.sha512",
-        "reusabletasks.nuspec"
       ]
     },
     "System.IO.Pipelines/8.0.0": {
@@ -2618,7 +2562,7 @@
     "net8.0-windows7.0": [
       "HtmlAgilityPack >= 1.11.67",
       "Microsoft.AspNetCore.Components.WebView.WindowsForms >= 8.0.91",
-      "MonoTorrent >= 3.0.3-alpha.unstable.rev0049",
+      "MonoTorrent >= 3.0.0",
       "Newtonsoft.Json >= 13.0.3",
       "craftersmine.SteamGridDB.Net >= 1.1.7"
     ]
@@ -2627,7 +2571,7 @@
     "C:\\Users\\Kirusha\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "1.9.0",
+    "version": "2.0.0",
     "restore": {
       "projectUniqueName": "D:\\C# projects\\Dionysus\\src\\Dionysus.App\\Dionysus.App.csproj",
       "projectName": "Dionysus",
@@ -2675,7 +2619,7 @@
           },
           "MonoTorrent": {
             "target": "Package",
-            "version": "[3.0.3-alpha.unstable.rev0049, )"
+            "version": "[3.0.0, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

@@ -1,5 +1,6 @@
 using System.Net;
 using Dionysus.App.Logger;
+using Dionysus.App.TorrentClient;
 using Dionysus.Web;
 using MonoTorrent;
 
@@ -63,7 +64,7 @@ public class XatabDownloader
 
         if (SettingsPage.AvoidConvertToMagnet)
         {
-            GamesPage.OpenTorrentFile(_filePath);
+            TorrentManager.OpenTorrentFile(_filePath);
             _logger.Log(Logger.LogType.DEBUG, $"File '{_filePath}' skipped converting to magnet.");
         }
         else
@@ -71,7 +72,7 @@ public class XatabDownloader
             var _magnet = ConvertToMagnet(_filePath, _torrentName);
             try
             {
-                GamesPage.OpenTorrentByMagnet(_magnet);
+                TorrentManager.OpenTorrentByMagnet(_magnet);
             }
             catch (Exception e)
             {

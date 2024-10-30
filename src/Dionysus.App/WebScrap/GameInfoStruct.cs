@@ -19,4 +19,5 @@ public struct SearchGameInfoStruct
     public string Source { get; set; }
     public string DownloadLink { get; set; }
     public string Version { get; set; }
+    public string Date { get; set; }
 }

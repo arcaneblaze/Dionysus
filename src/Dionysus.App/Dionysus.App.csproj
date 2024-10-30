@@ -9,15 +9,15 @@
         <AssemblyName>Dionysus</AssemblyName>
         <RootNamespace>Dionysus</RootNamespace>
         <ApplicationIcon>icon.ico</ApplicationIcon>
-        <Version>1.9</Version>
-        <AssemblyVersion>1.9</AssemblyVersion>
+        <Version>2.0</Version>
+        <AssemblyVersion>2.0</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="craftersmine.SteamGridDB.Net" Version="1.1.7" />
       <PackageReference Include="HtmlAgilityPack" Version="1.11.67" />
       <PackageReference Include="Microsoft.AspNetCore.Components.WebView.WindowsForms" Version="8.0.91" />
-      <PackageReference Include="MonoTorrent" Version="3.0.3-alpha.unstable.rev0049" />
+      <PackageReference Include="MonoTorrent" Version="3.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 

@@ -3,8 +3,11 @@
 @using System.Collections
 @using System.Diagnostics
 @using Dionysus.App.Data
+@using Dionysus.App.Helpers
 @using Dionysus.App.Interfaces
 @using Dionysus.App.Logger
+@using Dionysus.App.Models
+@using Dionysus.App.TorrentClient
 @using Dionysus.WebScrap
 @using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
@@ -114,7 +117,7 @@
         color: #89929b;
     }
     .game-list {
-        max-width: 900px;
+        max-width: 730px;
         font-family: "JetBrains Mono", monospace;
         margin: 0 auto;
         user-select: none;
@@ -128,8 +131,8 @@
     .game-item {
         aspect-ratio: 16/9;
         height: auto;
-        min-height: 200px;
-        max-height: 250px;
+        min-height: 260px;
+        max-height: 260px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
@@ -148,7 +151,7 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
     .game-item:hover {
-        transform: translateY(-5px);
+        transform: translateY(-3px);
         box-shadow: 0 0 30px rgba(33,38,45, 0.7);
     }
     .overlay {
@@ -282,7 +285,7 @@
 </style>
 
 
-<h3 >Search games:</h3>
+<h3 style="color:  #c6cdd5;">Search games:</h3>
 <div class="findPanel">
     <input @bind="searchText" placeholder="Type game name..."/>
 
@@ -300,7 +303,7 @@
     }
     else
     {
-        <h3 style="text-align: center; width: 100%; color: #6e6a86; margin-top: 30px; font-family: 'JetBrains Mono', monospace;">@_errorText</h3>
+        <h3 style="text-align: center; width: 100%; color: #21262d; margin-top: 30px; font-family: 'JetBrains Mono', monospace;">@_errorText</h3>
     }
 }
 <div class="game-list">
@@ -319,7 +322,7 @@
 
 
                         <div class="labelContainer2">
-                            <button class="butt fa fa-download" title="Download" @onclick="() => DownloadTypeSelector(game.Link, game.DownloadLink, game.Name)"></button>
+                            <button class="butt fa fa-download" title="Download" @onclick="() => TorrentManager.DownloadTypeSelector(game.Link, game.DownloadLink, game.Name)"></button>
                             <button class="butt fa fa-plus" title="Add to library" @onclick="() => AddGameToLib(game.Name)"></button>
                         </div>
                         <div class="labelContainer">
@@ -332,6 +335,10 @@
                             @if (!string.IsNullOrEmpty(game.Version) && SettingsPage.ShowGameVersion)
                             {
                                 <label class="linkText" title="Version"><i class="fa-solid fa-circle-info"></i> @game.Version</label>
+                            }
+                            @if (!string.IsNullOrEmpty(game.Date) && SettingsPage.ShowPostDate)
+                            {
+                                <label class="linkText"><i class="fa-solid fa-calendar-days"></i> @game.Date</label>
                             }
                             @if (SettingsPage.ShowLinkButton)
                             {
@@ -360,23 +367,6 @@
         new FitGirlSearcher()
     };
     
-    private void DownloadTypeSelector(string _gameLink, string _downloadLink, string _title)
-    {
-        if (_downloadLink.StartsWith("magnet:")) OpenTorrentByMagnet(_downloadLink);
-        else DownloadTorrentFile(_gameLink);
-    } 
-    
-    public static void OpenTorrentByMagnet(string _magnet)
-    {
-        var _startInfo = new ProcessStartInfo
-        {
-            FileName = _magnet,
-            UseShellExecute = true
-        };
-
-        Process.Start(_startInfo);
-    }
-
     private async Task Search()
     {
         var foundGames = new List<SearchGameInfoStruct>();
@@ -384,7 +374,7 @@
         _games = null;
         _errorText = "Wait...";
         StateHasChanged();
-
+        
         var searchTasks = _searchers.Select(async searcher =>
         {
             try
@@ -463,18 +453,5 @@
         }
     }
     
-    private async void DownloadTorrentFile(string url)
-    {
-        XatabDownloader.DonwloadFile(url);
-    }
-    
-    public static void OpenTorrentFile(string path)
-    {
-        using Process fileopener = new Process();
-
-        fileopener.StartInfo.FileName = "C:\\Program Files\\qBittorrent\\qbittorrent.exe";
-        fileopener.StartInfo.Arguments = $"\"{path}\"";
-        fileopener.StartInfo.UseShellExecute = true;
-        fileopener.Start();
-    }
+   
 }

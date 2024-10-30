@@ -9,15 +9,25 @@ namespace Dionysus.WebScrap.XatabScrapper;
 
 public class Xatab
 {
-    private static string _baseLink = "https://byxatab.com";
-    private static readonly HttpClientHandler _handler = new HttpClientHandler()
-    {
-        UseCookies = true,
-        CookieContainer = new CookieContainer()
-    };
-    private static readonly HttpClient _httpClient = new HttpClient(_handler);
-    private static Logger _logger = new();
+    private static readonly string _baseLink = "https://byxatab.com";
+    private static readonly HttpClient _httpClient;
+    private static readonly Logger _logger = new();
     
+    static Xatab()
+    {
+        var handler = new HttpClientHandler
+        {
+            UseCookies = true,
+            CookieContainer = new CookieContainer(),
+            AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+        };
+        _httpClient = new HttpClient(handler)
+        {
+            Timeout = TimeSpan.FromSeconds(30)
+        };
+        _httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate");
+    }
+
     public static async Task<bool> GetStatus()
     {
         try
@@ -41,117 +51,152 @@ public class Xatab
         }
     }
 
-    public static async Task<IEnumerable<SearchGameInfoStruct>> GetSearchResponse(string _request)
+    public static async Task<IEnumerable<SearchGameInfoStruct>> GetSearchResponse(string request)
     {
-        var _siteLink = $"{_baseLink}/search/{_request}";
-        var _responseList = new List<SearchGameInfoStruct>();
-
+        var responseList = new List<SearchGameInfoStruct>();
+        
         try
         {
-            var _html = await _httpClient.GetStringAsync(_siteLink);
-            var _htmlDocument = new HtmlAgilityPack.HtmlDocument();
-            _htmlDocument.LoadHtml(_html);
+            var initialLink = $"{_baseLink}/search/{request}";
+            var initialHtml = await _httpClient.GetStringAsync(initialLink);
+            var initialDocument = new HtmlAgilityPack.HtmlDocument();
+            initialDocument.LoadHtml(initialHtml);
 
-            var _responseDivs =
-                _htmlDocument.DocumentNode.SelectNodes("//div[@class='entry']");
+            var pageLinks = initialDocument.DocumentNode.SelectNodes("//div[@class='pages']//a");
+            int pageCount = pageLinks?.Select(link => int.Parse(link.InnerText)).Max() ?? 1;
 
-            foreach (var _div in _responseDivs)
+            var tasks = new List<Task<List<SearchGameInfoStruct>>>();
+            for (int page = 0; page <= pageCount; page++)
             {
-                var _titleNode = _div.SelectSingleNode(".//div[@class='entry__title h2']/a");
-                var _gameLink = _titleNode.Attributes["href"].Value;
-                var _title = _titleNode.InnerText.Trim();
-                if(_title.Contains("Decepticon") || _title == null) continue;
-
-                var (_downloadLink, _size, _version) = await GetDataFromLink(_gameLink);
-                
-                var rephrasedName = NormalizeName(_title);
-                
-                if (IsGameMatch(rephrasedName, _request))
-                {
-                    _responseList.Add(new SearchGameInfoStruct()
-                    {
-                        Cover = await SteamGridDB.GetGridUri(rephrasedName),
-                        Name = _title.Replace("&#039;","'"),
-                        Link = _gameLink,
-                        Size = _size.Replace("Гб", "GB").Replace("гб","GB"),
-                        DownloadLink = _downloadLink,
-                        Version = _version
-                    });   
-                }
+                tasks.Add(ProcessPage(page, request));
             }
-            
-            async Task<(string _downloadLink, string _size, string _version)> GetDataFromLink(string _link)
-            {
-                var _html = await _httpClient.GetStringAsync(_link);
-                var _htmlDocument = new HtmlAgilityPack.HtmlDocument();
-                _htmlDocument.LoadHtml(_html);
-                
-                
-                string _downloadLink = String.Empty;
-                try
-                {
-                    
-                    var downloadLinkNode = _htmlDocument.DocumentNode.SelectSingleNode("//a[contains(@class, 'download-torrent')]");
-                    if (downloadLinkNode != null)
-                    {
-                        _downloadLink = downloadLinkNode.GetAttributeValue("href", "");
-                    }
-                    else
-                    {
-                        _logger.Log(Logger.LogType.ERROR,"Download link not founded.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.Log(Logger.LogType.ERROR,ex.Message);
-                }
 
-                var versionNode = _htmlDocument.DocumentNode.SelectSingleNode("//b[contains(text(), 'Версия игры')]");
-                string _version = string.Empty;
-                if (versionNode != null)
-                {
-                    _version = versionNode.InnerText.Replace("Версия игры: ", "").Replace("&nbsp;", " ").Trim();
-                }
-                else
-                {
-                    versionNode = _htmlDocument.DocumentNode.SelectSingleNode("//span[contains(text(), 'Версия игры')]");
-    
-                    if (versionNode != null)
-                    {
-                        _version = versionNode.InnerText.Replace("Версия игры: ", "").Replace("&nbsp;", " ").Trim();
-                    }
-                    else
-                    {
-                        versionNode = _htmlDocument.DocumentNode.SelectSingleNode("//div[contains(@class, 'inner-entry__content-text')]/span");
-                        if (versionNode != null)
-                        {
-                            _version = versionNode.InnerText.Replace("- Версия игры: ", "").Replace("&nbsp;", " ").Trim();
-                        }
-                        else
-                        {
-                            _logger.Log(Logger.LogType.ERROR,"Version not founded.");
-                        }
-                    }
-                }
-                var _size = _htmlDocument.DocumentNode.SelectSingleNode("//span[@class='entry__info-size']").InnerText
-                    .Trim();
-
-                string versionPattern = @"(\d+\.\d+|\d+)";
-                Match match = Regex.Match(_version, @"\d+(\.\d+)+");
-                
-                return (_downloadLink, _size, match.Value);
-            }
+            var results = await Task.WhenAll(tasks);
+            return results.SelectMany(x => x).Where(x => x.Name != null);
         }
         catch (Exception e)
         {
-            _logger.Log(Logger.LogType.ERROR,e.Message);
+            _logger.Log(Logger.LogType.ERROR, e.Message);
             throw;
         }
-
-        return _responseList;
     }
-    
-    
+
+    private static async Task<List<SearchGameInfoStruct>> ProcessPage(int page, string request)
+    {
+        var pageResults = new List<SearchGameInfoStruct>();
+        try
+        {
+            var siteLink = $"{_baseLink}/search/{request}/page/{page}";
+            var html = await _httpClient.GetStringAsync(siteLink);
+            var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            htmlDocument.LoadHtml(html);
+
+            var responseDivs = htmlDocument.DocumentNode.SelectNodes("//div[@class='entry']");
+            if (responseDivs == null) return pageResults;
+
+            var gameTasks = responseDivs.Select(div => ProcessGameEntry(div, request));
+            var games = await Task.WhenAll(gameTasks);
+            
+            pageResults.AddRange(games.Where(entry => entry.Name != null));
+        }
+        catch (Exception ex)
+        {
+            _logger.Log(Logger.LogType.ERROR, $"Error processing page {page}: {ex.Message}");
+        }
+        return pageResults;
+    }
+
+    private static async Task<SearchGameInfoStruct> ProcessGameEntry(HtmlAgilityPack.HtmlNode div, string request)
+    {
+        try
+        {
+            var titleNode = div.SelectSingleNode(".//div[@class='entry__title h2']/a");
+            if (titleNode == null) return new SearchGameInfoStruct();
+
+            var gameLink = titleNode.Attributes["href"]?.Value;
+            var title = titleNode.InnerText?.Trim();
+            
+            if (string.IsNullOrEmpty(gameLink) || string.IsNullOrEmpty(title) || title.Contains("Decepticon"))
+                return new SearchGameInfoStruct();
+
+            var rephrasedName = NormalizeName(title);
+            if (!IsGameMatch(rephrasedName, request)) return new SearchGameInfoStruct();
+
+            var gameDataTask = GetDataFromLink(gameLink);
+            var coverTask = SteamGridDB.GetGridUri(rephrasedName);
+
+            await Task.WhenAll(gameDataTask, coverTask);
+            var (downloadLink, size, version) = gameDataTask.Result;
+
+            var _date = div.SelectSingleNode(".//div[3]/div").InnerText.Split(",")[0].Trim();
+            
+            return new SearchGameInfoStruct
+            {
+                Cover = coverTask.Result,
+                Name = title.Replace("&#039;", "'")
+                    .Replace("Папка игры", "Game folder")
+                    .Replace("Лицензия", "License"),
+                Link = gameLink,
+                Size = size.Replace("Гб", "GB").Replace("гб", "GB"),
+                DownloadLink = downloadLink,
+                Version = version,
+                Date = _date.Replace("-","/").Replace("Вчера", "Yesterday").Replace("Сегодня", "Today")
+            };
+        }
+        catch (Exception ex)
+        {
+            _logger.Log(Logger.LogType.ERROR, $"Error processing game entry: {ex.Message}");
+            return new SearchGameInfoStruct();
+        }
+    }
+
+    private static async Task<(string downloadLink, string size, string version)> GetDataFromLink(string link)
+    {
+        var html = await _httpClient.GetStringAsync(link);
+        var htmlDocument = new HtmlAgilityPack.HtmlDocument();
+        htmlDocument.LoadHtml(html);
+
+        var downloadLink = htmlDocument.DocumentNode
+            .SelectSingleNode("//a[contains(@class, 'download-torrent')]")?
+            .GetAttributeValue("href", string.Empty) ?? string.Empty;
+
+        var size = htmlDocument.DocumentNode
+            .SelectSingleNode("//span[@class='entry__info-size']")?
+            .InnerText.Trim() ?? string.Empty;
+
+        var version = ExtractVersion(htmlDocument);
+
+        return (downloadLink, size, version);
+    }
+
+    private static string ExtractVersion(HtmlAgilityPack.HtmlDocument doc)
+    {
+        var versionPaths = new[]
+        {
+            "//b[contains(text(), 'Версия игры')]",
+            "//span[contains(text(), 'Версия игры')]",
+            "//div[contains(@class, 'inner-entry__content-text')]/span"
+        };
+
+        foreach (var xpath in versionPaths)
+        {
+            var node = doc.DocumentNode.SelectSingleNode(xpath);
+            if (node != null)
+            {
+                var version = node.InnerText
+                    .Replace("Версия игры: ", "")
+                    .Replace("- Версия игры: ", "")
+                    .Replace("&nbsp;", " ")
+                    .Trim();
+
+                var match = Regex.Match(version, @"\d+(\.\d+)+");
+                if (match.Success)
+                    return match.Value;
+            }
+        }
+        return string.Empty;
+    }
+
     private static bool IsGameMatch(string gameName, string searchQuery)
     {
         string NormalizeForComparison(string input)
@@ -159,9 +204,7 @@ public class Xatab
             if (string.IsNullOrWhiteSpace(input)) return string.Empty;
             
             input = input.ToLower().Trim();
-            
             input = Regex.Replace(input, @"[^\w\s]", " ");
-            
             input = Regex.Replace(input, @"\s+", " ");
             
             var commonWords = new[] { "repack", "goty", "edition", "complete", "collection" };
@@ -189,19 +232,18 @@ public class Xatab
     private static string NormalizeName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-        {
-            return string.Empty; 
-        }
+            return string.Empty;
         
         var normalized = name
             .Replace("#8211;", " - ")
             .Replace("&#8211;", " - ")
             .Replace("&nbsp;", " ")
             .Replace("&amp;", " & ")
-            .Replace("#038;", " & ");
+            .Replace("#038;", " & ")
+            .Replace("&#8217;", "'")
+            .Replace("&#039;", "'");
         
         normalized = Regex.Replace(normalized, @"\s+", " ");
-
         return normalized;
     }
 }

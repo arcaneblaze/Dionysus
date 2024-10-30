@@ -23,7 +23,7 @@ public partial class MainWindow : Form
             Application.Exit(); 
             Close();
         }
-        
+
         InitializeComponent();
 
         this.BackColor = ColorTranslator.FromHtml("#191724");
@@ -48,12 +48,15 @@ public partial class MainWindow : Form
         _notifyIcon.Icon = new Icon(iconPath);
         _notifyIcon.Text = "Dionysus";
         _notifyIcon.ContextMenuStrip = _trayContextMenu;
-        _notifyIcon.DoubleClick += (sender, args) =>
+        _notifyIcon.Click += (sender, args) =>
         {
-            BringToFront();
-            WindowState = FormWindowState.Normal;
-            ShowInTaskbar = true;
-            Show();
+            if (args is MouseEventArgs mouseArgs && mouseArgs.Button == MouseButtons.Left)
+            {
+                BringToFront();
+                WindowState = FormWindowState.Normal;
+                ShowInTaskbar = true;
+                Show();   
+            }
         };
         var openMenuItem = new ToolStripMenuItem("Open");
         openMenuItem.Click += (sender, args) =>
@@ -63,6 +66,7 @@ public partial class MainWindow : Form
             WindowsHelper.SetMicaTitleBar(Handle);
             ShowInTaskbar = true;
             Show();
+
         };
         var exitMenuItem = new ToolStripMenuItem("Exit");
         exitMenuItem.Click += (sender, args) =>
@@ -81,11 +85,6 @@ public partial class MainWindow : Form
             if (!_isExiting)
             {
                 e.Cancel = true;
-                _notifyIcon.BalloonTipTitle = "Dionysus";
-                _notifyIcon.BalloonTipText = "The program was minimized to tray";
-                _notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
-                _notifyIcon.ShowBalloonTip(5000);
-
                 ShowInTaskbar = false;
                 Hide();
                 AppHelper.HideFromAltTab(Handle);
@@ -96,7 +95,8 @@ public partial class MainWindow : Form
                 _notifyIcon.Visible = false; 
             }
         };
-        
+        this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+        ProfileData.InitializeProfileData();
         SettingsPage.InitializeSettings();
     }
 }

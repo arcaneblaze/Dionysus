@@ -6,7 +6,6 @@ namespace Dionysus.App.Data;
 public class SettingsData
 {
     private static string _jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/settings.json");
-    
     public static async Task SaveToJSON(List<SettingsModel> settings)
     {
         var directory = Path.GetDirectoryName(_jsonPath);
