@@ -1,0 +1,36 @@
+{
+  "Settings": [
+    {
+      "SettingName": "AddToStartup",
+      "Value": false
+    },
+    {
+      "SettingName": "ShowGameTitle",
+      "Value": true
+    },
+    {
+      "SettingName": "ShowAddButton",
+      "Value": false
+    },
+    {
+      "SettingName": "AutoBackup",
+      "Value": true
+    },
+    {
+      "SettingName": "ShowLinkButton",
+      "Value": false
+    },
+    {
+      "SettingName": "ShowGameVersion",
+      "Value": false
+    },
+    {
+      "SettingName": "ShowPostDate",
+      "Value": true
+    },
+    {
+      "SettingName": "AvoidConvertToMagnet",
+      "Value": false
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "Id": 1,
+    "Title": "Days Gone",
+    "TimeInfo": "59h 7m",
+    "ImageUrl": "https://cdn2.steamgriddb.com/grid/700bf456edd9da42b0c85636ef95f877.png",
+    "Location": "D:\\Games\\Days Gone\\BendGame\\Binaries\\Win64\\DaysGone.exe",
+    "Arguments": "-force-d3d11",
+    "LastRun": "31.10.2024"
+  },
+  {
+    "Id": 9,
+    "Title": "Dying Light",
+    "TimeInfo": "67h 3m",
+    "ImageUrl": "https://cdn2.steamgriddb.com/grid/d7e599c5a4cc0aa78cfae5f6e2459574.jpg",
+    "Location": "D:\\SteamLibrary\\steamapps\\common\\Dying Light\\DyingLightGame.exe",
+    "Arguments": "-nologos",
+    "LastRun": "31.10.2024"
+  }
+]

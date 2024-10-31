@@ -76,7 +76,7 @@ public class GOG
                         Cover = await SteamGridDB.GetGridUri(_rephrasedName),
                         Name = _rephrasedName,
                         Link = _link,
-                        Size = size.Replace("Size: ", "").Replace("GiB", "GB"),
+                        Size = size.StartsWith("Note:") ? null : size.Replace("Size: ", "").Replace("GiB", "GB"),
                         DownloadLink = _downloadLink
                     });
                 }

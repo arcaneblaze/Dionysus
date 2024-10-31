@@ -8,4 +8,5 @@ public class GameModel
     public string ImageUrl { get; set; }
     public string Location { get; set; }
     public string Arguments { get; set; }
+    public string LastRun { get; set; }
 }

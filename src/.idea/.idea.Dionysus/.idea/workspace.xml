@@ -81,7 +81,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Publish to folder.Publish Dionysus.App">
+  <component name="RunManager" selected=".NET Project.Dionysus.App">
     <configuration name="Publish Dionysus.App Linux" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" platform="Any CPU" runtime="linux-x64" target_folder="$PROJECT_DIR$/Dionysus.App/bin/Release/net8.0-windows/linux-x64/publish" target_framework="net8.0-windows" uuid_high="7579811375487142298" uuid_low="-4788345561438972974" />
       <method v="2" />

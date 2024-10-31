@@ -1,21 +1,17 @@
 @page "/"
-
 @using System.Diagnostics
 @using System.Text.RegularExpressions
 @using Dionysus.App.Data
-@using Dionysus.App.Forms
 @using Dionysus.App.Helpers
 @using Dionysus.App.Logger
 @using Dionysus.App.Models
-@using Dionysus.App.Web
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
 
 
 <style>
-    @@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
     
     html, body {
         padding: 100px;
@@ -94,7 +90,8 @@
     .overlay2 {
         position: absolute;
         inset: 0;
-        background: rgba(13, 17, 23, 0.15);
+        border: 1px solid #32362d;
+        background: rgba(13, 17, 23, 0.2);
         border-radius: 20px;
     }
     
@@ -482,6 +479,13 @@
                 {
                     <label class="playtime-label"><i class="fa-solid fa-triangle-exclamation"></i> Archived game</label>
                 }
+                @if (!string.IsNullOrEmpty(game.LastRun))
+                {
+                    <label class="playtime-label">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        @(DateTime.Parse(game.LastRun).ToString("dd/MM/yyyy").Replace(".", "/"))
+                    </label>   
+                }
             </div>
             
             <div class="button-container">
@@ -759,7 +763,9 @@
                         _logger.Log(Logger.LogType.DEBUG, $"{_game.runningGame.Title} running");
                         _currentRunningGame = _game.runningGame;
                         _currentGameId = _game.runningGame.Id;
-
+                        
+                        _game.runningGame.LastRun = DateTime.Now.ToString("dd/MM/yyyy");
+                        
                         if (!GamesMonitor.isCounting)
                         {
                             GamesMonitor.isCounting = true;
@@ -778,8 +784,9 @@
                         _currentRunningGame = null;
 
                         GamesMonitor.isCounting = false;
-
+                        
                         if (SettingsPage.AutoBackup) await Backup.MakeBackupAsync();
+                        await InvokeAsync(StateHasChanged);
                         delay = 10000;
                     }
                     await InvokeAsync(StateHasChanged);
