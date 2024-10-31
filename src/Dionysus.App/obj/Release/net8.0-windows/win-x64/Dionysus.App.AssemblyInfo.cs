@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dionysus")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("2.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0+20164910a13d70b3608113fb8c50b2f9b5245491")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0+728fa8760e0a19abfb69ee1d68b72d626aabd1d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dionysus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dionysus")]
 [assembly: System.Reflection.AssemblyVersionAttribute("2.0")]

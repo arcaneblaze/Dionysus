@@ -7,7 +7,7 @@
   "targets": {
     ".NETCoreApp,Version=v8.0": {},
     ".NETCoreApp,Version=v8.0/win-x64": {
-      "Dionysus/2.1": {
+      "Dionysus/2.0": {
         "dependencies": {
           "HtmlAgilityPack": "1.11.67",
           "Microsoft.AspNetCore.Components.WebView.WindowsForms": "8.0.91",
@@ -422,7 +422,7 @@
     }
   },
   "libraries": {
-    "Dionysus/2.1": {
+    "Dionysus/2.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
