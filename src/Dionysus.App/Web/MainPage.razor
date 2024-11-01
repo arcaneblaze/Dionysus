@@ -475,16 +475,16 @@
             
             <div class="labelContainer">
                 <label class="playtime-label"><i class="fa-regular fa-clock"></i> @game.TimeInfo</label>
-                @if (GamesMonitor.GameIsDeletedFromDesktop(game))
-                {
-                    <label class="playtime-label"><i class="fa-solid fa-triangle-exclamation"></i> Archived game</label>
-                }
                 @if (!string.IsNullOrEmpty(game.LastRun))
                 {
                     <label class="playtime-label">
                         <i class="fa-solid fa-calendar-days"></i>
                         @(DateTime.Parse(game.LastRun).ToString("dd/MM/yyyy").Replace(".", "/"))
                     </label>   
+                }
+                @if (GamesMonitor.GameIsDeletedFromDesktop(game))
+                {
+                    <label class="playtime-label"><i class="fa-solid fa-triangle-exclamation"></i> Archived game</label>
                 }
             </div>
             
@@ -572,8 +572,15 @@
     
     public static TimeSpan ParseTimeInfo(string timeInfo)
     {
-        var hours = 0;
-        var minutes = 0;
+        if (string.IsNullOrWhiteSpace(timeInfo))
+        {
+            return TimeSpan.Zero;
+        }
+
+        timeInfo = timeInfo.Trim();
+    
+        int hours = 0;
+        int minutes = 0;
 
         var hourMatch = Regex.Match(timeInfo, @"(\d+)h");
         if (hourMatch.Success)

@@ -62,12 +62,13 @@ public class ProfileData
     public static TimeSpan GetTotalPlayTime()
     {
         TimeSpan totalPlayTime = TimeSpan.Zero;
-    
+
         foreach (var game in MainPage._gamesList)
         {
-            totalPlayTime += MainPage.ParseTimeInfo(game.TimeInfo);
+            var gameTime = MainPage.ParseTimeInfo(game.TimeInfo);
+            totalPlayTime = totalPlayTime.Add(gameTime);
         }
-    
+
         return totalPlayTime;
     }
     
