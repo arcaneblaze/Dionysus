@@ -1,0 +1,281 @@
+/*search*/
+.gamesPage_searchPanel {
+    font-family: "JetBrains Mono", monospace;
+    user-select: none;
+    background-color: var(--backgroundColor);
+    -ms-overflow-style: none;
+    padding-top: 35px;
+    scrollbar-width: none;
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+.gamesPage_input {
+    border-radius: var(--borderRadius);
+    font-family: "JetBrains Mono", monospace;
+    width: 70%;
+    padding: 10px;
+    padding-left: 18px;
+    margin-right: 10px;
+    border-style: solid;
+    max-width: 500px;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.6s ease-in-out;
+}
+.gamesPage_input:focus{
+    outline: var(--borderColor) 0.3px solid;
+}
+.gamesPage_input::placeholder{
+    color: var(--placeholderColor);
+}
+.gamesPage_searchButton{
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    height: 40px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+.gamesPage_searchButton:hover{
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.03);
+    cursor: pointer;
+}
+.gamesPage_searchButton:active{
+    transform: scale(0.97);
+}
+
+.gamesPage_loader-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.gamesPage_loaderAnimation{
+    width: 35px;
+    aspect-ratio: 1;
+    border: 3px solid var(--borderColor);
+    animation: loaderAnim 2s infinite;
+}
+@keyframes loaderAnim {
+    0%   {border-radius:50% 50% 0   0  }
+    25%  {border-radius:0   50% 50% 0  }
+    50%  {border-radius:0   0   50% 50%}
+    75%  {border-radius:50% 0   0   50%}
+    100% {border-radius:50% 50% 0   0  }
+}
+
+.gamesPage_errorText{
+    text-align: center;
+    width: 100%;
+    color: var(--foregroundColor);
+    margin-top: 30px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+
+/*games list*/
+.gamesPage_game-list {
+    max-width: 730px;
+    font-family: "JetBrains Mono", monospace;
+    margin: 0 auto;
+    user-select: none;
+    background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.gamesPage_game-item {
+    aspect-ratio: 16/9;
+    height: auto;
+    min-height: 260px;
+    max-height: 260px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background-color: var(--headerColor);
+    border-radius: var(--bgImageborderRadius);
+    border: 1px solid var(--borderColor);
+    padding-left: 15px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    position: relative;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.gamesPage_game-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(41, 41, 41, 0.5);
+}
+
+.gamesPage_gameName{
+    word-wrap: break-word;
+    text-align: left;
+    font-size: 20px;
+    max-height: 45px;
+    z-index: 100;
+}
+
+.gamesPage_button {
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    padding: 0;
+    height: 35px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 100;
+}
+
+.gamesPage_game-info {
+    font-family: "JetBrains Mono", monospace;
+    z-index: 2;
+    color: var(--foregroundColor);
+    font-size: 1.1em;
+    margin-bottom: -5px;
+}
+
+.gamesPage_button:hover{
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.03);
+    cursor: pointer;
+}
+.gamesPage_button:active{
+    transform: scale(0.97);
+}
+.gamesPage_topRightContainer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+.gamesPage_topLeftContainer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.gamesPage_topLeftContainerFirstElement{
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--foregroundColor);
+    background-color: var(--headerColor);
+    border-color: var(--borderColor);
+    border-style: solid;
+    border-width: 0.2px;
+    padding: 8px 12px;
+    border-radius: var(--borderRadius);
+    display: inline-block;
+    margin-right: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.gamesPage_topLeftContainerSecondElement  {
+    font-size: 13px;
+    font-weight: normal;
+    color: var(--foregroundColor);
+    background-color: var(--headerColor);
+    border-color: var(--borderColor);
+    border-style: solid;
+    border-width: 0.2px;
+    padding: 8px 12px;
+    border-radius: var(--borderRadius);
+    display: inline-block;
+    margin-right: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.gamesPage_topLeftContainerButtonElement{
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--foregroundColor);
+    background-color: var(--headerColor);
+    border-color: var(--borderColor);
+    border-style: solid;
+    border-width: 0.2px;
+    padding: 8px 12px;
+    border-radius: var(--borderRadius);
+    display: inline-block;
+    margin-right: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease-in-out;
+}
+.gamesPage_topLeftContainerButtonElement:hover{
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.05);
+    cursor: pointer;
+}
+.gamesPage_topLeftContainerButtonElement:active{
+    transform: scale(0.97);
+}
+
+.gamesPage_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            180deg,
+            rgba(var(--bgImageOverlayColor), 0.1) 0%,
+            rgba(var(--bgImageOverlayColor), 0.2) 25%,
+            rgba(var(--bgImageOverlayColor), 0.5) 50%,
+            rgba(var(--bgImageOverlayColor), 0.8) 75%,
+            rgba(var(--bgImageOverlayColor), 1) 100%
+    );
+    border-radius: var(--borderRadius);
+    z-index: 1;
+}
+
+
+img {
+    user-drag: none;
+    -webkit-user-drag: none;
+    -moz-user-select: none;
+}
+
+h3{
+    font-family: "JetBrains Mono", monospace;
+    text-align: center;
+    width: 100%;
+}
+
+
+

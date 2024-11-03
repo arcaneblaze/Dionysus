@@ -15,281 +15,13 @@
 @inject NavigationManager NavigationManager
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
 
-<!--style block-->
-<style>
-    @@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-    
-    .findPanel {
-        font-family: "JetBrains Mono", monospace;
-        user-select: none;
-        background-color: #0d1117;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        text-align: center;
-    }
-    a, .btn-link {
-        color: #0071c1;
-    }
-    .searchButt{
-        background-color: #161b22;
-        color: #c6cdd5;
-        border-radius: 20px;
-        border-style: solid;
-        border-color: #32362d;
-        border-width: 0.2px;
-        height: 40px;
-        width: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 5px;
-        font-size: 12px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        transition: background-color 0.3s, transform 0.3s;
-    }
-    .searchButt:hover{
-        background-color: #0d1117;
-        transform: scale(1.03);
-        cursor: pointer;
-    }
-    .searchButt:active{
-        transform: scale(0.97);
-    }
-    input::placeholder {
-        color: #89929b;
-    }
-    .butt {
-        background-color: #161b22;
-        color: #c6cdd5;
-        border-radius: 20px;
-        border-style: solid;
-        border-color: #32362d;
-        border-width: 0.2px;
-        padding: 0; 
-        height: 35px;
-        width: 60px; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center;
-        margin-left: 5px;
-        font-size: 12px;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        transition: background-color 0.3s, transform 0.3s;
-    }
-    .butt:hover{
-        background-color: #0d1117;
-        transform: scale(1.03);
-        cursor: pointer;
-    }
-    .butt:active{
-        transform: scale(0.97);
-    }
-    input {
-        border-radius: 20px;
-        font-family: "JetBrains Mono", monospace;
-        width: 70%;
-        padding: 10px;
-        padding-left: 18px;
-        margin-right: 10px;
-        border-style: solid;
-        max-width: 500px;
-        border-color: #32362d;
-        border-width: 0.2px;
-        background-color: #161b22;
-        color: #c6cdd5;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        transition: all 0.6s ease-in-out;
-    }
-    input:focus,
-    textarea:focus{
-        outline: #32362d 0.3px solid;
-    }
-    input::placeholder{
-        color: #89929b;
-    }
-    .game-list {
-        max-width: 730px;
-        font-family: "JetBrains Mono", monospace;
-        margin: 0 auto;
-        user-select: none;
-        background-color: #0d1117;
-        color: white;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    .game-item {
-        aspect-ratio: 16/9;
-        height: auto;
-        min-height: 260px;
-        max-height: 260px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: flex-start;
-        background-color: #1f1d2e;
-        border-radius: 20px;
-        border: 0.2px solid #32362d;
-        padding-left: 15px;
-        padding-bottom: 10px;
-        margin-top: 10px;
-        position: relative;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-    .game-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 0 30px rgba(33,38,45, 0.7);
-    }
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-            180deg,
-            rgba(13, 17, 23, 0.3) 0%,
-            rgba(13, 17, 23, 0.6) 25%,
-            rgba(13, 17, 23, 0.8) 50%,
-            rgba(13, 17, 23, 0.9) 75%,
-            rgba(13, 17, 23, 1) 100%
-        );
-        border-radius: 19px;
-        z-index: 1;
-    }
+<div class="gamesPage_searchPanel">
+    <input class="gamesPage_input" @bind="searchText" placeholder="Type game name..."/>
 
-    .game-info {
-        font-family: "JetBrains Mono", monospace;
-        z-index: 2;
-        color: #c6cdd5;
-        font-size: 1.1em;
-        margin-bottom: -5px;
-    }
-    img {
-        user-drag: none;
-        -webkit-user-drag: none;
-        -moz-user-select: none;
-    }
-    .linkText  {
-        font-size: 13px;
-        font-weight: normal;
-        color: #c6cdd5;
-        background-color: #161b22;
-        border-color: #32362d;
-        border-style: solid;
-        border-width: 0.2px;
-        padding: 8px 12px;
-        border-radius: 20px;
-        display: inline-block;
-        margin-right: 5px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-    h3{
-        font-family: "JetBrains Mono", monospace;
-        text-align: center;
-        width: 100%;
-    }
-    .labelContainer2 {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        display: flex;
-        align-items: center;
-    }
-    
-    .labelContainer {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        display: flex;
-        align-items: center;
-    }
-    .sizeLabel {
-        font-size: 13px;
-        font-weight: normal;
-        color: #c6cdd5;
-        background-color: #161b22;
-        border-color: #32362d;
-        border-style: solid;
-        border-width: 0.2px;
-        padding: 8px 12px;
-        border-radius: 20px;
-        display: inline-block;
-        margin-right: 5px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .buttLink{
-        font-size: 16px;
-        font-weight: normal;
-        color: #c6cdd5;
-        background-color: #161b22;
-        border-color: #32362d;
-        border-style: solid;
-        border-width: 0.2px;
-        padding: 8px 12px;
-        border-radius: 20px;
-        display: inline-block;
-        margin-right: 5px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        transition: all 0.2s ease-in-out;
-    }
-    .buttLink:hover{
-        background-color: #0d1117;
-        transform: scale(1.05);
-        cursor: pointer;
-    }
-    .buttLink:active{
-        transform: scale(0.97);
-    }
-
-
-
-    .loader-containerx {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 30px;
-    }
-    
-    .loader {
-        width: 35px;
-        aspect-ratio: 1;
-        border: 3px solid #161b22;
-        animation: l1 2s infinite;
-    }
-    @@keyframes l1 {
-        0%   {border-radius:50% 50% 0   0  }
-        25%  {border-radius:0   50% 50% 0  }
-        50%  {border-radius:0   0   50% 50%}
-        75%  {border-radius:50% 0   0   50%}
-        100% {border-radius:50% 50% 0   0  }
-    }
-
-</style>
-
-
-<h3 style="color:  #c6cdd5;">Search games:</h3>
-<div class="findPanel">
-    <input @bind="searchText" placeholder="Type game name..."/>
-
-    <button @onclick="Search" class="searchButt fa fa-magnifying-glass"></button>
+    <button @onclick="Search" class="gamesPage_searchButton fa fa-magnifying-glass"></button>
 </div>
 
 @if (!string.IsNullOrWhiteSpace(_errorText))
@@ -297,13 +29,13 @@
    
     @if (_errorText == "Wait...")
     {
-        <div class="loader-containerx">
-            <div class="loader"></div>
+        <div class="gamesPage_loader-container">
+            <div class="gamesPage_loaderAnimation"></div>
         </div>
     }
     else
     {
-        <h3 style="text-align: center; width: 100%; color: #21262d; margin-top: 30px; font-family: 'JetBrains Mono', monospace;">@_errorText</h3>
+        <h3 class="gamesPage_errorText">@_errorText</h3>
     }
 }
 <div class="game-list">
@@ -313,36 +45,38 @@
         {
             @if (!string.IsNullOrEmpty(game.Size))
             {
-                <div class="game-item" style="background-image: url('@game.Cover');">
-                    <div class="overlay"></div>
-                    <div class="game-info">
-                        <h3 style="word-wrap: break-word; text-align: left; font-size: 20px; max-height: 45px">
+                <div class="gamesPage_game-item" style="background-image: url('@game.Cover');">
+                    <div class="gamesPage_overlay"></div>
+                    <div class="gamesPage_game-info">
+                        <h3 class="gamesPage_gameName">
                             @game.Name
                         </h3>
 
 
-                        <div class="labelContainer2">
-                            <button class="butt fa fa-download" title="Download" @onclick="() => TorrentManager.DownloadTypeSelector(game.Link, game.DownloadLink, game.Name)"></button>
-                            <button class="butt fa fa-plus" title="Add to library" @onclick="() => AddGameToLib(game.Name)"></button>
+                        <div class="gamesPage_topRightContainer">
+                            <button class="gamesPage_button fa fa-download" title="Download" @onclick="() => TorrentManager.DownloadTypeSelector(game.Link, game.DownloadLink, game.Name)"></button>
+                            <button class="gamesPage_button fa fa-plus" title="Add to library" @onclick="() => AddGameToLib(game.Name)"></button>
                         </div>
-                        <div class="labelContainer">
-                            <label class="sizeLabel"><i class="fa-regular fa-file-zipper"></i> @game.Size</label>
-                            <label class="linkText"><i class="fa-solid fa-user"></i> @game.Source</label>
+                        <div class="gamesPage_topLeftContainer">
+                            <label class="gamesPage_topLeftContainerFirstElement"><i class="fa-regular fa-file-zipper"></i> @game.Size</label>
+                            <label class="gamesPage_topLeftContainerSecondElement"><i class="fa-solid fa-user"></i> @game.Source</label>
                             @if (!string.IsNullOrEmpty(game.Uploader))
                             {
-                                <label class="linkText" title="Uploader"><i class="fa-solid fa-upload"></i> @game.Uploader</label>
+                                <label class="gamesPage_topLeftContainerSecondElement" title="Uploader"><i class="fa-solid fa-upload"></i> @game.Uploader</label>
                             }
                             @if (!string.IsNullOrEmpty(game.Version) && SettingsPage.ShowGameVersion)
                             {
-                                <label class="linkText" title="Version"><i class="fa-solid fa-circle-info"></i> @game.Version</label>
+                                <label class="gamesPage_topLeftContainerSecondElement" title="Version"><i class="fa-solid fa-circle-info"></i> @game.Version</label>
                             }
                             @if (!string.IsNullOrEmpty(game.Date) && SettingsPage.ShowPostDate)
                             {
-                                <label class="linkText"><i class="fa-solid fa-calendar-days"></i> @game.Date</label>
+                                <label class="gamesPage_topLeftContainerSecondElement"><i class="fa-solid fa-calendar-days"></i> @game.Date</label>
                             }
                             @if (SettingsPage.ShowLinkButton)
                             {
-                                <button class="buttLink fa-brands fa-chrome" @onclick="() => Process.Start(new ProcessStartInfo(game.Link) { UseShellExecute = true })"></button>   
+                                <button class="gamesPage_topLeftContainerButtonElement fa-brands fa-chrome"
+                                        @onclick="() => Process.Start(new ProcessStartInfo(game.Link) { UseShellExecute = true })">
+                                </button>  
                             }
                         </div>
                     </div>

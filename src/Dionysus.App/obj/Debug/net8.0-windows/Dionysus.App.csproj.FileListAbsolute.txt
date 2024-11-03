@@ -149,3 +149,8 @@ D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.pdb
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.App.genruntimeconfig.cache
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\ref\Dionysus.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Dionysus.staticwebassets.runtime.json
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\GamesPage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\Header.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\MainPage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\SettingsPage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\ColorPalette.css

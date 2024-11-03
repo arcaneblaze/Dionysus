@@ -95,6 +95,7 @@ public partial class MainWindow : Form
                 _notifyIcon.Visible = false; 
             }
         };
+        
         this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         ProfileData.InitializeProfileData();
         SettingsPage.InitializeSettings();

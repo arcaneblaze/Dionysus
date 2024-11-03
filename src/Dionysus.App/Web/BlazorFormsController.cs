@@ -17,7 +17,7 @@ public class BlazorFormsController
         _webView.Services = _services.BuildServiceProvider();
         _webView.RootComponents.Add<Dionysus.Web.App>("#app");
         _webView.RootComponents.Add<HeadOutlet>("head::after");
-        _webView.BackColor = ColorTranslator.FromHtml("#0d1117");
+        _webView.BackColor = Color.Black;
         
         controls.Add(_webView);
     }

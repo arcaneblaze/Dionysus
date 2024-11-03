@@ -1,0 +1,456 @@
+html, body {
+    padding: 100px;
+    margin: 0 auto;
+    user-select: none;
+    background-color: var(--backgroundColor);
+    color: white;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+img {
+    pointer-events: none;
+}
+h1:focus {
+    outline: none;
+}
+
+a, .btn-link {
+    color: #0071c1;
+}
+
+.game-list {
+    max-width: 730px;
+    font-family: "JetBrains Mono", monospace;
+    margin: 0 auto;
+    user-select: none;
+    background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.game-item {
+    aspect-ratio: 16/9;
+    height: auto;
+    min-height: 260px;
+    max-height: 260px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    background-color: var(--headerColor);
+    padding-left: 15px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    border-radius: var(--bgImageborderRadius);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.game-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(41, 41, 41, 0.5);
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--borderColor);
+    background: linear-gradient(
+            180deg,
+            rgba(var(--bgImageOverlayColor), 0.1) 0%,
+            rgba(var(--bgImageOverlayColor), 0.2) 25%,
+            rgba(var(--bgImageOverlayColor), 0.5) 50%,
+            rgba(var(--bgImageOverlayColor), 0.8) 75%,
+            rgba(var(--bgImageOverlayColor), 1) 100%
+    );
+    border-radius: var(--borderRadius);
+}
+
+.overlay2 {
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--borderColor);
+    background: rgba(13, 17, 23, 0.2);
+    border-radius: 10px;
+}
+
+.game-info {
+    font-family: "JetBrains Mono", monospace;
+    z-index: 2;
+    color: var(--foregroundColor);
+    font-size: 1.1em;
+    margin-bottom: -15px;
+    position: relative;
+
+}
+
+.add-game-button {
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    padding: 12px 24px;
+    font-size: 12px;
+    display: block;
+    margin: 20px auto;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-game-button:hover {
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.03);
+}
+
+.add-game-button:active{
+    transform: scale(0.97);
+}
+
+.add-game-form {
+    font-family: "JetBrains Mono", monospace;
+    display: block;
+    background-color: var(--headerColor);
+    padding: 20px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    margin-top: 0px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+.add-game-form input, .add-game-form textarea {
+    font-family: "JetBrains Mono", monospace;
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: var(--borderRadius);
+    border: 0.2px solid var(--borderColor);
+    background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.6s ease-in-out;
+}
+.add-game-form input:focus,
+.add-game-form textarea:focus{
+    outline: var(--borderColor) 0.3px solid;
+}
+.add-game-form button {
+    font-family: "JetBrains Mono", monospace;
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    width: 100px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.add-game-form button:hover {
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.03);
+}
+
+.add-game-form button:active{
+    transform: scale(0.97);
+}
+
+.button-container {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    z-index: 2;
+}
+
+.game-item .fa-play{
+    background-color:var(--headerColor);
+    color: #faa356;
+    height: 35px;
+    width: 70px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+.game-item .pencil{
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    height: 35px;
+    width: 35px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+.game-item .trash {
+    background-color: var(--headerColor);
+    color: #fa7970;
+    height: 35px;
+    width: 35px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+}
+.game-item .fa-pause:hover,
+.game-item .fa-play:hover,
+.game-item .pencil:hover,
+.game-item .trash:hover {
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+.game-item .fa-pause:active,
+.game-item .fa-play:active,
+.game-item .pencil:active,
+.game-item .trash:active {
+    transform: scale(0.97);
+}
+
+.custom-file-input {
+    font-family: "JetBrains Mono", monospace;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.custom-file-input input[type="file"] {
+    font-family: "JetBrains Mono", monospace;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-file-label {
+    font-family: "JetBrains Mono", monospace;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    line-height: 40px;
+    background-color: var(--headerColor);
+    text-align: center;
+    color: var(--foregroundColor);
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    font-size: 14px;
+    border-width: 0.2px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.custom-file-label:hover {
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.01);
+}
+
+.custom-file-label:active{
+    transform: scale(0.97);
+}
+
+.edit-game-form {
+    font-family: "JetBrains Mono", monospace;
+    display: block;
+    background-color: var(--headerColor);
+    padding: 20px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.edit-game-form input,
+.edit-game-form textarea {
+    font-family: "JetBrains Mono", monospace;
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transition: all 0.6s ease-in-out;
+}
+.edit-game-form input:focus,
+.edit-game-form textarea:focus{
+    outline: var(--borderColor) 0.3px solid;
+}
+.edit-game-form label {
+    color:  var(--foregroundColor);
+    margin-bottom: 10px;
+    display: block;
+}
+input::placeholder{
+    color: var(--placeholderColor);
+}
+
+.edit-game-form-button {
+    font-family: "JetBrains Mono", monospace;
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    width: 100px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.edit-game-form-button:hover {
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.03);
+}
+
+.edit-game-form-button:active{
+    transform: scale(0.97);
+}
+
+.game-item {
+    position: relative;
+}
+
+.button-container {
+    display: none;
+}
+.button-container button {
+    margin-right: 5px;
+}
+
+
+.game-item:hover .button-container {
+    display: flex;
+}
+
+.labelContainer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+.playtime-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    color: var(--foregroundColor);
+    background-color: var(--headerColor);
+    border-color: var(--borderColor);
+    border-style: solid;
+    border-width: 0.2px;
+    padding: 8px 12px;
+    border-radius: var(--borderRadius);
+    display: inline-block;
+    margin-right: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+button:disabled,
+button[disabled]{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.profile {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: auto;
+    padding: 32px 35px 20px 50px;
+    max-width: 730px;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.username {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 20px;
+    color: var(--foregroundColor);
+    font-weight: 600;
+}
+.profile-userinfo{
+    font-weight: bold;
+    font-size: 14px; 
+    color: var(--versionLabelFg);
+}
+
+.mainPage_saveButton{
+    font-family: "JetBrains Mono", monospace;
+    background-color: var(--saveButtonBg);
+    color: var(--saveButtonFg);
+    width: 100px;
+    padding: 10px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.mainPage_saveButton:hover {
+    background-color: var(--saveButtonHoverBg);
+    transform: scale(1.01);
+}
+
+.mainPage_saveButton:active{
+    transform: scale(0.99);
+}

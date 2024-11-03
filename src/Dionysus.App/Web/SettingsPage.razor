@@ -13,172 +13,11 @@
 @using Microsoft.VisualBasic.ApplicationServices
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
 
-<style>
-    @@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
-    html, body {
-        padding: 100px;
-        margin: 0 auto;
-        user-select: none;
-        background-color: #0d1117;
-        color: white;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .panell {
-        max-width: 900px;
-        text-align: center;
-        justify-content: center;
-        display: flex;
-        margin: 0 auto;
-        flex-direction: column;
-        padding: 0 30px 30px 30px;
-    }
-
-    .settingLabel {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 14px;
-        color: #c6cdd5;
-        background-color: #161b22;
-        padding: 16px;
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        border: 1px solid #323232;
-    }
-
-    .settingLabel span {
-        flex-grow: 1;
-        text-align: left;
-    }
-    
-    .custom-checkbox {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        border-radius: 10px;
-        background-color: #21262d;
-        border: 2px solid #323232;
-        position: relative;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        cursor: pointer;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .custom-checkbox.checked {
-        background-color: #77bdfb;
-        border-color: #77bdfb;
-    }
-
-    .custom-checkbox::after {
-        content: '\f00c';
-        font-family: 'FontAwesome';
-        font-size: 14px;
-        color: #0d1117;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .custom-checkbox.checked::after {
-        opacity: 1;
-    }
-
-    .saveButton {
-        font-family: "JetBrains Mono", monospace;
-        background-color: #238636;
-        color: #c6cdd5;
-        max-width: 900px;
-        padding: 10px;
-        border-radius: 20px;
-        border-style: solid;
-        border-color: #32362d;
-        border-width: 0.2px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .saveButton:hover {
-        background-color: #127525;
-        transform: scale(1.01);
-    }
-
-    .saveButton:active{
-        transform: scale(0.99);
-    }
-    .versionLabel{
-        font-family: "JetBrains Mono", monospace;
-        margin-top: 10px;
-        font-size: 14px;
-        color: #89929b;
-        opacity: 0.4;
-    }
-
-    .testButton {
-        font-family: "JetBrains Mono", monospace;
-        background-color: #161b22;
-        color: #c6cdd5;
-        padding: 10px;
-        border-radius: 20px;
-        border-style: solid;
-        border-color: #32362d;
-        border-width: 0.2px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        width: 100%;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .testButton:hover {
-        background-color: #0d1117;
-        transform: scale(1.01);
-    }
-    .testButton.input:focus{
-        outline: #32362d 0.3px solid;
-    }
-    .testButton.input:hover{
-        transform: scale(1);
-        cursor: text;
-    }
-
-    .testButton:active {
-        transform: scale(0.99);
-    }
-
-
-    .separator {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 14px;
-        width: 100%;
-        max-width: 200px;
-        color: #c6cdd5;
-        padding: 5px;
-        background-color: #161b22;
-        height: auto;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        margin: 0 auto 20px;
-        border-radius: 20px;
-        border: 1px solid #323232;
-    }
-
-
-
-</style>
-
-<h3 style="text-align: center; width: 100%; height:auto; font-family: 'JetBrains Mono', monospace;color:  #c6cdd5;">Settings:</h3>
-<div class="panell">
-    <label class="settingLabel">
+<div class="settingsPage_panel">
+    <label class="settingsPage_settingLabel">
         <span>
             Sources:<br/><br/>
             GOG - <i class="@GOGStatus" style="color: @(GOGStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
@@ -186,72 +25,86 @@
             FitGirl - <i class="@FitGirlStatus" style="color: @(FitGirlStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i>
         </span>
     </label>
-    <div class="separator">Profile</div>
-    <div class="settingLabel" style="flex-direction: column">
+    <div class="settingsPage_separator">Profile</div>
+    <div class="settingsPage_settingLabel" style="flex-direction: column">
         <span>Image:</span><br/>
-        <button class="testButton" style="width: 48%; font-size: 13px" @onclick="@ProfileData.SelectImage">
+        <button class="settingsPage_button" style="width: 48%;" @onclick="@ProfileData.SelectImage">
             <i class="fa-solid fa-image"></i> Select image
         </button><br/>
         <span>Username:</span><br/>
-        <input class="testButton input" style="width: 48%; text-align: center; font-size: 13px" @bind="@ProfileData.Profile().Username"
+        <input class="settingsPage_button input" style="width: 48%; text-align: center; font-size: 13px" @bind="@ProfileData.Profile().Username"
                placeholder="Type username...">
     </div>
-    <div class="separator">Application</div>
-    <label class="settingLabel">
+    <div class="settingsPage_separator">Application</div>
+
+    <div class="settingsPage_settingLabel">
+        <span>Theme:</span>
+        <select class="settingsPage_button selector" @bind="_appTheme">
+            @foreach (var theme in ThemesManager.GetThemes())
+            {
+                <option value="@(theme.Split("\\").Last())"
+                        selected="@(theme.Split("\\").Last() == _appTheme)">
+                    @theme.Split("\\").Last()
+                </option>
+            }
+        </select>
+    </div>
+    
+    <label class="settingsPage_settingLabel">
         <span>Add to startup</span>
-        <div class="custom-checkbox @(AddToStartup ? "checked" : "")" @onclick="ToggleAddToStartup"></div>
+        <div class="settingsPage_custom-checkbox @(AddToStartup ? "checked" : "")" @onclick="ToggleAddToStartup"></div>
     </label>
-    <div class="separator">Library</div>
-    <label class="settingLabel">
+    <div class="settingsPage_separator">Library</div>
+    <label class="settingsPage_settingLabel">
         <span>Show "+" button</span>
-        <div class="custom-checkbox @(ShowAddButton ? "checked" : "")" @onclick="ToggleShowAddButton"></div>
+        <div class="settingsPage_custom-checkbox @(ShowAddButton ? "checked" : "")" @onclick="ToggleShowAddButton"></div>
     </label>
-    <label class="settingLabel">
+    <label class="settingsPage_settingLabel">
         <span>Show game title</span>
-        <div class="custom-checkbox @(ShowGameTitle ? "checked" : "")" @onclick="ToggleShowGameTitle"></div>
+        <div class="settingsPage_custom-checkbox @(ShowGameTitle ? "checked" : "")" @onclick="ToggleShowGameTitle"></div>
     </label>
 
-    <label class="settingLabel">
+    <label class="settingsPage_settingLabel">
         <span>Auto-backup</span>
-        <div class="custom-checkbox @(AutoBackup ? "checked" : "")" @onclick="ToggleAutobackup"></div>
+        <div class="settingsPage_custom-checkbox @(AutoBackup ? "checked" : "")" @onclick="ToggleAutobackup"></div>
     </label>
 
-    <div class="settingLabel">
+    <div class="settingsPage_settingLabel">
         <div style="width: 100%; display: flex; justify-content: space-between;">
-            <button class="testButton" style="width: 48%" @onclick="MakeBackup"><i class="fa-solid fa-folder-plus"></i> Make backup</button>
+            <button class="settingsPage_button" style="width: 48%" @onclick="MakeBackup"><i class="fa-solid fa-folder-plus"></i> Make backup</button>
             @if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json.bak")))
             {
-                <button class="testButton" style="width: 48%" @onclick="RestoreBackup"><i class="fa-solid fa-clock-rotate-left"></i> Restore backup</button>
+                <button class="settingsPage_button" style="width: 48%" @onclick="RestoreBackup"><i class="fa-solid fa-clock-rotate-left"></i> Restore backup</button>
             }
         </div>
     </div>
 
-    <div class="separator">Torrent</div>
-    <label class="settingLabel">
+    <div class="settingsPage_separator">Torrent</div>
+    <label class="settingsPage_settingLabel">
         <span>Show link to the page of the selected game</span>
-        <div class="custom-checkbox @(ShowLinkButton ? "checked" : "")" @onclick="ToggleShowLinkButton"></div>
+        <div class="settingsPage_custom-checkbox @(ShowLinkButton ? "checked" : "")" @onclick="ToggleShowLinkButton"></div>
     </label>
-    <label class="settingLabel">
+    <label class="settingsPage_settingLabel">
         <span>Show game version (not all repacks are being worked on)</span>
-        <div class="custom-checkbox @(ShowGameVersion ? "checked" : "")" @onclick="ToggleShowGameVersion"></div>
+        <div class="settingsPage_custom-checkbox @(ShowGameVersion ? "checked" : "")" @onclick="ToggleShowGameVersion"></div>
     </label>
-    <label class="settingLabel">
+    <label class="settingsPage_settingLabel">
         <span>Show torrent post date (gog not working)</span>
-        <div class="custom-checkbox @(ShowPostDate ? "checked" : "")" @onclick="ToggleShowPostDate"></div>
+        <div class="settingsPage_custom-checkbox @(ShowPostDate ? "checked" : "")" @onclick="ToggleShowPostDate"></div>
     </label>
-    <label class="settingLabel">
+    <label class="settingsPage_settingLabel">
         <span>Avoid converting the torrent file to a magnet link</span>
-        <div class="custom-checkbox @(AvoidConvertToMagnet ? "checked" : "")" @onclick="ToggleAvoidConvertToMagnet"></div>
+        <div class="settingsPage_custom-checkbox @(AvoidConvertToMagnet ? "checked" : "")" @onclick="ToggleAvoidConvertToMagnet"></div>
     </label>
 
-    <button class="saveButton" @onclick="Save"><i class="fa-solid fa-floppy-disk"></i></button>
-    <label class="versionLabel">v@_versionString
+    <button class="settingsPage_saveButton" @onclick="Save"><i class="fa-solid fa-floppy-disk"></i></button>
+    <label class="settingsPage_versionLabel">v@_versionString
     </label>
 </div>
 
 @code {
+    public static string _appTheme;
     public static string Username;
-    
     public static bool AddToStartup;
     public static bool ShowAddButton;
     public static bool ShowGameTitle;
@@ -288,21 +141,31 @@
     {
         var settings = await SettingsData.LoadFromJSON();
         var addToStartup = settings.FirstOrDefault(s => s.SettingName == "AddToStartup");
-        AddToStartup = addToStartup?.Value ?? false;
+        AddToStartup = addToStartup != null ? (bool)addToStartup.Value : true;
+    
         var addButt = settings.FirstOrDefault(s => s.SettingName == "ShowAddButton");
-        ShowAddButton = addButt?.Value ?? true;
+        ShowAddButton = addButt != null ? (bool)addButt.Value : true;
+
         var gameTitle = settings.FirstOrDefault(s => s.SettingName == "ShowGameTitle");
-        ShowGameTitle = gameTitle?.Value ?? true;
+        ShowGameTitle = gameTitle != null ? (bool)gameTitle.Value : true;
+
         var autobackup = settings.FirstOrDefault(s => s.SettingName == "AutoBackup");
-        AutoBackup = autobackup?.Value ?? true;
+        AutoBackup = autobackup != null ? (bool)autobackup.Value : true; 
+
         var linkButt = settings.FirstOrDefault(s => s.SettingName == "ShowLinkButton");
-        ShowLinkButton = linkButt?.Value ?? false;
+        ShowLinkButton = linkButt != null ? (bool)linkButt.Value : false;
+
         var versionInfo = settings.FirstOrDefault(s => s.SettingName == "ShowGameVersion");
-        ShowGameVersion = versionInfo?.Value ?? false;
+        ShowGameVersion = versionInfo != null ? (bool)versionInfo.Value : false;
+
         var avoidConvertToMagnet = settings.FirstOrDefault(s => s.SettingName == "AvoidConvertToMagnet");
-        AvoidConvertToMagnet = avoidConvertToMagnet?.Value ?? false;
+        AvoidConvertToMagnet = avoidConvertToMagnet != null ? (bool)avoidConvertToMagnet.Value : false;
+
         var showPostDate = settings.FirstOrDefault(s => s.SettingName == "ShowPostDate");
-        ShowPostDate = showPostDate?.Value ?? false;
+        ShowPostDate = showPostDate != null ? (bool)showPostDate.Value : true;
+
+        var appTheme = settings.FirstOrDefault(s => s.SettingName == "AppTheme");
+        _appTheme = appTheme != null ? (string)appTheme.Value : "Dionysus"; 
         
         _logger.Log(Logger.LogType.DEBUG, "Settings loaded");
     }
@@ -338,6 +201,7 @@
             new SettingsModel { SettingName = "ShowGameVersion", Value = ShowGameVersion },
             new SettingsModel { SettingName = "ShowPostDate", Value = ShowPostDate },
             new SettingsModel { SettingName = "AvoidConvertToMagnet", Value = AvoidConvertToMagnet },
+            new SettingsModel { SettingName = "AppTheme", Value = _appTheme },
         };
         _logger.Log(Logger.LogType.DEBUG, "Settings saved");
         await SettingsData.SaveToJSON(settings);

@@ -137,7 +137,7 @@ public class Xatab
                     .Replace("Папка игры", "Game folder")
                     .Replace("Лицензия", "License"),
                 Link = gameLink,
-                Size = size.Replace("Гб", "GB").Replace("гб", "GB"),
+                Size = size.Replace("Гб", "GB").Replace("гб", "GB").Replace("ГБ","GB"),
                 DownloadLink = downloadLink,
                 Version = version,
                 Date = _date.Replace("-","/").Replace("Вчера", "Yesterday").Replace("Сегодня", "Today")

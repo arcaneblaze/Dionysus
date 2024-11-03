@@ -23,8 +23,8 @@
       <list>
         <option value="HTML File" />
         <option value="JSON File" />
-        <option value="CSS File" />
         <option value="HTTP Request" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -180,6 +180,8 @@
       <workItem from="1730216847400" duration="23000" />
       <workItem from="1730218364977" duration="11910000" />
       <workItem from="1730319556587" duration="3538000" />
+      <workItem from="1730453918533" duration="17610000" />
+      <workItem from="1730650093610" duration="8529000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
