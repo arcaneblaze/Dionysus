@@ -31,7 +31,12 @@ public partial class MainWindow : Form
         if (_arguments.Contains("-console")) ConsoleHelper.ShowConsoleWindow();
         
         var iconPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "icon.ico");
+#if  DEBUG
+        this.Text = "Dionysus DEV";
+#else
         this.Text = "Dionysus";
+#endif
+        
         this.Icon = new Icon(iconPath);
         BlazorFormsController.Activate(this.Controls);
         this.MinimumSize = new Size(786, 747);

@@ -1,6 +1,11 @@
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\icon.ico
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Web\wwwroot\css\app.css
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Web\wwwroot\index.html
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Web\wwwroot\pagesCSS\Dionysus\ColorPalette.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Web\wwwroot\pagesCSS\Dionysus\GamesPage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Web\wwwroot\pagesCSS\Dionysus\Header.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Web\wwwroot\pagesCSS\Dionysus\MainPage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Web\wwwroot\pagesCSS\Dionysus\SettingsPage.css
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Dionysus
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\env.json
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\publish\Dionysus.dll

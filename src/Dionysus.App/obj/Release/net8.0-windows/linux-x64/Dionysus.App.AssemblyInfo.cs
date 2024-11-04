@@ -12,11 +12,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dionysus")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("2.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.0+20164910a13d70b3608113fb8c50b2f9b5245491")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("2.1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.1+5b63c6a8bb4067e5174a107e5076373a07620014")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dionysus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dionysus")]
-[assembly: System.Reflection.AssemblyVersionAttribute("2.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("2.1")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 

@@ -70,3 +70,8 @@ D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\linux-x64\re
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\linux-x64\Dionysus.pdb
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\linux-x64\Dionysus.App.genruntimeconfig.cache
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\linux-x64\ref\Dionysus.dll
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\Web\wwwroot\pagesCSS\Dionysus\ColorPalette.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\Web\wwwroot\pagesCSS\Dionysus\GamesPage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\Web\wwwroot\pagesCSS\Dionysus\Header.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\Web\wwwroot\pagesCSS\Dionysus\MainPage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\linux-x64\Web\wwwroot\pagesCSS\Dionysus\SettingsPage.css

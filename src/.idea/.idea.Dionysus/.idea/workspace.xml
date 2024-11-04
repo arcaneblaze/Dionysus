@@ -38,6 +38,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/SourceGeneratedDocuments/DD26D24E99FE8DF54BDBFCD8/System.Windows.Forms.Analyzers.CSharp/System.Windows.Forms.Generators.ApplicationConfigurationGenerator/ApplicationConfiguration.g.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/8cb9946248bfcad4b36702692bd3d6840d8734da3eb622bb2b4a680701172ec/Boolean.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b7208b3f72528d22781d25fde9a55271bdf2b5aade4f03b1324579a25493cd8/List.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/de7e5d9f3eff8e93316bbae6f9743ff9f72884862e5d612aaaba84bf9aa3a8/NativeWindow.cs" root0="FORCE_HIGHLIGHTING" />
@@ -57,31 +58,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Project.Dionysus.App.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.PPP.executor&quot;: &quot;Run&quot;,
-    &quot;.NET Project.PlayGorund.executor&quot;: &quot;Run&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Publish to folder.Publish Dionysus to folder (1).executor&quot;: &quot;Run&quot;,
-    &quot;Publish to folder.Publish Dionysus to folder.executor&quot;: &quot;Run&quot;,
-    &quot;Publish to folder.Publish Dionysus.App Linux.executor&quot;: &quot;Run&quot;,
-    &quot;Publish to folder.Publish Dionysus.App to folder (1).executor&quot;: &quot;Run&quot;,
-    &quot;Publish to folder.Publish Dionysus.App to folder.executor&quot;: &quot;Run&quot;,
-    &quot;Publish to folder.Publish Dionysus.App.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Project.Dionysus.App.executor": "Run",
+    ".NET Project.PPP.executor": "Run",
+    ".NET Project.PlayGorund.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Publish to folder.Publish Dionysus to folder (1).executor": "Run",
+    "Publish to folder.Publish Dionysus to folder.executor": "Run",
+    "Publish to folder.Publish Dionysus.App Linux.executor": "Run",
+    "Publish to folder.Publish Dionysus.App to folder (1).executor": "Run",
+    "Publish to folder.Publish Dionysus.App to folder.executor": "Run",
+    "Publish to folder.Publish Dionysus.App.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Publish to folder.Publish Dionysus.App">
+}]]></component>
+  <component name="RunManager" selected="Publish to folder.Publish Dionysus.App Linux">
     <configuration name="Publish Dionysus.App Linux" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" platform="Any CPU" runtime="linux-x64" target_folder="$PROJECT_DIR$/Dionysus.App/bin/Release/net8.0-windows/linux-x64/publish" target_framework="net8.0-windows" uuid_high="7579811375487142298" uuid_low="-4788345561438972974" />
       <method v="2" />
@@ -181,7 +182,13 @@
       <workItem from="1730218364977" duration="11910000" />
       <workItem from="1730319556587" duration="3538000" />
       <workItem from="1730453918533" duration="17610000" />
-      <workItem from="1730650093610" duration="8529000" />
+      <workItem from="1730650093610" duration="11085000" />
+      <workItem from="1730702181356" duration="1596000" />
+      <workItem from="1730705108958" duration="435000" />
+      <workItem from="1730705606836" duration="400000" />
+      <workItem from="1730706130056" duration="3369000" />
+      <workItem from="1730711303848" duration="2517000" />
+      <workItem from="1730717342768" duration="5733000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />

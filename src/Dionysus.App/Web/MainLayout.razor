@@ -2,6 +2,7 @@
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
+<base href="@($"{AppDomain.CurrentDomain.BaseDirectory.Replace("\\", "/")}")" />
 <link href="pagesCSS/@SettingsPage._appTheme/ColorPalette.css" rel="stylesheet" />
 <link href="pagesCSS/Dionysus/SettingsPage.css" rel="stylesheet" />
 <link href="pagesCSS/Dionysus/MainPage.css" rel="stylesheet" />

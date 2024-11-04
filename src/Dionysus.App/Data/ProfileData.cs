@@ -34,14 +34,14 @@ public class ProfileData
                     {
                         using (var resizedImage = new Bitmap(image, new Size(256, 256)))
                         {
-                            string resizedPath = "Data/profileImage" + Path.GetExtension(fullPath);
+                            string resizedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/profileImage" + Path.GetExtension(fullPath));
                             resizedImage.Save(resizedPath);
                             _profile.Image = resizedPath;
                         }
                     }
                     else
                     {
-                        string resizedPath = "Data/profileImage" + Path.GetExtension(fullPath);
+                        string resizedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/profileImage" + Path.GetExtension(fullPath));
                         image.Save(resizedPath);
                         _profile.Image = resizedPath;
                     }
@@ -80,7 +80,7 @@ public class ProfileData
         {
             _configJson = new JObject
             {
-                ["user_name"] = "User",
+                ["user_name"] = "user_" + new Random().Next(10000, 100000),
                 ["profile_image"] = ""
             };
             await File.WriteAllTextAsync(_jsonPath, _configJson.ToString());
