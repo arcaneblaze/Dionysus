@@ -9,8 +9,8 @@
         <AssemblyName>Dionysus</AssemblyName>
         <RootNamespace>Dionysus</RootNamespace>
         <ApplicationIcon>icon.ico</ApplicationIcon>
-        <Version>2.1</Version>
-        <AssemblyVersion>2.1</AssemblyVersion>
+        <Version>2.2</Version>
+        <AssemblyVersion>2.2</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -52,6 +52,48 @@
       <Content Update="env.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Localization\strings.uk.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>strings.uk.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Localization\strings.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>strings.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Localization\strings.de.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>strings.de.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Localization\strings.fr.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>strings.fr.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Localization\strings.uk.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>strings.uk.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Localization\strings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>strings.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Localization\strings.de.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>strings.de.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Localization\strings.fr.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>strings.fr.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 

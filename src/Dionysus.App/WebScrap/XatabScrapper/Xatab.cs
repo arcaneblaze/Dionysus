@@ -140,7 +140,7 @@ public class Xatab
                 Size = size.Replace("Гб", "GB").Replace("гб", "GB").Replace("ГБ","GB"),
                 DownloadLink = downloadLink,
                 Version = version,
-                Date = _date.Replace("-","/").Replace("Вчера", "Yesterday").Replace("Сегодня", "Today")
+                Date = _date.Replace("-",".").Replace("Вчера", "Yesterday").Replace("Сегодня", "Today")
             };
         }
         catch (Exception ex)

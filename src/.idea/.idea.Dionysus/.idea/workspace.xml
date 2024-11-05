@@ -78,11 +78,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Publish to folder.Publish Dionysus.App Linux">
+  <component name="RunManager" selected="Publish to folder.Publish Dionysus.App">
     <configuration name="Publish Dionysus.App Linux" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" platform="Any CPU" runtime="linux-x64" target_folder="$PROJECT_DIR$/Dionysus.App/bin/Release/net8.0-windows/linux-x64/publish" target_framework="net8.0-windows" uuid_high="7579811375487142298" uuid_low="-4788345561438972974" />
       <method v="2" />
@@ -188,7 +188,8 @@
       <workItem from="1730705606836" duration="400000" />
       <workItem from="1730706130056" duration="3369000" />
       <workItem from="1730711303848" duration="2517000" />
-      <workItem from="1730717342768" duration="5733000" />
+      <workItem from="1730717342768" duration="13801000" />
+      <workItem from="1730832959289" duration="7573000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />

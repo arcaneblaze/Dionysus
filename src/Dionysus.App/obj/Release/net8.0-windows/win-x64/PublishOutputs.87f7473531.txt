@@ -12,6 +12,9 @@ D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publ
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\Dionysus.deps.json
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\Dionysus.runtimeconfig.json
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\Dionysus.pdb
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\de\Dionysus.resources.dll
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\fr\Dionysus.resources.dll
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\uk\Dionysus.resources.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\craftersmine.SteamGridDB.Net.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\HtmlAgilityPack.dll
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\publish\Microsoft.AspNetCore.Authorization.dll

@@ -77,7 +77,7 @@ html, body {
     font-family: "JetBrains Mono", monospace;
     background-color: var(--saveButtonBg);
     color: var(--saveButtonFg);
-    max-width: 900px;
+    width: 45px;
     padding: 10px;
     border-radius: var(--borderRadius);
     border-style: solid;
@@ -86,6 +86,11 @@ html, body {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
+    position: fixed; 
+    right: 30px;
+    bottom: 20px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
 }
 
 .settingsPage_saveButton:hover {
@@ -93,9 +98,10 @@ html, body {
     transform: scale(1.01);
 }
 
-.settingsPage_saveButton:active{
+.settingsPage_saveButton:active {
     transform: scale(0.99);
 }
+
 .settingsPage_versionLabel{
     font-family: "JetBrains Mono", monospace;
     margin-top: 10px;

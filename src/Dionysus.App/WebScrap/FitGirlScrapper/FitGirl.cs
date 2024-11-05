@@ -79,7 +79,7 @@ public class FitGirl
                                 Size = size,
                                 Version = version,
                                 DownloadLink = downloadLink,
-                                Date = _date
+                                Date = _date.Replace("/",".")
                             });   
                         }
                     }

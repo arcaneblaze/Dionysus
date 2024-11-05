@@ -6,6 +6,7 @@
 @using Dionysus.App.Helpers
 @using Dionysus.App.Interfaces
 @using Dionysus.App.Logger
+@using System.Globalization
 @using Dionysus.App.Models
 @using Dionysus.App.TorrentClient
 @using Dionysus.WebScrap
@@ -18,8 +19,12 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
 
+@{
+    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(SettingsPage._appLanguage);
+}
+
 <div class="gamesPage_searchPanel">
-    <input class="gamesPage_input" @bind="searchText" placeholder="Type game name..."/>
+    <input class="gamesPage_input" @bind="searchText" placeholder="@Localization.strings.GamesPage_SearchPanelPlaceholder"/>
 
     <button @onclick="Search" class="gamesPage_searchButton fa fa-magnifying-glass"></button>
 </div>
@@ -51,11 +56,12 @@
                         <h3 class="gamesPage_gameName">
                             @game.Name
                         </h3>
-
-
+                        
                         <div class="gamesPage_topRightContainer">
-                            <button class="gamesPage_button fa fa-download" title="Download" @onclick="() => TorrentManager.DownloadTypeSelector(game.Link, game.DownloadLink, game.Name)"></button>
-                            <button class="gamesPage_button fa fa-plus" title="Add to library" @onclick="() => AddGameToLib(game.Name)"></button>
+                            <button class="gamesPage_button fa fa-download" title="@Localization.strings.GamesPage_DownloadTitle" 
+                                    @onclick="() => TorrentManager.DownloadTypeSelector(game.Link, game.DownloadLink, game.Name)"></button>
+                            <button class="gamesPage_button fa fa-plus" title="@Localization.strings.GamesPage_AddToLibTitle"
+                                    @onclick="() => AddGameToLib(game.Name)"></button>
                         </div>
                         <div class="gamesPage_topLeftContainer">
                             <label class="gamesPage_topLeftContainerFirstElement"><i class="fa-regular fa-file-zipper"></i> @game.Size</label>

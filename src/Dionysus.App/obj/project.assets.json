@@ -695,7 +695,7 @@
         }
       }
     },
-    "net8.0-windows7.0/linux-x64": {
+    "net8.0-windows7.0/win-x64": {
       "craftersmine.SteamGridDB.Net/1.1.7": {
         "type": "package",
         "dependencies": {
@@ -1210,6 +1210,9 @@
           "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll": {
             "related": ".xml"
           }
+        },
+        "native": {
+          "runtimes/win-x64/native/WebView2Loader.dll": {}
         },
         "build": {
           "build/_._": {}
@@ -2568,7 +2571,7 @@
     "C:\\Users\\Kirusha\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "2.1.0",
+    "version": "2.2.0",
     "restore": {
       "projectUniqueName": "D:\\C# projects\\Dionysus\\src\\Dionysus.App\\Dionysus.App.csproj",
       "projectName": "Dionysus",
@@ -2577,12 +2580,15 @@
       "outputPath": "D:\\C# projects\\Dionysus\\src\\Dionysus.App\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Kirusha\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Kirusha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2638,12 +2644,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.linux-x64",
-            "version": "[8.0.8, 8.0.8]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -2652,11 +2652,11 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.402/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
-      "linux-x64": {
+      "win-x64": {
         "#import": []
       }
     }

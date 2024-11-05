@@ -1,5 +1,6 @@
 @page "/"
 @using System.Diagnostics
+@using System.Globalization
 @using System.Text.RegularExpressions
 @using Dionysus.App.Data
 @using Dionysus.App.Helpers
@@ -10,17 +11,22 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
 
+@{
+    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(SettingsPage._appLanguage);
+}
+
 <div class="profile">
     @if(!string.IsNullOrEmpty(ProfileData.Profile().Image)){
-        <img class="profile-image" src="@ProfileData.GetBase64Image(ProfileData.Profile().Image)"/>
+        <img style="@(_currentGameId != -1 ? _onGameStyle : _defaultStyle)"
+            class="profile-image" src="@ProfileData.GetBase64Image(ProfileData.Profile().Image)"/>
     }
     <div style="flex-direction: column">
         <span class="username">
             @ProfileData.Profile().Username
         </span><br/>
-        <span class="profile-userinfo">Games: @_gamesList.Count,</span>
+        <span class="profile-userinfo">@Localization.strings.ProfileData_GamesCount: @_gamesList.Count,</span>
         <span class="profile-userinfo">
-            Total played: @ProfileData.GetTotalPlayTime().TotalHours.ToString("F0")h 
+            @Localization.strings.ProfileData_TotalPlayed: @ProfileData.GetTotalPlayTime().TotalHours.ToString("F0")h 
             @ProfileData.GetTotalPlayTime().Minutes.ToString()m
         </span>
     </div>
@@ -47,7 +53,7 @@
                 {
                     <label class="playtime-label">
                         <i class="fa-solid fa-calendar-days"></i>
-                        @(DateTime.Parse(game.LastRun).ToString("dd/MM/yyyy").Replace(".", "/"))
+                        @(DateTime.Parse(game.LastRun).ToString("dd/MM/yyyy HH:mm"))
                     </label>   
                 }
                 @if (GamesMonitor.GameIsDeletedFromDesktop(game))
@@ -72,16 +78,16 @@
         @if (_currentEditGameId == game.Id)
         {
             <div class="edit-game-form">
-                <label>Title:</label>
-                <input type="text" @bind="game.Title" placeholder="Edit title" required="required">
+                <label>@Localization.strings.EditGameForm_TitleLabel:</label>
+                <input type="text" @bind="game.Title" placeholder="@Localization.strings.EditGameForm_TitlePlaceholder" required="required">
                 <div>
-                    <label>Cover:</label>
-                    <input type="text"  style="width: 88%" @bind="game.ImageUrl" placeholder="Edit cover url" required="required">
+                    <label>@Localization.strings.EditGameForm_CoverLabel:</label>
+                    <input type="text"  style="width: 88%" @bind="game.ImageUrl" placeholder="@Localization.strings.EditGameForm_CoverPlaceholder" required="required">
                     <button class="edit-game-form-button" style="width: 45px" @onclick="() => OpenUrl(SteamGridDB._link)"><i class="fa-solid fa-globe"></i></button>
                 </div>
                 <div>
-                    <label>Location:</label>
-                    <input style="width: 80%" type="text" @bind="game.Location" placeholder="Edit location" required="required">
+                    <label>@Localization.strings.EditGameForm_LocationLabel:</label>
+                    <input style="width: 80%" type="text" @bind="game.Location" placeholder="@Localization.strings.EditGameForm_LocationPlaceholder" required="required">
                     <button class="edit-game-form-button" style="width: 45px;"
                             @onclick="() => SelectFileForEdit(game)">
                         <i class="fa-solid fa-pencil"></i>
@@ -92,8 +98,8 @@
                         <i class="fa-regular fa-folder-open"></i>
                     </button>
                 </div>
-                <label>Launch options:</label>
-                <input type="text" @bind="game.Arguments" placeholder="Edit options" required="required">
+                <label>@Localization.strings.EditGameForm_LaunchOptionsLabel:</label>
+                <input type="text" @bind="game.Arguments" placeholder="@Localization.strings.EditGameForm_LaunchOptionsPlaceholder" required="required">
                 <button class="mainPage_saveButton" @onclick="() => SaveEdit(game.Id)"><i class="fa-solid fa-floppy-disk"></i></button>
                 <button class="edit-game-form-button" @onclick="() => CancelEdit()"><i class="fa-solid fa-close"></i></button>
             </div>
@@ -101,16 +107,20 @@
     }
     @if (!_gamesList.Any())
     {
-        <h3 style="text-align: center; width: 100%; color: #696a6d; font-family: 'JetBrains Mono', monospace;">Empty.</h3>
+        <h3 style="text-align: center; width: 100%; color: #696a6d; font-family: 'JetBrains Mono', monospace;">
+            @Localization.strings.MainPage_EmptyError.
+        </h3>
     }
 
 
     @if (_showAddGameForm)
     {
         <div id="add-game-form" class="add-game-form">
-            <input type="text" @bind="_newGame.Title" placeholder="Title (English)" required="required">
+            <input type="text" @bind="_newGame.Title" placeholder="@Localization.strings.AddGameForm_TitlePlaceholder" required="required">
             <div class="custom-file-input">
-                <label class="custom-file-label" @onclick="@SelectFile" for="fileInput">@(_selectedFile != null ? _selectedFile : "Select \".exe\" file")</label>
+                <label class="custom-file-label" @onclick="@SelectFile" for="fileInput">
+                    @(_selectedFile != null ? _selectedFile : @Localization.strings.AddGameForm_SelectorLabel.Replace("\\", ""))
+                </label>
             </div>
             <button @onclick="AddGameAsync" ><i class="fa-solid fa-add"></i></button>
             <button @onclick="ToggleForm"><i class="fa-solid fa-close"></i></button>
@@ -339,7 +349,7 @@
                         _currentRunningGame = _game.runningGame;
                         _currentGameId = _game.runningGame.Id;
                         
-                        _game.runningGame.LastRun = DateTime.Now.ToString("dd/MM/yyyy");
+                        _game.runningGame.LastRun = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
                         
                         if (!GamesMonitor.isCounting)
                         {

@@ -154,3 +154,17 @@ D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pa
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\MainPage.css
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\SettingsPage.css
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\ColorPalette.css
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.App.csproj.GenerateResource.cache
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\uk\Dionysus.resources.dll
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.Localization.strings.resources
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.Localization.strings.uk.resources
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\uk\Dionysus.resources.cs
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\uk\Dionysus.resources.dll
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\de\Dionysus.resources.dll
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.Localization.strings.de.resources
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\de\Dionysus.resources.cs
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\de\Dionysus.resources.dll
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\fr\Dionysus.resources.dll
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\Dionysus.Localization.strings.fr.resources
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\fr\Dionysus.resources.cs
+D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\fr\Dionysus.resources.dll

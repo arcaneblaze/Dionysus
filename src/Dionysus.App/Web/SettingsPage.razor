@@ -1,10 +1,12 @@
 @page "/settings"
+@using System.Globalization
 @using System.Reflection
 @using Dionysus.App
 @using Dionysus.App.Data
 @using Dionysus.App.Helpers
 @using Dionysus.App.Logger
 @using Dionysus.App.Models
+@using Dionysus.Localization
 @using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
 @using Dionysus.WebScrap.XatabScrapper
@@ -16,29 +18,33 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
 
+@{
+    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(SettingsPage._appLanguage);
+}
+
 <div class="settingsPage_panel">
     <label class="settingsPage_settingLabel">
         <span>
-            Sources:<br/><br/>
+            @Localization.strings.SettingsPage_SourcesLabel:<br/><br/>
             GOG - <i class="@GOGStatus" style="color: @(GOGStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
             Xatab - <i class="@XatabStatus" style="color: @(XatabStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
             FitGirl - <i class="@FitGirlStatus" style="color: @(FitGirlStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i>
         </span>
     </label>
-    <div class="settingsPage_separator">Profile</div>
+    <div class="settingsPage_separator">@Localization.strings.SettingsPage_ProfileSeparator</div>
     <div class="settingsPage_settingLabel" style="flex-direction: column">
-        <span>Image:</span><br/>
+        <span>@Localization.strings.SettingsPage_ProfileImageLabel:</span><br/>
         <button class="settingsPage_button" style="width: 48%;" @onclick="@ProfileData.SelectImage">
-            <i class="fa-solid fa-image"></i> Select image
+            <i class="fa-solid fa-image"></i> @Localization.strings.SettingsPage_SelectImage
         </button><br/>
-        <span>Username:</span><br/>
+        <span>@Localization.strings.SettingsPage_UsernameLabel:</span><br/>
         <input class="settingsPage_button input" style="width: 48%; text-align: center; font-size: 13px" @bind="@ProfileData.Profile().Username"
-               placeholder="Type username...">
+               placeholder="@Localization.strings.SettingsPage_UsernamePlaceholder">
     </div>
-    <div class="settingsPage_separator">Application</div>
+    <div class="settingsPage_separator">@Localization.strings.SettingsPage_ApplicationSeparator</div>
 
     <div class="settingsPage_settingLabel">
-        <span>Theme:</span>
+        <span>@Localization.strings.SettingsPage_ThemeLabel:</span>
         <select class="settingsPage_button selector" @bind="_appTheme">
             @foreach (var theme in ThemesManager.GetThemes())
             {
@@ -49,51 +55,64 @@
             }
         </select>
     </div>
+
+    <div class="settingsPage_settingLabel">
+        <span>@Localization.strings.SettingsPage_LanguageLabel:</span>
+        <select class="settingsPage_button selector" @bind="_appLanguage">
+            @foreach (var lang in LocalizationManager._isoLangs)
+            {
+                <option value="@lang.Value"
+                        selected="@(lang.Value == _appLanguage)">
+                    @lang.Key
+                </option>
+            }
+        </select>
+    </div>
     
     <label class="settingsPage_settingLabel">
-        <span>Add to startup</span>
+        <span>@Localization.strings.SettingsPage_AddToStartup</span>
         <div class="settingsPage_custom-checkbox @(AddToStartup ? "checked" : "")" @onclick="ToggleAddToStartup"></div>
     </label>
-    <div class="settingsPage_separator">Library</div>
+    <div class="settingsPage_separator">@Localization.strings.SettingsPage_LibrarySeparator</div>
     <label class="settingsPage_settingLabel">
-        <span>Show "+" button</span>
+        <span>@Localization.strings.SettingsPage_ShowAddButt</span>
         <div class="settingsPage_custom-checkbox @(ShowAddButton ? "checked" : "")" @onclick="ToggleShowAddButton"></div>
     </label>
     <label class="settingsPage_settingLabel">
-        <span>Show game title</span>
+        <span>@Localization.strings.SettingsPage_ShowGameTitle</span>
         <div class="settingsPage_custom-checkbox @(ShowGameTitle ? "checked" : "")" @onclick="ToggleShowGameTitle"></div>
     </label>
 
     <label class="settingsPage_settingLabel">
-        <span>Auto-backup</span>
+        <span>@Localization.strings.SettingsPage_AutoBackup</span>
         <div class="settingsPage_custom-checkbox @(AutoBackup ? "checked" : "")" @onclick="ToggleAutobackup"></div>
     </label>
 
     <div class="settingsPage_settingLabel">
         <div style="width: 100%; display: flex; justify-content: space-between;">
-            <button class="settingsPage_button" style="width: 48%" @onclick="MakeBackup"><i class="fa-solid fa-folder-plus"></i> Make backup</button>
+            <button class="settingsPage_button" style="width: 48%" @onclick="MakeBackup"><i class="fa-solid fa-folder-plus"></i> @Localization.strings.SettingsPage_MakeBackup</button>
             @if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json.bak")))
             {
-                <button class="settingsPage_button" style="width: 48%" @onclick="RestoreBackup"><i class="fa-solid fa-clock-rotate-left"></i> Restore backup</button>
+                <button class="settingsPage_button" style="width: 48%" @onclick="RestoreBackup"><i class="fa-solid fa-clock-rotate-left"></i> @Localization.strings.SettingsPage_RestoreBackup</button>
             }
         </div>
     </div>
 
-    <div class="settingsPage_separator">Torrent</div>
+    <div class="settingsPage_separator">@Localization.strings.SettingsPage_TorrentSeparator</div>
     <label class="settingsPage_settingLabel">
-        <span>Show link to the page of the selected game</span>
+        <span>@Localization.strings.SettingsPage_Setting1</span>
         <div class="settingsPage_custom-checkbox @(ShowLinkButton ? "checked" : "")" @onclick="ToggleShowLinkButton"></div>
     </label>
     <label class="settingsPage_settingLabel">
-        <span>Show game version (not all repacks are being worked on)</span>
+        <span>@Localization.strings.SettingsPage_Setting2</span>
         <div class="settingsPage_custom-checkbox @(ShowGameVersion ? "checked" : "")" @onclick="ToggleShowGameVersion"></div>
     </label>
     <label class="settingsPage_settingLabel">
-        <span>Show torrent post date (gog not working)</span>
+        <span>@Localization.strings.SettingsPage_Setting3</span>
         <div class="settingsPage_custom-checkbox @(ShowPostDate ? "checked" : "")" @onclick="ToggleShowPostDate"></div>
     </label>
     <label class="settingsPage_settingLabel">
-        <span>Avoid converting the torrent file to a magnet link</span>
+        <span>@Localization.strings.SettingsPage_Setting4</span>
         <div class="settingsPage_custom-checkbox @(AvoidConvertToMagnet ? "checked" : "")" @onclick="ToggleAvoidConvertToMagnet"></div>
     </label>
 
@@ -103,6 +122,7 @@
 </div>
 
 @code {
+    public static string _appLanguage;
     public static string _appTheme;
     public static string Username;
     public static bool AddToStartup;
@@ -167,6 +187,9 @@
         var appTheme = settings.FirstOrDefault(s => s.SettingName == "AppTheme");
         _appTheme = appTheme != null ? (string)appTheme.Value : "Dionysus"; 
         
+        var appLang = settings.FirstOrDefault(s => s.SettingName == "AppLanguage");
+        _appLanguage = appLang != null ? (string)appLang.Value : "en-US"; 
+        
         _logger.Log(Logger.LogType.DEBUG, "Settings loaded");
     }
 
@@ -202,6 +225,7 @@
             new SettingsModel { SettingName = "ShowPostDate", Value = ShowPostDate },
             new SettingsModel { SettingName = "AvoidConvertToMagnet", Value = AvoidConvertToMagnet },
             new SettingsModel { SettingName = "AppTheme", Value = _appTheme },
+            new SettingsModel { SettingName = "AppLanguage", Value = _appLanguage },
         };
         _logger.Log(Logger.LogType.DEBUG, "Settings saved");
         await SettingsData.SaveToJSON(settings);
