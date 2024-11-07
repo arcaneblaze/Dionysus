@@ -12,11 +12,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dionysus")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute(" ")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("2.2")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.2+f1798e080bd16591e565ea7b6273c5fd750454ec")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("2.3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("2.3+59a2b71f7e74d4f90b7e35e60f3a685574363650")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dionysus")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dionysus")]
-[assembly: System.Reflection.AssemblyVersionAttribute("2.2.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("2.3.0.0")]
 [assembly: System.Reflection.AssemblyCultureAttribute("fr")]
 
 // Создано классом WriteCodeFragment MSBuild.

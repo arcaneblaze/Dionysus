@@ -1,43 +1,47 @@
 @using System.Globalization
 @using Dionysus.App.Data
+@using Dionysus.App.Helpers
 @inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 
 <base href="@($"{AppDomain.CurrentDomain.BaseDirectory.Replace("\\", "/")}")" />
 <link href="pagesCSS/@SettingsPage._appTheme/ColorPalette.css" rel="stylesheet" />
 <link href="pagesCSS/Dionysus/SettingsPage.css" rel="stylesheet" />
-<link href="pagesCSS/Dionysus/MainPage.css" rel="stylesheet" />
-<link href="pagesCSS/Dionysus/GamesPage.css" rel="stylesheet" />
+<link href="pagesCSS/Dionysus/LibraryPage.css" rel="stylesheet" />
+<link href="pagesCSS/Dionysus/HomePage.css" rel="stylesheet" />
 <link href="pagesCSS/Dionysus/Header.css" rel="stylesheet" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<div class="main-layout">
+<div class="main-layout" style="position: sticky;top: 0;z-index: 1001;">
     <nav>
         <div class="header_top-panel">
             <div>
-                <button class="header_top-panel-button " @onclick="NavToGamesPage"><i class="fa-solid fa-skull-crossbones"></i></button>
+                <button class="header_top-panel-button fa-solid fa-house" style="font-size: 13px" @onclick="NavToHomePage"></button>
             </div>
             <div class="header_right-side">
-                <button class="header_top-panel-button user fa-solid fa-user" @onclick="NavToLibraryPage"></button>
-                <button class="header_top-panel-button user fa-solid fa-gear" style="margin-left: 10px" @onclick="NavToSettignsPage"></button>
+                <button class="header_top-panel-button user" style="width: fit-content" @onclick="NavToLibraryPage">
+                    <i class="fa-solid fa-user" style="margin-top: 2px"></i> &nbsp;@ProfileData.Profile().Username
+                </button>
+                <button class="header_top-panel-button user" style="margin-left: 10px" @onclick="NavToSettignsPage">
+                    <i class="fa-solid fa-gear" style="margin-top: 2px"></i>
+                </button>
             </div>   
         </div>
     </nav>
-    <main>
-        @Body
-    </main>
 </div>
+<main>
+    @Body
+</main>
 @code
 {
-
-    void NavToGamesPage()
+    void NavToHomePage()
     {
-        NavigationManager.NavigateTo("/games");
+        NavigationManager.NavigateTo("/");
     }
     void NavToLibraryPage()
     {
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/library");
     }
 
     void NavToSettignsPage()

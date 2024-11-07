@@ -120,14 +120,16 @@
     <data name="SettingsPage-ShowGameTitle" xml:space="preserve">
     <value>Afficher le titre du jeu</value>
 </data>
-    <data name="SettingsPage-ShowAddButt" xml:space="preserve">
-        <value>Afficher le bouton "+"</value>
-    </data>
     <data name="SettingsPage-UsernamePlaceholder" xml:space="preserve">
     <value>Entrez le nom d'utilisateur...</value>
 </data>
     <data name="SettingsPage-SelectImage" xml:space="preserve">
     <value>Sélectionner une image</value>
 </data>
-
+    <data name="SettingsPage_ShowLastRunTime" xml:space="preserve">
+        <value>Afficher le dernier temps d’exécution</value>
+    </data>
+    <data name="LibraryPage-ArchivedGame" xml:space="preserve">
+        <value>Jeu archivé</value>
+    </data>
 </root>

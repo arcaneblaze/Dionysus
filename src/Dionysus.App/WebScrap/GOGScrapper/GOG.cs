@@ -75,7 +75,7 @@ public class GOG
                         var _downloadLink = BypassDownloadLink(downloadLink);
                         _responseList.Add(new SearchGameInfoStruct()
                         {
-                            Cover = await SteamGridDB.GetGridUri(_rephrasedName),
+                            Cover = await SteamGridDB.GetGridUriHorizontal(_rephrasedName),
                             Name = _rephrasedName,
                             Link = _link,
                             Size = size.StartsWith("Note:") ? null : size.Replace("Size: ", "").Replace("GiB", "GB"),

@@ -5,8 +5,8 @@
     --buttonHoverColor: #252525;
     --borderColor: #3a3a3a;
     --headerColor: #101010;
-    --borderRadius: 10px;
-    --bgImageborderRadius: 12px; /* borderRadius + 2 */
+    --borderRadius: 6px;
+    --bgImageborderRadius: 8px; /* borderRadius + 2 */
     --bgImageOverlayColor: 14, 14, 14;
 
     /* SettingsPage */

@@ -4,8 +4,8 @@ html, body {
     user-select: none;
     background-color: var(--backgroundColor);
     color: white;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+
 }
 
 .settingsPage_panel {

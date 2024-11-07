@@ -39,7 +39,7 @@ public partial class MainWindow : Form
         
         this.Icon = new Icon(iconPath);
         BlazorFormsController.Activate(this.Controls);
-        this.MinimumSize = new Size(786, 747);
+        this.MinimumSize = new Size(1031, 733);
         this.StartPosition = FormStartPosition.CenterScreen;
         
         VisibleChanged += (sender, args) =>

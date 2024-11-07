@@ -9,8 +9,8 @@
         <AssemblyName>Dionysus</AssemblyName>
         <RootNamespace>Dionysus</RootNamespace>
         <ApplicationIcon>icon.ico</ApplicationIcon>
-        <Version>2.2</Version>
-        <AssemblyVersion>2.2</AssemblyVersion>
+        <Version>2.3</Version>
+        <AssemblyVersion>2.3</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -31,19 +31,19 @@
       <None Update="icon.ico">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Web\wwwroot\pagesCSS\Dionysus\GamesPage.css">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
       <None Update="Web\wwwroot\pagesCSS\Dionysus\Header.css">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Web\wwwroot\pagesCSS\Dionysus\MainPage.css">
+      <None Update="Web\wwwroot\pagesCSS\Dionysus\LibraryPage.css">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Web\wwwroot\pagesCSS\Dionysus\SettingsPage.css">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Web\wwwroot\pagesCSS\Dionysus\ColorPalette.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Web\wwwroot\pagesCSS\Dionysus\HomePage.css">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

@@ -177,6 +177,15 @@ namespace Dionysus.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Архівна гра.
+        /// </summary>
+        internal static string LibraryPage_ArchivedGame {
+            get {
+                return ResourceManager.GetString("LibraryPage-ArchivedGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Порожньо.
         /// </summary>
         internal static string MainPage_EmptyError {
@@ -330,20 +339,20 @@ namespace Dionysus.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Показати кнопку &quot;+&quot;.
-        /// </summary>
-        internal static string SettingsPage_ShowAddButt {
-            get {
-                return ResourceManager.GetString("SettingsPage-ShowAddButt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Показати назву гри.
         /// </summary>
         internal static string SettingsPage_ShowGameTitle {
             get {
                 return ResourceManager.GetString("SettingsPage-ShowGameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Показати останній час виконання.
+        /// </summary>
+        internal static string SettingsPage_ShowLastRunTime {
+            get {
+                return ResourceManager.GetString("SettingsPage_ShowLastRunTime", resourceCulture);
             }
         }
         

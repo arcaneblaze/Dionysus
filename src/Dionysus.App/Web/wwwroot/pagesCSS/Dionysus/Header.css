@@ -45,6 +45,8 @@ html, body {
 
 .header_top-panel-button.user{
     width: 35px;
+    font-size: 13px;
+    font-family: "JetBrains Mono", monospace;
     display: flex;
     justify-content: center;
     align-content: center;

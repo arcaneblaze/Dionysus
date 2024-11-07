@@ -1,4 +1,4 @@
-@page "/"
+@page "/library"
 @using System.Diagnostics
 @using System.Globalization
 @using System.Text.RegularExpressions
@@ -18,12 +18,16 @@
 <div class="profile">
     @if(!string.IsNullOrEmpty(ProfileData.Profile().Image)){
         <img style="@(_currentGameId != -1 ? _onGameStyle : _defaultStyle)"
-            class="profile-image" src="@ProfileData.GetBase64Image(ProfileData.Profile().Image)"/>
+             class="profile-image" src="@ProfileData.GetBase64Image(ProfileData.Profile().Image)"/>
     }
     <div style="flex-direction: column">
         <span class="username">
             @ProfileData.Profile().Username
         </span><br/>
+        @if (_runnedGame != null)
+        {
+            <span class="profile-userinfo">@(_runnedGame?.Title)</span><br/>
+        }
         <span class="profile-userinfo">@Localization.strings.ProfileData_GamesCount: @_gamesList.Count,</span>
         <span class="profile-userinfo">
             @Localization.strings.ProfileData_TotalPlayed: @ProfileData.GetTotalPlayTime().TotalHours.ToString("F0")h 
@@ -31,108 +35,92 @@
         </span>
     </div>
 </div>
-<div class="game-list">
+
+@if (!_gamesList.Any())
+{
+    <h3 class="libraryPage_errorText">
+        @Localization.strings.MainPage_EmptyError.
+    </h3>
+}
+
+<div class="libraryPage_games-grid">
     @foreach (var game in _gamesList.OrderByDescending(g => ParseTimeInfo(g.TimeInfo)))
     {
-        <div class="game-item" style="background-image: url('@game.ImageUrl');">
-            @if (SettingsPage.ShowGameTitle)
-            {
-                <div class="overlay" style="@(game.Id == _currentGameId ? _onGameStyle : _defaultStyle)"></div>
-                <div class="game-info">
-                    <h3 style="word-wrap: break-word; text-align: left; font-size: 20px; max-height: 45px">@game.Title</h3>
-                </div>
-            }
-            else
-            {
-                <div class="overlay2" style="@(game.Id == _currentGameId ? _onGameStyle : _defaultStyle)"></div>
-            }
-            
-            <div class="labelContainer">
-                <label class="playtime-label"><i class="fa-regular fa-clock"></i> @game.TimeInfo</label>
-                @if (!string.IsNullOrEmpty(game.LastRun))
-                {
-                    <label class="playtime-label">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        @(DateTime.Parse(game.LastRun).ToString("dd/MM/yyyy HH:mm"))
-                    </label>   
-                }
-                @if (GamesMonitor.GameIsDeletedFromDesktop(game))
-                {
-                    <label class="playtime-label"><i class="fa-solid fa-triangle-exclamation"></i> Archived game</label>
-                }
-            </div>
-            
-            <div class="button-container">
+        <div class="libraryPage_game-card" style="@(game.Id == _currentGameId ? _onGameStyle : _defaultStyle)">
+            <div class="libraryPage_game-image" style="background-image: url('@game.ImageUrl');"></div>
+            <div class="libraryPage_topRightContainer">
                 @if (_currentGameId != game.Id)
                 {
                     @if (!GamesMonitor.GameIsDeletedFromDesktop(game))
                     {
-                        <button class="fa fa-play" id="play-btn" @onclick="() => StartGame(game.Location, game)"></button>   
+                        <button class="libraryPage_button " @onclick="() => StartGame(game.Location, game)" style="color: #26b050"><i class="fa fa-play"></i></button>
                     }
                 }
-                <button class="pencil" id="edit-btn" @onclick="() => ShowEditPanel(game.Id)"><i class="fa-solid fa-gear"></i></button>
-                <button class="trash" id="delete-btn" @onclick="() => DeleteGame(game)"><i class="fa-solid fa-trash-can"></i></button>
+                <button class="libraryPage_button " @onclick="() => ShowEditPanel(game.Id)"><i class="fa fa-pencil"></i></button>
+                <button class="libraryPage_button " @onclick="() => DeleteGame(game)" style="color: #e11d48"><i class="fa fa-trash-can"></i></button>
             </div>
+            <div class="libraryPage_game-info">
+                @if (SettingsPage.ShowGameTitle)
+                {
+                    <h3 class="libraryPage_game-title" title="@game.Title">
+                        @game.Title
+                    </h3>   
+                }
+                <div class="homePage_game-tags">
+                    @if (!string.IsNullOrEmpty(game.TimeInfo))
+                    {
+                        <span class="homePage_tag"><i class="fa-regular fa-clock"></i> @game.TimeInfo</span>
+                    }
+                </div>
+                <div class="homePage_game-tags">
+                    @if (!string.IsNullOrEmpty(game.LastRun) && SettingsPage.ShowLastRunTime)
+                    {
+                        <span class="homePage_tag"><i class="fa-regular fa-calendar"></i> @game.LastRun</span>
+                    }
+                </div>
+            </div>
+            @if (GamesMonitor.GameIsDeletedFromDesktop(game))
+            {
+                <div class="homePage_game-tags" style="position: absolute; display: flex; left: 10px; top: 5px; z-index: 10">
+                        <span class="homePage_tag" title="@Localization.strings.LibraryPage_ArchivedGame">
+                            <i style="color: #ffc107" class="fa-solid fa-triangle-exclamation"></i>
+                        </span>
+                </div>   
+            }
         </div>
 
         @if (_currentEditGameId == game.Id)
         {
-            <div class="edit-game-form">
-                <label>@Localization.strings.EditGameForm_TitleLabel:</label>
-                <input type="text" @bind="game.Title" placeholder="@Localization.strings.EditGameForm_TitlePlaceholder" required="required">
-                <div>
-                    <label>@Localization.strings.EditGameForm_CoverLabel:</label>
-                    <input type="text"  style="width: 88%" @bind="game.ImageUrl" placeholder="@Localization.strings.EditGameForm_CoverPlaceholder" required="required">
-                    <button class="edit-game-form-button" style="width: 45px" @onclick="() => OpenUrl(SteamGridDB._link)"><i class="fa-solid fa-globe"></i></button>
+            <div class="edit-game-form-overlay">
+                <div class="edit-game-form">
+                    <label>@Localization.strings.EditGameForm_TitleLabel:</label>
+                    <input type="text" @bind="game.Title" placeholder="@Localization.strings.EditGameForm_TitlePlaceholder" required="required">
+                    <div>
+                        <label>@Localization.strings.EditGameForm_CoverLabel:</label>
+                        <input type="text"  style="width: 88%" @bind="game.ImageUrl" placeholder="@Localization.strings.EditGameForm_CoverPlaceholder" required="required">
+                        <button class="edit-game-form-button" style="width: 45px" @onclick="() => OpenUrl(SteamGridDB._link)"><i class="fa-solid fa-globe"></i></button>
+                    </div>
+                    <div>
+                        <label>@Localization.strings.EditGameForm_LocationLabel:</label>
+                        <input style="width: 80%" type="text" @bind="game.Location" placeholder="@Localization.strings.EditGameForm_LocationPlaceholder" required="required">
+                        <button class="edit-game-form-button" style="width: 45px;"
+                                @onclick="() => SelectFileForEdit(game)">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button class="edit-game-form-button" style="width: 45px"
+                                disabled="@(!File.Exists(game.Location) || string.IsNullOrEmpty(game.Location))"
+                                @onclick="() => OpenFolder(game.Location)">
+                            <i class="fa-regular fa-folder-open"></i>
+                        </button>
+                    </div>
+                    <label>@Localization.strings.EditGameForm_LaunchOptionsLabel:</label>
+                    <input type="text" @bind="game.Arguments" placeholder="@Localization.strings.EditGameForm_LaunchOptionsPlaceholder" required="required">
+                    <button class="mainPage_saveButton" @onclick="() => SaveEdit(game.Id)"><i class="fa-solid fa-floppy-disk"></i></button>
+                    <button class="edit-game-form-button" @onclick="() => CancelEdit()"><i class="fa-solid fa-close"></i></button>
                 </div>
-                <div>
-                    <label>@Localization.strings.EditGameForm_LocationLabel:</label>
-                    <input style="width: 80%" type="text" @bind="game.Location" placeholder="@Localization.strings.EditGameForm_LocationPlaceholder" required="required">
-                    <button class="edit-game-form-button" style="width: 45px;"
-                            @onclick="() => SelectFileForEdit(game)">
-                        <i class="fa-solid fa-pencil"></i>
-                    </button>
-                    <button class="edit-game-form-button" style="width: 45px"
-                            disabled="@(!File.Exists(game.Location) || string.IsNullOrEmpty(game.Location))"
-                            @onclick="() => OpenFolder(game.Location)">
-                        <i class="fa-regular fa-folder-open"></i>
-                    </button>
-                </div>
-                <label>@Localization.strings.EditGameForm_LaunchOptionsLabel:</label>
-                <input type="text" @bind="game.Arguments" placeholder="@Localization.strings.EditGameForm_LaunchOptionsPlaceholder" required="required">
-                <button class="mainPage_saveButton" @onclick="() => SaveEdit(game.Id)"><i class="fa-solid fa-floppy-disk"></i></button>
-                <button class="edit-game-form-button" @onclick="() => CancelEdit()"><i class="fa-solid fa-close"></i></button>
             </div>
         }
     }
-    @if (!_gamesList.Any())
-    {
-        <h3 style="text-align: center; width: 100%; color: #696a6d; font-family: 'JetBrains Mono', monospace;">
-            @Localization.strings.MainPage_EmptyError.
-        </h3>
-    }
-
-
-    @if (_showAddGameForm)
-    {
-        <div id="add-game-form" class="add-game-form">
-            <input type="text" @bind="_newGame.Title" placeholder="@Localization.strings.AddGameForm_TitlePlaceholder" required="required">
-            <div class="custom-file-input">
-                <label class="custom-file-label" @onclick="@SelectFile" for="fileInput">
-                    @(_selectedFile != null ? _selectedFile : @Localization.strings.AddGameForm_SelectorLabel.Replace("\\", ""))
-                </label>
-            </div>
-            <button @onclick="AddGameAsync" ><i class="fa-solid fa-add"></i></button>
-            <button @onclick="ToggleForm"><i class="fa-solid fa-close"></i></button>
-
-        </div>
-    }
-
-    @if (!_showAddGameForm && SettingsPage.ShowAddButton)
-    {
-        <button class="add-game-button fa fa-plus" @onclick="ToggleForm"></button>
-    }
-
 </div>
 @code {
     private int? _currentEditGameId = null;
@@ -140,6 +128,7 @@
     public static List<GameModel> _gamesList = GameData.GamesData.ParseGamesFromJSON().ToList();
     static bool _showAddGameForm = false;
     static GameModel _newGame = new GameModel();
+    static GameModel _runnedGame = null;
     private static string _selectedFile;
     private int previousGameId = -1;
     static bool _playerPlaying = false;
@@ -147,7 +136,7 @@
     static string _defaultStyle = "";
     static string _onGameStyle = "border: 2px solid #238636;";
     static Logger _logger = new Logger();
-    
+
     public static TimeSpan ParseTimeInfo(string timeInfo)
     {
         if (string.IsNullOrWhiteSpace(timeInfo))
@@ -156,7 +145,7 @@
         }
 
         timeInfo = timeInfo.Trim();
-    
+
         int hours = 0;
         int minutes = 0;
 
@@ -192,7 +181,7 @@
             }
         }
     }
-    
+
     private static void SelectFile()
     {
         using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -265,6 +254,7 @@
 
     static void ToggleForm() => _showAddGameForm = !_showAddGameForm;
 
+    /*
     public static async void AddGameAsync()
     {
         int _id = _gamesList.Any() ? _gamesList.Max(g => g.Id) + 1 : 1;
@@ -275,7 +265,7 @@
                 _gamesList.Add(new GameModel()
                 {
                     Id = _id,
-                    ImageUrl = await SteamGridDB.GetGridUri(_newGame.Title),
+                    ImageUrl = await SteamGridDB.GetGridUriHorizontal(_newGame.Title),
                     Location = _newGame.Location,
                     TimeInfo = "0h 0m",
                     Title = _newGame.Title
@@ -291,6 +281,7 @@
             }
         }
     }
+    */
 
     public static async void AddGameFromAnotherAsync(int _id, string _location, string _gameName)
     {
@@ -299,7 +290,7 @@
             _gamesList.Add(new GameModel()
             {
                 Id = _id,
-                ImageUrl = await SteamGridDB.GetGridUri(_gameName),
+                ImageUrl = await SteamGridDB.GetGridUriVertical(_gameName),
                 Location = _location,
                 TimeInfo = "0h 0m",
                 Title = _gameName.Replace("&#8211;", "-")
@@ -331,7 +322,7 @@
     {
         await UpdateAsync();
     }
-    
+
     private async Task UpdateAsync()
     {
         GameModel _currentRunningGame = null;
@@ -347,6 +338,7 @@
                     {
                         _logger.Log(Logger.LogType.DEBUG, $"{_game.runningGame.Title} running");
                         _currentRunningGame = _game.runningGame;
+                        _runnedGame = _game.runningGame;
                         _currentGameId = _game.runningGame.Id;
                         
                         _game.runningGame.LastRun = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
@@ -366,6 +358,7 @@
                     {
                         _logger.Log(Logger.LogType.DEBUG, $"Game closed");
                         _currentGameId = -1;
+                        _runnedGame = null;
                         _currentRunningGame = null;
 
                         GamesMonitor.isCounting = false;
@@ -386,5 +379,4 @@
             }
         }
     }
-    
 }

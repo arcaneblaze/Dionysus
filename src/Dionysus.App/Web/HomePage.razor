@@ -1,104 +1,111 @@
-@page "/games"
-
-@using System.Collections
+﻿@page "/"
 @using System.Diagnostics
+@using System.Globalization
 @using Dionysus.App.Data
-@using Dionysus.App.Helpers
 @using Dionysus.App.Interfaces
 @using Dionysus.App.Logger
-@using System.Globalization
-@using Dionysus.App.Models
 @using Dionysus.App.TorrentClient
 @using Dionysus.WebScrap
 @using Dionysus.WebScrap.FitGirlScrapper
 @using Dionysus.WebScrap.GOGScrapper
+@using Dionysus.WebScrap.Steam250
 @using Dionysus.WebScrap.XatabScrapper
 @inject NavigationManager NavigationManager
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-<link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-@{
-    Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(SettingsPage._appLanguage);
-}
+    @{
+        Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(SettingsPage._appLanguage);
+    }
+</head>
 
-<div class="gamesPage_searchPanel">
-    <input class="gamesPage_input" @bind="searchText" placeholder="@Localization.strings.GamesPage_SearchPanelPlaceholder"/>
+<div class="homePage_searchPanel">
+    <input class="homePage_input" @bind="searchText" placeholder="@Localization.strings.GamesPage_SearchPanelPlaceholder"/>
 
-    <button @onclick="Search" class="gamesPage_searchButton fa fa-magnifying-glass"></button>
+    <button @onclick="Search" class="homePage_searchButton fa fa-magnifying-glass"></button>
 </div>
 
 @if (!string.IsNullOrWhiteSpace(_errorText))
 {
-   
+
     @if (_errorText == "Wait...")
     {
-        <div class="gamesPage_loader-container">
-            <div class="gamesPage_loaderAnimation"></div>
+        <div class="homePage_loader-container">
+            <div class="homePage_loaderAnimation"></div>
         </div>
     }
     else
     {
-        <h3 class="gamesPage_errorText">@_errorText</h3>
+        <h3 class="homePage_errorText">@_errorText</h3>
     }
 }
-<div class="game-list">
-    @if (_games != null && _games.Any())
-    {
-        @foreach (var game in _games.OrderBy(g => g.Source))
-        {
-            @if (!string.IsNullOrEmpty(game.Size))
+
+<body>
+<div class="homePage_container">
+    <main class="homePage_main-content">
+        <div class="homePage_games-grid">
+            @if (_games != null && _games.Any())
             {
-                <div class="gamesPage_game-item" style="background-image: url('@game.Cover');">
-                    <div class="gamesPage_overlay"></div>
-                    <div class="gamesPage_game-info">
-                        <h3 class="gamesPage_gameName">
-                            @game.Name
-                        </h3>
-                        
-                        <div class="gamesPage_topRightContainer">
-                            <button class="gamesPage_button fa fa-download" title="@Localization.strings.GamesPage_DownloadTitle" 
+                @foreach (var game in _games.OrderBy(g => g.Source))
+                {
+                    <div class="homePage_game-card">
+                        <div class="homePage_game-image" style="background-image: url('@game.Cover')"></div>
+                        <div class="homePage_topRightContainer">
+                            <button class="homePage_button fa fa-download" title="@Localization.strings.GamesPage_DownloadTitle"
                                     @onclick="() => TorrentManager.DownloadTypeSelector(game.Link, game.DownloadLink, game.Name)"></button>
-                            <button class="gamesPage_button fa fa-plus" title="@Localization.strings.GamesPage_AddToLibTitle"
+                            <button class="homePage_button fa fa-plus" title="@Localization.strings.GamesPage_AddToLibTitle"
                                     @onclick="() => AddGameToLib(game.Name)"></button>
                         </div>
-                        <div class="gamesPage_topLeftContainer">
-                            <label class="gamesPage_topLeftContainerFirstElement"><i class="fa-regular fa-file-zipper"></i> @game.Size</label>
-                            <label class="gamesPage_topLeftContainerSecondElement"><i class="fa-solid fa-user"></i> @game.Source</label>
-                            @if (!string.IsNullOrEmpty(game.Uploader))
-                            {
-                                <label class="gamesPage_topLeftContainerSecondElement" title="Uploader"><i class="fa-solid fa-upload"></i> @game.Uploader</label>
-                            }
-                            @if (!string.IsNullOrEmpty(game.Version) && SettingsPage.ShowGameVersion)
-                            {
-                                <label class="gamesPage_topLeftContainerSecondElement" title="Version"><i class="fa-solid fa-circle-info"></i> @game.Version</label>
-                            }
-                            @if (!string.IsNullOrEmpty(game.Date) && SettingsPage.ShowPostDate)
-                            {
-                                <label class="gamesPage_topLeftContainerSecondElement"><i class="fa-solid fa-calendar-days"></i> @game.Date</label>
-                            }
-                            @if (SettingsPage.ShowLinkButton)
-                            {
-                                <button class="gamesPage_topLeftContainerButtonElement fa-brands fa-chrome"
-                                        @onclick="() => Process.Start(new ProcessStartInfo(game.Link) { UseShellExecute = true })">
-                                </button>  
-                            }
+                        <div class="homePage_game-info">
+                            <h3 class="homePage_game-title" title="@game.Name">
+                                @game.Name
+                            </h3>
+                            <div class="homePage_game-tags">
+                                @if (!string.IsNullOrEmpty(game.Size))
+                                {
+                                    <span class="homePage_tag"><i class="fa-regular fa-file-zipper"></i> @game.Size</span>
+                                }
+                                <span class="homePage_tag"><i class="fa-solid fa-user"></i> @game.Source</span>
+                                @if (SettingsPage.ShowGameVersion && !string.IsNullOrEmpty(game.Version))
+                                {
+                                    <span class="homePage_tag"><i class="fa-solid fa-circle-info"></i> @game.Version</span>
+                                }
+                                @if (SettingsPage.ShowPostDate && !string.IsNullOrEmpty(game.Date))
+                                {
+                                    <span class="homePage_tag"><i class="fa-solid fa-calendar-days"></i> @game.Date</span>
+                                }
+                                @if (SettingsPage.ShowLinkButton)
+                                {
+                                    <button class="homePage_tag-button"
+                                            @onclick="() => Process.Start(new ProcessStartInfo(game.Link) { UseShellExecute = true })">
+                                        <i class="fa-brands fa-chrome"></i>
+                                    </button>
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>   
+                }
             }
-        }
-    }
+        </div>
+    </main>
 </div>
+</body>
+</html>
 
-@code {
+@code{
     private static string _jsonPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "env.json");
     private static string _selectedFile;
     private static string _errorText;
     private static string searchText;
     private static bool _research = false;
-    private static IEnumerable<SearchGameInfoStruct> _games;
+    private static List<SearchGameInfoStruct> _games;
     static Logger _logger = new Logger();
     private List<IGameSearcher> _searchers = new List<IGameSearcher>
     {
@@ -114,7 +121,7 @@
         _games = null;
         _errorText = "Wait...";
         StateHasChanged();
-        
+
         var searchTasks = _searchers.Select(async searcher =>
         {
             try
@@ -154,10 +161,10 @@
         _errorText = foundGames.Any() ? string.Empty : "Not Found.";
 
         StateHasChanged();
-        
+
         GC.Collect();
         GC.WaitForPendingFinalizers();
-        
+
         foundGames.Clear();
         alreadyFoundGameNames.Clear();
     }
@@ -172,7 +179,7 @@
             {
                 var _lastId = _json.Any() ? _json.Select(id => id.Id).Last() : 0;
 
-                MainPage.AddGameFromAnotherAsync(_lastId + 1, _selectedFile, _gameName);
+                LibraryPage.AddGameFromAnotherAsync(_lastId + 1, _selectedFile, _gameName);
             }
             catch(Exception ex)
             {
@@ -193,5 +200,4 @@
         }
     }
     
-   
 }

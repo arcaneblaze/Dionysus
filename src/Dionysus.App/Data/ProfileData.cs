@@ -63,9 +63,9 @@ public class ProfileData
     {
         TimeSpan totalPlayTime = TimeSpan.Zero;
 
-        foreach (var game in MainPage._gamesList)
+        foreach (var game in LibraryPage._gamesList)
         {
-            var gameTime = MainPage.ParseTimeInfo(game.TimeInfo);
+            var gameTime = LibraryPage.ParseTimeInfo(game.TimeInfo);
             totalPlayTime = totalPlayTime.Add(gameTime);
         }
 

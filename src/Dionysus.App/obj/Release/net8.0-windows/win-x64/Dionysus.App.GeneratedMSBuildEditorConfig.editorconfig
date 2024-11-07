@@ -28,16 +28,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = V2ViXEFwcC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/C\# projects/Dionysus/src/Dionysus.App/Web/GamesPage.razor]
-build_metadata.AdditionalFiles.TargetPath = V2ViXEdhbWVzUGFnZS5yYXpvcg==
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/HomePage.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXEhvbWVQYWdlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/C\# projects/Dionysus/src/Dionysus.App/Web/LibraryPage.razor]
+build_metadata.AdditionalFiles.TargetPath = V2ViXExpYnJhcnlQYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/C\# projects/Dionysus/src/Dionysus.App/Web/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = V2ViXE1haW5MYXlvdXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/C\# projects/Dionysus/src/Dionysus.App/Web/MainPage.razor]
-build_metadata.AdditionalFiles.TargetPath = V2ViXE1haW5QYWdlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/C\# projects/Dionysus/src/Dionysus.App/Web/SettingsPage.razor]

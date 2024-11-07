@@ -177,6 +177,15 @@ namespace Dionysus.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jeu archivé.
+        /// </summary>
+        internal static string LibraryPage_ArchivedGame {
+            get {
+                return ResourceManager.GetString("LibraryPage-ArchivedGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vide.
         /// </summary>
         internal static string MainPage_EmptyError {
@@ -330,20 +339,20 @@ namespace Dionysus.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afficher le bouton &quot;+&quot;.
-        /// </summary>
-        internal static string SettingsPage_ShowAddButt {
-            get {
-                return ResourceManager.GetString("SettingsPage-ShowAddButt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Afficher le titre du jeu.
         /// </summary>
         internal static string SettingsPage_ShowGameTitle {
             get {
                 return ResourceManager.GetString("SettingsPage-ShowGameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afficher le dernier temps d’exécution.
+        /// </summary>
+        internal static string SettingsPage_ShowLastRunTime {
+            get {
+                return ResourceManager.GetString("SettingsPage_ShowLastRunTime", resourceCulture);
             }
         }
         

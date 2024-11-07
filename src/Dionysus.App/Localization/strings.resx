@@ -96,8 +96,8 @@
     <data name="SettingsPage-AddToStartup" xml:space="preserve">
         <value>Add to startup</value>
     </data>
-    <data name="SettingsPage-ShowAddButt" xml:space="preserve">
-        <value>Show "+" button</value>
+    <data name="SettingsPage_ShowLastRunTime" xml:space="preserve">
+        <value>Show the last run time</value>
     </data>
     <data name="SettingsPage-ShowGameTitle" xml:space="preserve">
         <value>Show game title</value>
@@ -128,5 +128,8 @@
     </data>
     <data name="SettingsPage-SelectImage" xml:space="preserve">
         <value>Select image</value>
+    </data>
+    <data name="LibraryPage-ArchivedGame" xml:space="preserve">
+        <value>Archived game</value>
     </data>
 </root>

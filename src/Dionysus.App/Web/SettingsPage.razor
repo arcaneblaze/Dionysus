@@ -75,8 +75,8 @@
     </label>
     <div class="settingsPage_separator">@Localization.strings.SettingsPage_LibrarySeparator</div>
     <label class="settingsPage_settingLabel">
-        <span>@Localization.strings.SettingsPage_ShowAddButt</span>
-        <div class="settingsPage_custom-checkbox @(ShowAddButton ? "checked" : "")" @onclick="ToggleShowAddButton"></div>
+        <span>@Localization.strings.SettingsPage_ShowLastRunTime</span>
+        <div class="settingsPage_custom-checkbox @(ShowLastRunTime ? "checked" : "")" @onclick="ToggleShowLastRunTime"></div>
     </label>
     <label class="settingsPage_settingLabel">
         <span>@Localization.strings.SettingsPage_ShowGameTitle</span>
@@ -126,7 +126,7 @@
     public static string _appTheme;
     public static string Username;
     public static bool AddToStartup;
-    public static bool ShowAddButton;
+    public static bool ShowLastRunTime;
     public static bool ShowGameTitle;
     public static bool AutoBackup;
     public static bool ShowLinkButton;
@@ -163,8 +163,8 @@
         var addToStartup = settings.FirstOrDefault(s => s.SettingName == "AddToStartup");
         AddToStartup = addToStartup != null ? (bool)addToStartup.Value : true;
     
-        var addButt = settings.FirstOrDefault(s => s.SettingName == "ShowAddButton");
-        ShowAddButton = addButt != null ? (bool)addButt.Value : true;
+        var lastRunTime = settings.FirstOrDefault(s => s.SettingName == "ShowLastRunTime");
+        ShowLastRunTime = lastRunTime != null ? (bool)lastRunTime.Value : true;
 
         var gameTitle = settings.FirstOrDefault(s => s.SettingName == "ShowGameTitle");
         ShowGameTitle = gameTitle != null ? (bool)gameTitle.Value : true;
@@ -194,7 +194,7 @@
     }
 
     private void ToggleAddToStartup() => AddToStartup = !AddToStartup;
-    private void ToggleShowAddButton() => ShowAddButton = !ShowAddButton;
+    private void ToggleShowLastRunTime() => ShowLastRunTime = !ShowLastRunTime;
 
     private void ToggleShowGameTitle() => ShowGameTitle = !ShowGameTitle;
     private void ToggleAutobackup() => AutoBackup = !AutoBackup;
@@ -218,7 +218,7 @@
         {
             new SettingsModel { SettingName = "AddToStartup", Value = AddToStartup },
             new SettingsModel { SettingName = "ShowGameTitle", Value = ShowGameTitle },
-            new SettingsModel { SettingName = "ShowAddButton", Value = ShowAddButton },
+            new SettingsModel { SettingName = "ShowLastRunTime", Value = ShowLastRunTime },
             new SettingsModel { SettingName = "AutoBackup", Value = AutoBackup },
             new SettingsModel { SettingName = "ShowLinkButton", Value = ShowLinkButton },
             new SettingsModel { SettingName = "ShowGameVersion", Value = ShowGameVersion },

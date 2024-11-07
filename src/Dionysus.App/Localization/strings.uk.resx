@@ -120,13 +120,16 @@
     <data name="SettingsPage-ShowGameTitle" xml:space="preserve">
         <value>Показати назву гри</value>
     </data>
-    <data name="SettingsPage-ShowAddButt" xml:space="preserve">
-        <value>Показати кнопку "+"</value>
-    </data>
     <data name="SettingsPage-UsernamePlaceholder" xml:space="preserve">
         <value>Введіть нікнейм...</value>
     </data>
     <data name="SettingsPage-SelectImage" xml:space="preserve">
         <value>Вибрати зображення</value>
+    </data>
+    <data name="SettingsPage_ShowLastRunTime" xml:space="preserve">
+        <value>Показати останній час виконання</value>
+    </data>
+    <data name="LibraryPage-ArchivedGame" xml:space="preserve">
+        <value>Архівна гра</value>
     </data>
 </root>

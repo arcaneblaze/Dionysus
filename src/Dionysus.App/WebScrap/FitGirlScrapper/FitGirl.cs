@@ -68,7 +68,7 @@ public class FitGirl
                     
                     if (IsGameMatch(rephrasedName, _gameName))
                     {
-                        var _cover = await SteamGridDB.GetGridUri(rephrasedName);
+                        var _cover = await SteamGridDB.GetGridUriHorizontal(rephrasedName);
                         if (_cover != null)
                         {
                             _list.Add(new SearchGameInfoStruct()

@@ -123,7 +123,7 @@ public class Xatab
             if (!IsGameMatch(rephrasedName, request)) return new SearchGameInfoStruct();
 
             var gameDataTask = GetDataFromLink(gameLink);
-            var coverTask = SteamGridDB.GetGridUri(rephrasedName);
+            var coverTask = SteamGridDB.GetGridUriHorizontal(rephrasedName);
 
             await Task.WhenAll(gameDataTask, coverTask);
             var (downloadLink, size, version) = gameDataTask.Result;

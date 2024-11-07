@@ -22,7 +22,7 @@ public class Backup
         GameData.GamesData.SaveToJSON(_backData.ToList());
         new Thread(() =>
         {
-            MainPage._gamesList = GameData.GamesData.ParseGamesFromJSON().ToList();
+            LibraryPage._gamesList = GameData.GamesData.ParseGamesFromJSON().ToList();
         }).Start();
         _logger.Log(Logger.Logger.LogType.INFO, "Backup Restored");
     }
