@@ -47,7 +47,7 @@
     @foreach (var game in _gamesList.OrderByDescending(g => ParseTimeInfo(g.TimeInfo)))
     {
         <div class="libraryPage_game-card" style="@(game.Id == _currentGameId ? _onGameStyle : _defaultStyle)">
-            <div class="libraryPage_game-image" style="background-image: url('@game.ImageUrl');"></div>
+            <div class="libraryPage_game-image" style="background-image: url('@game.ImageUrl');  @(GamesMonitor.GameIsDeletedFromDesktop(game) ? "opacity: 0.24" : "")"></div>
             <div class="libraryPage_topRightContainer">
                 @if (_currentGameId != game.Id)
                 {

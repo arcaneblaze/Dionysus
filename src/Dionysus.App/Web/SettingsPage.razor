@@ -118,7 +118,16 @@
 
     <button class="settingsPage_saveButton" @onclick="Save"><i class="fa-solid fa-floppy-disk"></i></button>
     <label class="settingsPage_versionLabel">v@_versionString
-    </label>
+        @if (_isUpdateAvailable)
+        {
+            <label class="settingsPage_versionLabel">
+                | <label class="settingsPage_versionLabel" @onclick="() => LibraryPage.OpenUrl(_updateUrl)"
+                         style="text-decoration: underline; cursor: pointer">
+                    Update
+                </label>
+            </label>
+        }
+        </label>
 </div>
 
 @code {
@@ -136,6 +145,8 @@
     static Version _version = Assembly.GetExecutingAssembly().GetName().Version;
     static string _versionString = $"{_version.Major}.{_version.Minor} \"{Program._appCodeName}\"";
     static Logger _logger = new Logger();
+    private bool _isUpdateAvailable = false;
+    private string _updateUrl = string.Empty;
     
     private string GOGStatus = "fa-solid fa-hourglass-start";
     private string XatabStatus = "fa-solid fa-hourglass-start";
@@ -143,6 +154,10 @@
     
     protected override async Task OnInitializedAsync()
     {
+        var updateCheck = await AppHelper.NeedUpdate($"{_version.Major}.{_version.Minor}");
+        _isUpdateAvailable = updateCheck.updNeed;
+        _updateUrl = updateCheck.url;
+        
         GOGStatus = await GOG.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
         XatabStatus = await Xatab.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
         FitGirlStatus = await FitGirl.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";

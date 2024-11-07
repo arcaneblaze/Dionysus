@@ -52,4 +52,28 @@ public class AppHelper
         return (Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
             true).GetValueNames().Contains("Dionysus"));
     }
+    
+    public static async Task<(bool updNeed, string url)> NeedUpdate(string currentVersion)
+    {
+        using var _httpClient = new HttpClient();
+        var _html = await _httpClient.GetStringAsync("https://github.com/blazor911/Dionysus/tags");
+        var _htmlDocument = new HtmlAgilityPack.HtmlDocument();
+        _htmlDocument.LoadHtml(_html);
+
+        var versionNode = _htmlDocument.DocumentNode.SelectSingleNode("//h2/a[@href and contains(text(),'v')]");
+
+        if (versionNode != null)
+        {
+            var latestVersion = versionNode.InnerText.Trim().Replace("v", "");
+            var latestVersionUrl = "https://github.com" + versionNode.Attributes["href"].Value;
+
+            if (Version.TryParse(latestVersion, out var parsedLatestVersion) &&
+                Version.TryParse(currentVersion, out var parsedCurrentVersion))
+            {
+                bool needsUpdate = parsedLatestVersion > parsedCurrentVersion;
+                return (needsUpdate, needsUpdate ? latestVersionUrl : string.Empty);
+            }
+        }
+        return (false, string.Empty);
+    }
 }
