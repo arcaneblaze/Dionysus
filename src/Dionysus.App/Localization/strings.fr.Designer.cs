@@ -177,6 +177,15 @@ namespace Dionysus.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trier par.
+        /// </summary>
+        internal static string HomePage_SortBy {
+            get {
+                return ResourceManager.GetString("HomePage-SortBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jeu archivé.
         /// </summary>
         internal static string LibraryPage_ArchivedGame {
@@ -236,6 +245,15 @@ namespace Dionysus.Localization {
         internal static string SettingsPage_AutoBackup {
             get {
                 return ResourceManager.GetString("SettingsPage-AutoBackup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to vérifier.
+        /// </summary>
+        internal static string SettingsPage_CheckSources {
+            get {
+                return ResourceManager.GetString("SettingsPage-CheckSources", resourceCulture);
             }
         }
         

@@ -22,7 +22,6 @@ html, body {
     background-color: var(--headerColor);
     color: var(--foregroundColor);
     border-style: solid;
-    margin-left: 25px;
     border-color: var(--borderColor);
     border-width: 0.2px;
     padding: 8px 20px;
@@ -54,8 +53,8 @@ html, body {
 
 .header_right-side{
     margin: 0;
-    right: 0px;
-    padding: 35px;
+    right: 0;
+    padding: 10px;
     position: absolute;
     display: flex;
     align-items: center;

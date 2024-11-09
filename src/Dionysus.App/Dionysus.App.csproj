@@ -9,8 +9,8 @@
         <AssemblyName>Dionysus</AssemblyName>
         <RootNamespace>Dionysus</RootNamespace>
         <ApplicationIcon>icon.ico</ApplicationIcon>
-        <Version>2.4</Version>
-        <AssemblyVersion>2.4</AssemblyVersion>
+        <Version>2.5</Version>
+        <AssemblyVersion>2.5</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -44,6 +44,9 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Web\wwwroot\pagesCSS\Dionysus\HomePage.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Web\wwwroot\pagesCSS\Dionysus\Toast.css">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

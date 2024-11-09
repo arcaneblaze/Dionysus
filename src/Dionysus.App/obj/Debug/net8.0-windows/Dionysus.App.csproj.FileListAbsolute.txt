@@ -168,3 +168,4 @@ D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\fr\Dionysus.re
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Debug\net8.0-windows\uk\Dionysus.resources.cs
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\LibraryPage.css
 D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\HomePage.css
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Debug\net8.0-windows\Web\wwwroot\pagesCSS\Dionysus\Toast.css

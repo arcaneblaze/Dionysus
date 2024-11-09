@@ -27,7 +27,7 @@ public class ProfileData
                 {
                     if (image.Height != image.Width)
                     {
-                        MessageBox.Show("The image is not of different width and height", "Error", MessageBoxButtons.OK);
+                        Toast.toast.ShowToast("The image is not of different width and height", "error");
                         return;
                     }
                     if (image.Height > 256 || image.Width > 256)
@@ -36,6 +36,7 @@ public class ProfileData
                         {
                             string resizedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/profileImage" + Path.GetExtension(fullPath));
                             resizedImage.Save(resizedPath);
+                            Toast.toast.ShowToast("Image selected. Save settings", "info");
                             _profile.Image = resizedPath;
                         }
                     }
@@ -43,6 +44,7 @@ public class ProfileData
                     {
                         string resizedPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/profileImage" + Path.GetExtension(fullPath));
                         image.Save(resizedPath);
+                        Toast.toast.ShowToast("Image selected. Save settings", "info");
                         _profile.Image = resizedPath;
                     }
                 }

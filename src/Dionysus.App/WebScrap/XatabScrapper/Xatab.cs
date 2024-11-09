@@ -54,7 +54,7 @@ public class Xatab
     public static async Task<IEnumerable<SearchGameInfoStruct>> GetSearchResponse(string request)
     {
         var responseList = new List<SearchGameInfoStruct>();
-        
+        request = request.Length > 15 ? request.Substring(0, 15) : request;
         try
         {
             var initialLink = $"{_baseLink}/search/{request}";
@@ -132,10 +132,10 @@ public class Xatab
             
             return new SearchGameInfoStruct
             {
-                Cover = coverTask.Result,
                 Name = title.Replace("&#039;", "'")
                     .Replace("Папка игры", "Game folder")
-                    .Replace("Лицензия", "License"),
+                    .Replace("Лицензия", "License")
+                    .Replace("Архив","Archive"),
                 Link = gameLink,
                 Size = size.Replace("Гб", "GB").Replace("гб", "GB").Replace("ГБ","GB"),
                 DownloadLink = downloadLink,
@@ -163,7 +163,6 @@ public class Xatab
         var size = htmlDocument.DocumentNode
             .SelectSingleNode("//span[@class='entry__info-size']")?
             .InnerText.Trim() ?? string.Empty;
-
         var version = ExtractVersion(htmlDocument);
 
         return (downloadLink, size, version);

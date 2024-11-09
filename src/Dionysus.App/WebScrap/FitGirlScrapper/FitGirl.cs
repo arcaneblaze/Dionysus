@@ -73,7 +73,6 @@ public class FitGirl
                         {
                             _list.Add(new SearchGameInfoStruct()
                             {
-                                Cover = _cover,
                                 Name = rephrasedName,
                                 Link = _link,
                                 Size = size,
@@ -108,8 +107,6 @@ public class FitGirl
         string _downloadLink = _downloadNode != null 
             ? _downloadNode.Attributes["href"].Value.Replace("&amp;", "&").Replace("&#038;", "&") 
             : null;
-
-        var _sizeNode = _htmlDocument.DocumentNode.SelectSingleNode("//strong[contains(text(), 'from')]");
         
         var gameVersionNode = _htmlDocument.DocumentNode.SelectSingleNode("//li[contains(text(), 'Game version:')]");
 
@@ -123,18 +120,31 @@ public class FitGirl
             }
         }
         
-        string _size = null;
-        if (_sizeNode != null)
+        var sizeTextNode = _htmlDocument.DocumentNode.SelectSingleNode("//p//text()[contains(., 'Repack Size') or contains(., 'from')]");
+        
+        string repackSize = null;
+        if (sizeTextNode != null)
         {
-            string text = _sizeNode.InnerText;
-            Match match = Regex.Match(text, @"from\s+(\d+(\.\d+)?\s*GB)");
-            if (match.Success)
+            var sizeParentNode = sizeTextNode.ParentNode;
+            var sizeText = sizeParentNode.InnerText;
+            
+            var matchRepackSize = Regex.Match(sizeText, @"Repack Size:\s*(\d+(\.\d+)?(/\d+(\.\d+)?)?\s*GB)");
+            if (matchRepackSize.Success)
             {
-                _size = match.Value.Trim();
+                repackSize = matchRepackSize.Groups[1].Value;
+            }
+            else
+            {
+                var matchFromSize = Regex.Match(sizeText, @"from\s*(\d+(\.\d+)?\s*GB)");
+                if (matchFromSize.Success)
+                {
+                    repackSize = matchFromSize.Groups[1].Value;
+                }
             }
         }
 
-        return (_downloadLink, _size , gameVersion);
+
+        return (_downloadLink, repackSize , gameVersion);
     }
     
     private static bool IsGameMatch(string gameName, string searchQuery)

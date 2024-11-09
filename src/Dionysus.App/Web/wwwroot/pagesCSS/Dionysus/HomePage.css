@@ -243,3 +243,184 @@
 .homePage_button:active {
     transform: scale(0.97);
 }
+
+.download-game-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(3px);
+    justify-content: center;
+    z-index: 1002;
+}
+
+.download-game-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    max-width: 700px;
+    max-height: 80%;
+    width: 90%;
+    background-color: var(--headerColor);
+    padding: 20px;
+    border-radius: var(--borderRadius);
+    border: 0.2px solid var(--borderColor);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transform: translate(-50%, -50%);
+    z-index: 1003;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.download-game-form input,
+.download-game-form textarea {
+    font-family: "JetBrains Mono", monospace;
+    width: 97%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    background-color: var(--backgroundColor);
+    color: var(--foregroundColor);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transition: all 0.6s ease-in-out;
+}
+.download-game-form input:focus,
+.download-game-form textarea:focus{
+    outline: var(--borderColor) 0.3px solid;
+}
+.download-game-form label {
+    color:  var(--foregroundColor);
+    margin-bottom: 10px;
+    display: block;
+}
+input::placeholder{
+    color: var(--placeholderColor);
+}
+
+.download-game-form-button {
+    font-family: "JetBrains Mono", monospace;
+    background-color: var(--headerColor);
+    color: var(--foregroundColor);
+    width: 100px;
+    border-radius: var(--borderRadius);
+    border-style: solid;
+    border-color: var(--borderColor);
+    border-width: 0.2px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.download-game-form-button:hover {
+    background-color: var(--buttonHoverColor);
+    transform: scale(1.03);
+}
+
+.download-game-form-button:active{
+    transform: scale(0.97);
+}
+
+
+
+
+
+.repacks-list {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.repack-item {
+    background-color: var(--backgroundColor);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease-in-out;
+}
+.repack-item:hover{
+    transform: scale(1.01);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.repack-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--foregroundColor);
+}
+
+.repack-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    text-align: left;
+    color: var(--foregroundColor);
+}
+
+.repack-size {
+    text-wrap: nowrap;
+    font-size: 13px;
+    text-align: right;
+    color: var(--foregroundColor);
+}
+
+.repack-details {
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-top: 8px;
+    color: var(--placeholderColor);
+}
+
+.repack-date {
+    text-align: left;
+    color: var(--placeholderColor);
+}
+
+.repack-source {
+    text-align: right;
+    color: var(--placeholderColor);
+}
+.no-repacks-message {
+    font-weight: 600;
+    color: var(--placeholderColor);
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+}

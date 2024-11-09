@@ -132,4 +132,10 @@
     <data name="LibraryPage-ArchivedGame" xml:space="preserve">
         <value>Archived game</value>
     </data>
+    <data name="SettingsPage-CheckSources" xml:space="preserve">
+        <value>Check</value>
+    </data>
+    <data name="HomePage-SortBy" xml:space="preserve">
+        <value>Sort by</value>
+    </data>
 </root>

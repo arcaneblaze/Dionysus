@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+<Toast @ref="Toast.toast" />
 
 @{
     Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(SettingsPage._appLanguage);
@@ -26,10 +27,13 @@
     <label class="settingsPage_settingLabel">
         <span>
             @Localization.strings.SettingsPage_SourcesLabel:<br/><br/>
-            GOG - <i class="@GOGStatus" style="color: @(GOGStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
-            Xatab - <i class="@XatabStatus" style="color: @(XatabStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
-            FitGirl - <i class="@FitGirlStatus" style="color: @(FitGirlStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i>
+            GOG - <i class="@GOGStatusIcon" style="color: @(GOGStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
+        Xatab - <i class="@XatabStatusIcon" style="color: @(XatabStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
+        FitGirl - <i class="@FitGirlStatusIcon" style="color: @(FitGirlStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i>
         </span>
+        <button class="settingsPage_button" style="width: fit-content;" @onclick="CheckSources">
+            <i class="fa-solid fa-arrow-rotate-left"></i> @Localization.strings.SettingsPage_CheckSources
+        </button><br/>
     </label>
     <div class="settingsPage_separator">@Localization.strings.SettingsPage_ProfileSeparator</div>
     <div class="settingsPage_settingLabel" style="flex-direction: column">
@@ -100,18 +104,6 @@
 
     <div class="settingsPage_separator">@Localization.strings.SettingsPage_TorrentSeparator</div>
     <label class="settingsPage_settingLabel">
-        <span>@Localization.strings.SettingsPage_Setting1</span>
-        <div class="settingsPage_custom-checkbox @(ShowLinkButton ? "checked" : "")" @onclick="ToggleShowLinkButton"></div>
-    </label>
-    <label class="settingsPage_settingLabel">
-        <span>@Localization.strings.SettingsPage_Setting2</span>
-        <div class="settingsPage_custom-checkbox @(ShowGameVersion ? "checked" : "")" @onclick="ToggleShowGameVersion"></div>
-    </label>
-    <label class="settingsPage_settingLabel">
-        <span>@Localization.strings.SettingsPage_Setting3</span>
-        <div class="settingsPage_custom-checkbox @(ShowPostDate ? "checked" : "")" @onclick="ToggleShowPostDate"></div>
-    </label>
-    <label class="settingsPage_settingLabel">
         <span>@Localization.strings.SettingsPage_Setting4</span>
         <div class="settingsPage_custom-checkbox @(AvoidConvertToMagnet ? "checked" : "")" @onclick="ToggleAvoidConvertToMagnet"></div>
     </label>
@@ -138,9 +130,6 @@
     public static bool ShowLastRunTime;
     public static bool ShowGameTitle;
     public static bool AutoBackup;
-    public static bool ShowLinkButton;
-    public static bool ShowGameVersion;
-    public static bool ShowPostDate;
     public static bool AvoidConvertToMagnet;
     static Version _version = Assembly.GetExecutingAssembly().GetName().Version;
     static string _versionString = $"{_version.Major}.{_version.Minor} \"{Program._appCodeName}\"";
@@ -148,27 +137,37 @@
     private bool _isUpdateAvailable = false;
     private string _updateUrl = string.Empty;
     
-    private string GOGStatus = "fa-solid fa-hourglass-start";
-    private string XatabStatus = "fa-solid fa-hourglass-start";
-    private string FitGirlStatus = "fa-solid fa-hourglass-start";
+    private string GOGStatus = string.Empty;
+    private string XatabStatus = string.Empty;
+    private string FitGirlStatus = string.Empty;
+
+    private string GOGStatusIcon => string.IsNullOrEmpty(GOGStatus) ? "" : GOGStatus;
+    private string XatabStatusIcon => string.IsNullOrEmpty(XatabStatus) ? "" : XatabStatus;
+    private string FitGirlStatusIcon => string.IsNullOrEmpty(FitGirlStatus) ? "" : FitGirlStatus;
+
+    private async Task CheckSources()
+    {
+        Toast.toast.ShowToast("Wait...", "info");
+        GOGStatus = await GOG.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+        XatabStatus = await Xatab.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+        FitGirlStatus = await FitGirl.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+    }
     
     protected override async Task OnInitializedAsync()
     {
         var updateCheck = await AppHelper.NeedUpdate($"{_version.Major}.{_version.Minor}");
         _isUpdateAvailable = updateCheck.updNeed;
         _updateUrl = updateCheck.url;
-        
-        GOGStatus = await GOG.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
-        XatabStatus = await Xatab.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
-        FitGirlStatus = await FitGirl.GetStatus() ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
     }
     
     private static async Task MakeBackup()
     {
+        Toast.toast.ShowToast("Backup made", "info");
         await Backup.MakeBackupAsync();
     }
     private static async Task RestoreBackup()
     {
+        Toast.toast.ShowToast("Backup restored", "info");
         await Backup.ReadBackupAsync();
     }
     
@@ -187,18 +186,6 @@
         var autobackup = settings.FirstOrDefault(s => s.SettingName == "AutoBackup");
         AutoBackup = autobackup != null ? (bool)autobackup.Value : true; 
 
-        var linkButt = settings.FirstOrDefault(s => s.SettingName == "ShowLinkButton");
-        ShowLinkButton = linkButt != null ? (bool)linkButt.Value : false;
-
-        var versionInfo = settings.FirstOrDefault(s => s.SettingName == "ShowGameVersion");
-        ShowGameVersion = versionInfo != null ? (bool)versionInfo.Value : false;
-
-        var avoidConvertToMagnet = settings.FirstOrDefault(s => s.SettingName == "AvoidConvertToMagnet");
-        AvoidConvertToMagnet = avoidConvertToMagnet != null ? (bool)avoidConvertToMagnet.Value : false;
-
-        var showPostDate = settings.FirstOrDefault(s => s.SettingName == "ShowPostDate");
-        ShowPostDate = showPostDate != null ? (bool)showPostDate.Value : true;
-
         var appTheme = settings.FirstOrDefault(s => s.SettingName == "AppTheme");
         _appTheme = appTheme != null ? (string)appTheme.Value : "Dionysus"; 
         
@@ -214,12 +201,6 @@
     private void ToggleShowGameTitle() => ShowGameTitle = !ShowGameTitle;
     private void ToggleAutobackup() => AutoBackup = !AutoBackup;
 
-    private void ToggleShowLinkButton() => ShowLinkButton = !ShowLinkButton;
-
-    private void ToggleShowGameVersion() => ShowGameVersion = !ShowGameVersion;
-    
-    private void ToggleShowPostDate() => ShowPostDate = !ShowPostDate;
-    
     private void ToggleAvoidConvertToMagnet() => AvoidConvertToMagnet = !AvoidConvertToMagnet;
     
     public static async Task Save()
@@ -235,13 +216,11 @@
             new SettingsModel { SettingName = "ShowGameTitle", Value = ShowGameTitle },
             new SettingsModel { SettingName = "ShowLastRunTime", Value = ShowLastRunTime },
             new SettingsModel { SettingName = "AutoBackup", Value = AutoBackup },
-            new SettingsModel { SettingName = "ShowLinkButton", Value = ShowLinkButton },
-            new SettingsModel { SettingName = "ShowGameVersion", Value = ShowGameVersion },
-            new SettingsModel { SettingName = "ShowPostDate", Value = ShowPostDate },
             new SettingsModel { SettingName = "AvoidConvertToMagnet", Value = AvoidConvertToMagnet },
             new SettingsModel { SettingName = "AppTheme", Value = _appTheme },
             new SettingsModel { SettingName = "AppLanguage", Value = _appLanguage },
         };
+        Toast.toast.ShowToast("Settings saved", "info");
         _logger.Log(Logger.LogType.DEBUG, "Settings saved");
         await SettingsData.SaveToJSON(settings);
     }

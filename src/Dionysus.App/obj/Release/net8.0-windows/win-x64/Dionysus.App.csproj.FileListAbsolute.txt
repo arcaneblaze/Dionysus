@@ -90,3 +90,4 @@ D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\win-x64\refi
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\win-x64\Dionysus.pdb
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\win-x64\Dionysus.App.genruntimeconfig.cache
 D:\C# projects\Dionysus\src\Dionysus.App\obj\Release\net8.0-windows\win-x64\ref\Dionysus.dll
+D:\C# projects\Dionysus\src\Dionysus.App\bin\Release\net8.0-windows\win-x64\Web\wwwroot\pagesCSS\Dionysus\Toast.css

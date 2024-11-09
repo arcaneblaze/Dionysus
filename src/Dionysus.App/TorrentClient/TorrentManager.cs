@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Dionysus.Web;
 using Dionysus.WebScrap.XatabScrapper;
 
 namespace Dionysus.App.TorrentClient;
@@ -16,10 +17,11 @@ public class TorrentManager
         Process.Start(_startInfo);
     }
     
-    public static void DownloadTypeSelector(string _gameLink, string _downloadLink, string _title)
+    public static void DownloadTypeSelector(string _gameLink, string _downloadLink)
     {
         if (_downloadLink.StartsWith("magnet:")) OpenTorrentByMagnet(_downloadLink);
         else TorrentManager.DownloadTorrentFile(_gameLink);
+        Toast.toast.ShowToast("Downloading started");
     } 
     
     public static async void DownloadTorrentFile(string url)

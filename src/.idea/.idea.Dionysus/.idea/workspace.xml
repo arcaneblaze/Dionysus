@@ -58,30 +58,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Project.Dionysus.App.executor": "Run",
-    ".NET Project.PPP.executor": "Run",
-    ".NET Project.PlayGorund.executor": "Run",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Publish to folder.Publish Dionysus to folder (1).executor": "Run",
-    "Publish to folder.Publish Dionysus to folder.executor": "Run",
-    "Publish to folder.Publish Dionysus.App Linux.executor": "Run",
-    "Publish to folder.Publish Dionysus.App to folder (1).executor": "Run",
-    "Publish to folder.Publish Dionysus.App to folder.executor": "Run",
-    "Publish to folder.Publish Dionysus.App.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Project.Dionysus.App.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.PPP.executor&quot;: &quot;Run&quot;,
+    &quot;.NET Project.PlayGorund.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Publish to folder.Publish Dionysus to folder (1).executor&quot;: &quot;Run&quot;,
+    &quot;Publish to folder.Publish Dionysus to folder.executor&quot;: &quot;Run&quot;,
+    &quot;Publish to folder.Publish Dionysus.App Linux.executor&quot;: &quot;Run&quot;,
+    &quot;Publish to folder.Publish Dionysus.App to folder (1).executor&quot;: &quot;Run&quot;,
+    &quot;Publish to folder.Publish Dionysus.App to folder.executor&quot;: &quot;Run&quot;,
+    &quot;Publish to folder.Publish Dionysus.App.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Publish to folder.Publish Dionysus.App">
     <configuration name="Publish Dionysus.App Linux" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" platform="Any CPU" runtime="linux-x64" target_folder="$PROJECT_DIR$/Dionysus.App/bin/Release/net8.0-windows/linux-x64/publish" target_framework="net8.0-windows" uuid_high="7579811375487142298" uuid_low="-4788345561438972974" />
@@ -193,6 +193,11 @@
       <workItem from="1730880472469" duration="2002000" />
       <workItem from="1730894739329" duration="25801000" />
       <workItem from="1730922366542" duration="3595000" />
+      <workItem from="1730969705973" duration="17312000" />
+      <workItem from="1731009795354" duration="934000" />
+      <workItem from="1731070073060" duration="19512000" />
+      <workItem from="1731143503505" duration="17119000" />
+      <workItem from="1731168462969" duration="3038000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -218,6 +223,17 @@
   </component>
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

@@ -11,7 +11,6 @@ public class Steam250
     {
         var _link = $"https://club.steam250.com/search?q={_request}&o=1";
         var _list = new List<Steam250SearchStruct>();
-        
         try
         {
             using var _httpClient = new HttpClient();
@@ -30,18 +29,17 @@ public class Steam250
                     var rephrasedName = NormalizeName(_name.InnerText.Trim());
                     var tags = _div.SelectNodes(".//div[@class='appline']//a[contains(@class, 'tag g1')]");
                     var appid = _link.Replace("/app/", "");
-                    
+
                     if (tags == null || !tags.Any())
                     {
                         tags = _div.SelectNodes(".//div[@class='appline']//a[contains(@class, 'tag g2')]");
                     }
-                    
+
                     var rephrasedRequest = NormalizeName(_request);
                     var _cover = await SteamGridDB.GetGridUriHorizontal(rephrasedName);
                     if (_cover != null)
                     {
                         var tagList = tags?.Select(x => x.InnerText).ToList() ?? new List<string>();
-
                         _list.Add(new Steam250SearchStruct()
                         {
                             Cover = _cover,
@@ -56,10 +54,10 @@ public class Steam250
                 await Task.WhenAll(tasks);
             }
         }
-        catch (Exception e)
+        catch (HttpRequestException x)
         {
-            _logger.Log(Logger.LogType.ERROR, e.Message);
-            throw;
+            _logger.Log(Logger.LogType.ERROR, x.Message);
+            throw new Exception("Too many requests, try later");
         }
         
         return _list;

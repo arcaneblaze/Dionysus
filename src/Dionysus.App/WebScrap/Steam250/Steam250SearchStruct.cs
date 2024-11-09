@@ -7,4 +7,5 @@ public struct Steam250SearchStruct
     public string Cover { get; set; }
     public List<string> Tags { get; set; }
     public string AppId { get; set; }
+    public string Relevance { get; set; }
 }
