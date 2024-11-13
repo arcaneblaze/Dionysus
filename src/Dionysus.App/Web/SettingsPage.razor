@@ -24,17 +24,17 @@
 }
 
 <div class="settingsPage_panel">
-    <label class="settingsPage_settingLabel">
+    <div class="settingsPage_settingLabel">
         <span>
             @Localization.strings.SettingsPage_SourcesLabel:<br/><br/>
             GOG - <i class="@GOGStatusIcon" style="color: @(GOGStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
         Xatab - <i class="@XatabStatusIcon" style="color: @(XatabStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i><br/>
-        FitGirl - <i class="@FitGirlStatusIcon" style="color: @(FitGirlStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i>
+            FitGirl - <i class="@FitGirlStatusIcon" style="color: @(FitGirlStatus.Contains("circle-check") ? "#7ce38b" : "#fa7970")"></i>
         </span>
         <button class="settingsPage_button" style="width: fit-content;" @onclick="CheckSources">
             <i class="fa-solid fa-arrow-rotate-left"></i> @Localization.strings.SettingsPage_CheckSources
         </button><br/>
-    </label>
+    </div>
     <div class="settingsPage_separator">@Localization.strings.SettingsPage_ProfileSeparator</div>
     <div class="settingsPage_settingLabel" style="flex-direction: column">
         <span>@Localization.strings.SettingsPage_ProfileImageLabel:</span><br/>
@@ -96,8 +96,11 @@
         <div style="width: 100%; display: flex; justify-content: space-between;">
             <button class="settingsPage_button" style="width: 48%" @onclick="MakeBackup"><i class="fa-solid fa-folder-plus"></i> @Localization.strings.SettingsPage_MakeBackup</button>
             @if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data/games.json.bak")))
-            {
-                <button class="settingsPage_button" style="width: 48%" @onclick="RestoreBackup"><i class="fa-solid fa-clock-rotate-left"></i> @Localization.strings.SettingsPage_RestoreBackup</button>
+            { 
+                <button class="settingsPage_button" style="width: 48%" @onclick="RestoreBackup">
+                    <i class="fa-solid fa-clock-rotate-left"></i> 
+                    @Localization.strings.SettingsPage_RestoreBackup - @Backup.GetLastBackupTime().ToString("dd/MM HH:mm")
+                </button> 
             }
         </div>
     </div>

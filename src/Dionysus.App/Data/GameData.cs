@@ -84,5 +84,28 @@ public class GameData
 
             await Task.CompletedTask;
         }
+
+        public static string GetElapsedTime(DateTime earlyDateTime)
+        {
+            var difference = DateTime.Now - earlyDateTime;
+            if (difference.TotalSeconds < 60)
+            {
+                return $"{Math.Floor(difference.TotalSeconds)} {Localization.strings.LibraryPage_ElapsedTimeSeconds}";
+            }
+            else if (difference.TotalMinutes < 60)
+            {
+                return $"{Math.Floor(difference.TotalMinutes)} {Localization.strings.LibraryPage_ElapsedTimeMinutes}";
+            }
+            else if (difference.TotalHours < 24)
+            {
+                int hours = difference.Hours;
+                return $"{hours} {Localization.strings.LibraryPage_ElapsedTimeHours}";
+            }
+            else
+            {
+                int days = difference.Days;
+                return $"{days} {Localization.strings.LibraryPage_ElapsedTimeDays}";
+            }
+        }
     }
 }

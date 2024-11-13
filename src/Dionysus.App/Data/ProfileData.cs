@@ -83,7 +83,7 @@ public class ProfileData
             _configJson = new JObject
             {
                 ["user_name"] = "user_" + new Random().Next(10000, 100000),
-                ["profile_image"] = ""
+                ["profile_image"] = "",
             };
             await File.WriteAllTextAsync(_jsonPath, _configJson.ToString());
         }

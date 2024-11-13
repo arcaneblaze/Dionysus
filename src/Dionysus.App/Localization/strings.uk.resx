@@ -85,7 +85,7 @@
         <value>Мова</value>
     </data>
     <data name="SettingsPage-ProfileImageLabel" xml:space="preserve">
-        <value>Фото</value>
+        <value>Аватар</value>
     </data>
     <data name="SettingsPage-ThemeLabel" xml:space="preserve">
         <value>Тема</value>
@@ -137,5 +137,20 @@
     </data>
     <data name="HomePage-SortBy" xml:space="preserve">
         <value>Сортувати за</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeSeconds" xml:space="preserve">
+        <value>секунд тому</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeMinutes" xml:space="preserve">
+        <value>хвилин тому</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeHours" xml:space="preserve">
+        <value>годин назад</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeDays" xml:space="preserve">
+        <value>днів тому</value>
+    </data>
+    <data name="SettingsPage-ProfileBgImageLabel" xml:space="preserve">
+        <value>Фонове зображення</value>
     </data>
 </root>

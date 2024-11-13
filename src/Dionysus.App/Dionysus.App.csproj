@@ -9,8 +9,8 @@
         <AssemblyName>Dionysus</AssemblyName>
         <RootNamespace>Dionysus</RootNamespace>
         <ApplicationIcon>icon.ico</ApplicationIcon>
-        <Version>2.5</Version>
-        <AssemblyVersion>2.5</AssemblyVersion>
+        <Version>2.6</Version>
+        <AssemblyVersion>2.6</AssemblyVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -47,6 +47,27 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Web\wwwroot\pagesCSS\Dionysus\Toast.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="UI\wwwroot\pagesCSS\Dionysus\ColorPalette.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="UI\wwwroot\pagesCSS\Dionysus\Header.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="UI\wwwroot\pagesCSS\Dionysus\HomePage.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="UI\wwwroot\pagesCSS\Dionysus\LibraryPage.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="UI\wwwroot\pagesCSS\Dionysus\SettingsPage.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="UI\wwwroot\pagesCSS\Dionysus\Toast.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="UI\wwwroot\index.html">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

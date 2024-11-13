@@ -26,4 +26,10 @@ public class Backup
         }).Start();
         _logger.Log(Logger.Logger.LogType.INFO, "Backup Restored");
     }
+
+    public static DateTime GetLastBackupTime()
+    {
+        var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "games.json.bak");
+        return File.Exists(file) ? File.GetLastWriteTime(file) : DateTime.MinValue;
+    }
 }

@@ -85,8 +85,8 @@
     <value>Sprache</value>
 </data>
     <data name="SettingsPage-ProfileImageLabel" xml:space="preserve">
-    <value>Foto</value>
-</data>
+        <value>Icon</value>
+    </data>
     <data name="SettingsPage-ThemeLabel" xml:space="preserve">
     <value>Thema</value>
 </data>
@@ -137,5 +137,20 @@
     </data>
     <data name="HomePage-SortBy" xml:space="preserve">
         <value>Sortieren nach</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeSeconds" xml:space="preserve">
+        <value>sekunden</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeMinutes" xml:space="preserve">
+        <value>minuten</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeHours" xml:space="preserve">
+        <value>stunden</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeDays" xml:space="preserve">
+        <value>tagen</value>
+    </data>
+    <data name="SettingsPage-ProfileBgImageLabel" xml:space="preserve">
+        <value>Bild auf der Rückseite</value>
     </data>
 </root>

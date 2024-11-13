@@ -17,22 +17,25 @@
     Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(SettingsPage._appLanguage);
 }
 
-<div class="profile">
-    @if(!string.IsNullOrEmpty(ProfileData.Profile().Image)){
+<div class="profile" 
+     style="@(!string.IsNullOrEmpty(_cachedProfileImage) ? $"background-image: url('{_cachedProfileImage}')" : "")">
+    @if (!string.IsNullOrEmpty(ProfileData.Profile().Image))
+    {
         <img style="@(_currentGameId != -1 ? _onGameStyle : _defaultStyle)"
-             class="profile-image" src="@ProfileData.GetBase64Image(ProfileData.Profile().Image)"/>
+             class="profile-image" src="@_cachedProfileImage"/>
     }
-    <div style="flex-direction: column">
+    <div style="flex-direction: column;">
         <span class="username">
             @ProfileData.Profile().Username
         </span><br/>
         @if (_runnedGame != null)
         {
-            <span class="profile-userinfo">@(_runnedGame?.Title)</span><br/>
+            <span class="profile-userinfo">@(_runnedGame?.Title)</span>
+            <br/>
         }
         <span class="profile-userinfo">@Localization.strings.ProfileData_GamesCount: @_gamesList.Count,</span>
         <span class="profile-userinfo">
-            @Localization.strings.ProfileData_TotalPlayed: @ProfileData.GetTotalPlayTime().TotalHours.ToString("F0")h 
+            @Localization.strings.ProfileData_TotalPlayed: @ProfileData.GetTotalPlayTime().TotalHours.ToString("F0")h
             @ProfileData.GetTotalPlayTime().Minutes.ToString()m
         </span>
     </div>
@@ -77,7 +80,8 @@
                 @if (!string.IsNullOrEmpty(game.LastRun) && SettingsPage.ShowLastRunTime)
                 {
                    <div class="homePage_game-tags">
-                         <span class="homePage_tag"><i class="fa-regular fa-calendar"></i> @game.LastRun</span>
+                       <span class="homePage_tag"><i class="fa-regular fa-calendar"></i>
+                           @GameData.GamesData.GetElapsedTime(DateTime.Parse(@game.LastRun))</span>
                    </div>
                 }
             </div>
@@ -90,11 +94,12 @@
                 </div>   
             }
         </div>
-
+        
         @if (_currentEditGameId == game.Id)
         {
             <div class="edit-game-form-overlay">
                 <div class="edit-game-form">
+                    <label style="font-size: 22px; color: var(--placeholderColor); font-weight:800; padding-bottom: 10px">@game.Title</label>
                     <div>
                         <label>@Localization.strings.EditGameForm_CoverLabel:</label>
                         <input type="text"  style="width: 88%" @bind="game.ImageUrl" placeholder="@Localization.strings.EditGameForm_CoverPlaceholder" required="required">
@@ -214,10 +219,7 @@
         }
     }
 
-    private void ShowEditPanel(int gameId)
-    {
-        _currentEditGameId = gameId;
-    }
+    private void ShowEditPanel(int gameId) => _currentEditGameId = gameId;
 
     private void SaveEdit(int gameId)
     {
@@ -231,10 +233,7 @@
         _currentEditGameId = null;
     }
 
-    private void CancelEdit()
-    {
-        _currentEditGameId = null;
-    }
+    private void CancelEdit() => _currentEditGameId = null;
 
     private void StartGame(string _path, GameModel game)
     {
@@ -254,7 +253,7 @@
     }
 
     static void ToggleForm() => _showAddGameForm = !_showAddGameForm;
-    
+
     /*
     public static async void AddGameAsync()
     {
@@ -283,7 +282,7 @@
         }
     }
     */
-    
+
     public static async void AddGameFromAnotherAsync(int _id, string _location, string _gameName)
     {
         try
@@ -321,8 +320,15 @@
         }
     }
 
+    public static string? _cachedProfileImage;
+
     protected override async Task OnInitializedAsync()
     {
+        if (!string.IsNullOrEmpty(ProfileData.Profile().Image))
+        {
+            _cachedProfileImage = ProfileData.GetBase64Image(ProfileData.Profile().Image);
+        }
+
         await UpdateAsync();
     }
 
@@ -343,16 +349,18 @@
                         _currentRunningGame = _game.runningGame;
                         _runnedGame = _game.runningGame;
                         _currentGameId = _game.runningGame.Id;
-                        
+
                         _game.runningGame.LastRun = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-                        
+
                         if (!GamesMonitor.isCounting)
                         {
                             GamesMonitor.isCounting = true;
                             _ = Task.Run(() => GamesMonitor.CountPlayTime(_gamesList, _game.runningGame.Location));
                         }
+
                         delay = 3000;
                     }
+
                     await InvokeAsync(StateHasChanged);
                 }
                 else
@@ -365,17 +373,18 @@
                         _currentRunningGame = null;
 
                         GamesMonitor.isCounting = false;
-                        
+
                         if (SettingsPage.AutoBackup) await Backup.MakeBackupAsync();
                         await InvokeAsync(StateHasChanged);
                         delay = 10000;
                     }
+
                     await InvokeAsync(StateHasChanged);
                 }
-                
+
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
-                
+
                 await Task.Delay(delay);
             }
             catch (Exception ex)
@@ -385,4 +394,5 @@
             }
         }
     }
+
 }

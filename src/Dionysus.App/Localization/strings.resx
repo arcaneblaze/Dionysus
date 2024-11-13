@@ -82,7 +82,7 @@
         <value>Torrent</value>
     </data>
     <data name="SettingsPage-ProfileImageLabel" xml:space="preserve">
-        <value>Image</value>
+        <value>Avatar</value>
     </data>
     <data name="SettingsPage-UsernameLabel" xml:space="preserve">
         <value>Username</value>
@@ -137,5 +137,20 @@
     </data>
     <data name="HomePage-SortBy" xml:space="preserve">
         <value>Sort by</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeSeconds" xml:space="preserve">
+        <value>seconds ago</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeMinutes" xml:space="preserve">
+        <value>minutes ago</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeHours" xml:space="preserve">
+        <value>hours ago</value>
+    </data>
+    <data name="LibraryPage-ElapsedTimeDays" xml:space="preserve">
+        <value>days ago</value>
+    </data>
+    <data name="SettingsPage-ProfileBgImageLabel" xml:space="preserve">
+        <value>Backgound image</value>
     </data>
 </root>

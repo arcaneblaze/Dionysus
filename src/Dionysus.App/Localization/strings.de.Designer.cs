@@ -195,6 +195,42 @@ namespace Dionysus.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to tagen.
+        /// </summary>
+        internal static string LibraryPage_ElapsedTimeDays {
+            get {
+                return ResourceManager.GetString("LibraryPage-ElapsedTimeDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stunden.
+        /// </summary>
+        internal static string LibraryPage_ElapsedTimeHours {
+            get {
+                return ResourceManager.GetString("LibraryPage-ElapsedTimeHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minuten.
+        /// </summary>
+        internal static string LibraryPage_ElapsedTimeMinutes {
+            get {
+                return ResourceManager.GetString("LibraryPage-ElapsedTimeMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sekunden.
+        /// </summary>
+        internal static string LibraryPage_ElapsedTimeSeconds {
+            get {
+                return ResourceManager.GetString("LibraryPage-ElapsedTimeSeconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leer.
         /// </summary>
         internal static string MainPage_EmptyError {
@@ -285,7 +321,16 @@ namespace Dionysus.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Foto.
+        ///   Looks up a localized string similar to Bild auf der Rückseite.
+        /// </summary>
+        internal static string SettingsPage_ProfileBgImageLabel {
+            get {
+                return ResourceManager.GetString("SettingsPage-ProfileBgImageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icon.
         /// </summary>
         internal static string SettingsPage_ProfileImageLabel {
             get {

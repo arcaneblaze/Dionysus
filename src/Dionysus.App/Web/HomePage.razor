@@ -147,6 +147,19 @@
     };
     private int? _selectedGameId = null;
 
+    protected override async Task OnInitializedAsync()
+    {
+        if (_games == null || _games.Count == 0)
+        {
+            _errorText = "Wait...";
+            StateHasChanged();
+            var _list = await Steam250.GetRecommendationsResponse();
+            _games = _list.ToList();
+            _errorText = _games.Any() ? string.Empty : "Not Found.";
+            StateHasChanged();   
+        }
+    }
+
     private async void ShowDownloadPanel(int gameId, string gameName)
     {
         await JSRuntime.InvokeVoidAsync("eval", "document.body.classList.add('no-scroll')");

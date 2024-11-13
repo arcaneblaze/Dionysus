@@ -29,6 +29,9 @@ public class Steam250
                     var rephrasedName = NormalizeName(_name.InnerText.Trim());
                     var tags = _div.SelectNodes(".//div[@class='appline']//a[contains(@class, 'tag g1')]");
                     var appid = _link.Replace("/app/", "");
+                    var _freeLabel = _div.SelectNodes(".//div[@class='appline']//a[contains(@class, 'free label')]");
+                    
+                    if (_freeLabel != null && _freeLabel.Count > 0) return;
 
                     if (tags == null || !tags.Any())
                     {
@@ -49,6 +52,68 @@ public class Steam250
                             AppId = appid
                         });
                     }
+                });
+
+                await Task.WhenAll(tasks);
+            }
+        }
+        catch (HttpRequestException x)
+        {
+            _logger.Log(Logger.LogType.ERROR, x.Message);
+            throw new Exception("Too many requests, try later");
+        }
+        
+        return _list;
+    }
+    
+    public static async Task<IEnumerable<Steam250SearchStruct>> GetRecommendationsResponse()
+    {
+        var _link = $"https://steam250.com/top250";
+        var _list = new List<Steam250SearchStruct>();
+        try
+        {
+            using var _httpClient = new HttpClient();
+            var _html = await _httpClient.GetStringAsync(_link);
+            var _htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            _htmlDocument.LoadHtml(_html);
+
+            var _responseDivs =
+                _htmlDocument.DocumentNode.SelectNodes("//div[@class='appline']");
+            if (_responseDivs != null)
+            {
+                var tasks = _responseDivs.Select(async _div =>
+                {
+                    var _name = _div.SelectSingleNode(".//span[@class='title']/a");
+                    var number = _div.SelectSingleNode(".//span[@class='title']").InnerText.Trim().Split('.')[0].Trim();
+                    var _link = _name.Attributes["href"].Value;
+                    var rephrasedName = NormalizeName(_name.InnerText.Trim());
+                    var tags = _div.SelectNodes(".//a[contains(@class, 'tag g1')]");
+                    var appid = _link.Replace("/app/", "");
+                    var _freeLabel = _div.SelectNodes(".//a[contains(@class, 'free')]");
+                    
+                    if (_freeLabel != null && _freeLabel.Count > 0) return;
+                    
+                    if (tags == null || !tags.Any())
+                    {
+                        tags = _div.SelectNodes(".//a[contains(@class, 'tag g2')]");
+                    }
+                    
+                    if (int.Parse(number) == 30) return;
+                    
+                    var _cover = await SteamGridDB.GetGridUriHorizontal(rephrasedName);
+                    if (_cover != null)
+                    {
+                        var tagList = tags?.Select(x => x.InnerText).ToList() ?? new List<string>();
+                        _list.Add(new Steam250SearchStruct()
+                        {
+                            Cover = _cover,
+                            Name = rephrasedName,
+                            Link = _link,
+                            Tags = tagList,
+                            AppId = appid
+                        });
+                    }
+
                 });
 
                 await Task.WhenAll(tasks);
